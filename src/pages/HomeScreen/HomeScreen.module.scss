@@ -1,9 +1,13 @@
 @import '../../styles/_layout.scss';
 
 .main-container {
-	@include place-items(center, center, column)
+	@include fill-width();
+	@include place-items(center, center, column);
+	padding: calc-rem(16);
+	// background-color: red;
 }
 
 .inputs-container {
+	@include fill-width();
 	@include place-items(center, center, row);
 }

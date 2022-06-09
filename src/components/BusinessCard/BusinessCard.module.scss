@@ -1,0 +1,21 @@
+@import '../../styles/_layout.scss';
+@import '../../styles/_fonts.scss';
+
+.card {
+	@include fill-width();
+	img {
+		@include rounded-borders;
+	}
+}
+
+.card__location {
+	@include main-paragraph();
+}
+
+.flex-container {
+	@include place-items(space-between, center, row)
+}
+
+.flex-container:last-child {
+	@include secondary-paragraph();
+}

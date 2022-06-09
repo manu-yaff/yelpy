@@ -5,8 +5,12 @@
 	flex-direction: $direction;
 }
 
-@mixin rounded-borders () {
+@mixin rounded-borders() {
 	border-radius: 8px;
+}
+
+@mixin fill-width() {
+	width: 100%;
 }
 
 @function calc-rem($pixels) {
