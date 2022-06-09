@@ -7,6 +7,7 @@ import { SEARCH_QUERY } from '../../graphql/queries';
 import { useState } from 'react';
 
 const HomeScreen = () => {
+	console.log('rednder')
 	const [term, setTerm] = useState<string | undefined>();
 	const [location, setLocation] = useState<string | undefined>();
 

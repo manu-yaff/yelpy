@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 import { ApolloProvider, ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -36,7 +37,9 @@ const client = new ApolloClient({
 root.render(
 	<ApolloProvider client={client}>
     <React.StrictMode>
-     <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>
 	</ApolloProvider>
 );

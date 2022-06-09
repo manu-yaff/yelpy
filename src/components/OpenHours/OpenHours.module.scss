@@ -1,0 +1,5 @@
+@import '../../styles/layout';
+.open-hours {
+  @include place-items(space-between, center, row);
+  padding: 0.5rem;
+}
