@@ -2,7 +2,6 @@ import { Review, ReviewsProps } from "../../types/ReviewsProps";
 import styles from './Reviews.module.scss';
 
 const Reviews = (props: ReviewsProps) => {
-  console.log(props.reviews)
   return (
     <>
       <p>Reviews</p>

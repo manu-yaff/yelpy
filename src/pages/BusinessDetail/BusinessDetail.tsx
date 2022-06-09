@@ -10,8 +10,7 @@ const BusinessDetail = () => {
   const params = useParams();
 	const [getSearch, { loading, error, data }] = useLazyQuery(GET_BUSINESS_DETAIL, {
 		variables: {
-			// id: params.businessId,
-      id: "SGRmnarrNuVEsAjYdEoA0w"
+			id: params.businessId,
 		}
 	});
 
@@ -20,7 +19,7 @@ const BusinessDetail = () => {
     if (data) {
       console.log(data);
     }
-  }, [])
+  }, [data, getSearch])
 
   if(loading) return <p>Loading...</p>
   if(error) return <p>Error...</p>

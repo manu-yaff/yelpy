@@ -1,6 +1,5 @@
 import styles from './BusinessCard.module.scss';
 import { Business } from '../../types/Business';
-import { FaEye } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const BusinessCard = (props: Business) => {
