@@ -5,6 +5,8 @@
 	@include fill-width();
 	img {
 		@include rounded-borders;
+		@include fill-width();
+		max-height: 240px;
 	}
 }
 
