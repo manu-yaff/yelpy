@@ -1,0 +1,12 @@
+@import '../../styles/_layout.scss';
+
+.main-container {
+	@include fill-width();
+	@include place-items(center, center, column);
+	padding: calc-rem(16);
+}
+
+.inputs-container {
+	@include fill-width();
+	@include place-items(center, center, row);
+}

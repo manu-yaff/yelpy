@@ -1,0 +1,22 @@
+/*
+	Colors module
+
+	This file contains the colors used troughout the app
+	They can be accessed by import this file into a Sass stylesheet
+	eg:
+		use "./src/styles/colors"
+		.class {
+			color: colors.$white
+		}
+*/
+
+$pley-light-gray: #F6F6F6;
+$pley-dark-gray: #666666;
+$pley-gray-secondary: #BDBDBD;
+$pley-black: rgba(0, 0, 0, 0.5);
+$pley-white: #FFFFFF;
+$pley-green: #5DB075;
+$pley-red: #FF3B30;
+
+
+
