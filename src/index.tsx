@@ -34,11 +34,11 @@ const client = new ApolloClient({
 });
 
 root.render(
-  <React.StrictMode>
-		<ApolloProvider client={client}>
-			<App />
-		</ApolloProvider>
-  </React.StrictMode>
+	<ApolloProvider client={client}>
+    <React.StrictMode>
+     <App />
+    </React.StrictMode>
+	</ApolloProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
