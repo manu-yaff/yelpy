@@ -1,9 +1,13 @@
 import styles from './Button.module.scss';
+import { ButtonProps } from '../../types/ButtonProps';
 
-const Button = () => {
+const Button = (props: ButtonProps) => {
+	const handleClick = () => {
+		props.onClick()
+	};
 	return (
 		<>
-			<button type="button" className={styles['button']}>Search</button>
+			<button onClick={handleClick} type="button" className={styles['button']}>Search</button>
 		</>
 	)
 }

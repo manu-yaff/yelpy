@@ -20,5 +20,8 @@ export interface BusinessProps extends Business {
   children?: React.ReactNode;
 }
 
+export interface CardsListProp {
+	businesses: Business[];
+}
 
 

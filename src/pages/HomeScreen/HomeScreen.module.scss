@@ -4,7 +4,6 @@
 	@include fill-width();
 	@include place-items(center, center, column);
 	padding: calc-rem(16);
-	// background-color: red;
 }
 
 .inputs-container {
