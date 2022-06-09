@@ -1,0 +1,5 @@
+@mixin center-items($horizontally, $vertically) {
+	display: flex;
+	justify-content: $horizontally;
+	align-items: $vertically;
+}
