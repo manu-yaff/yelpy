@@ -1,5 +1,9 @@
 @import '../../styles/_layout.scss';
 
+.main-container {
+	@include place-items(center, center, column)
+}
+
 .inputs-container {
-	@include center-items(center, center)
+	@include place-items(center, center, row);
 }

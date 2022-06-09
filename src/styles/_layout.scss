@@ -1,5 +1,14 @@
-@mixin center-items($horizontally, $vertically) {
+@mixin place-items($horizontally, $vertically, $direction) {
 	display: flex;
 	justify-content: $horizontally;
 	align-items: $vertically;
+	flex-direction: $direction;
+}
+
+@mixin rounded-borders () {
+	border-radius: 8px;
+}
+
+@function calc-rem($pixels) {
+	@return ($pixels / 16) + rem;
 }

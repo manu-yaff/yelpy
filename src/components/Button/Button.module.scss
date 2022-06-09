@@ -1,0 +1,14 @@
+@use '../../styles/_colors.scss';
+@import '../../styles/_layout.scss';
+
+
+.button {
+	border: none;
+	background-color: colors.$pley-green;
+	color: colors.$pley-white;
+	border-raidus: 8px;
+	$padding-y: calc-rem(16);
+	$padding-x: calc-rem(140);
+	padding: $padding-y $padding-x;
+	@include rounded-borders;
+}
