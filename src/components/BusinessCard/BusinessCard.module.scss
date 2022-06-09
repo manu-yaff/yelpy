@@ -9,6 +9,7 @@
 		max-height: 240px;
 	}
 	margin-top: 32px;
+	flex-grow: 1;
 }
 
 .card__location {
@@ -16,9 +17,24 @@
 }
 
 .flex-container {
-	@include place-items(space-between, center, row)
+	@include place-items(space-between, center, row);
 }
 
 .flex-container:last-child {
 	@include secondary-paragraph();
 }
+
+@media only screen and (min-width: 600px) {
+  .card:nth-child(6n + 1),
+  .card:nth-child(6n + 2) {
+    flex-basis: 45%;
+  }
+
+  .card:nth-child(6n + 3),
+  .card:nth-child(6n + 4),
+  .card:nth-child(6n + 5) {
+    flex-basis: 30%;
+  }
+}
+
+
