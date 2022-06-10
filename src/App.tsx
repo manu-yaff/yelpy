@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import  './App.scss'
+import  './App.module.scss'
 import HomeScreen from './pages/HomeScreen/HomeScreen';
 import BusinessDetail from './pages/BusinessDetail/BusinessDetail';
 

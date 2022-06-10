@@ -1,0 +1,14 @@
+@use '../../styles/_colors.scss';
+@import '../../styles/_layout.scss';
+
+.business-detail {
+	padding: calc-rem(16);
+}
+
+.business-open {
+	color: colors.$pley-green;
+}
+
+.business-closed {
+	color: colors.$pley-red;
+}

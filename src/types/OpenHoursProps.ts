@@ -10,5 +10,5 @@ export interface Hour {
 }
 
 export interface OpenHoursProps {
-	hours: Hour;
+	hours: Hour[];
 };

@@ -1,5 +1,16 @@
-@import '../../styles/layout';
-.open-hours {
-  @include place-items(space-between, center, row);
-  padding: 0.5rem;
+@use '../../styles/_colors.scss';
+@import '../../styles/_fonts.scss';
+
+.open-hours-container {
+	margin: calc-rem(16) 0;
 }
+
+.schedule {
+  @include place-items(space-between, center, row);
+	@include main-paragraph();
+}
+
+.schedule__hours {
+	margin-top: calc-rem(12);
+}
+
