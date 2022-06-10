@@ -1,16 +1,8 @@
-import { Business, BusinessState, SaveBusinessAction, SeeBusinessAction } from "../../types/Business";
+import { BusinessState, SaveBusinessAction, SeeBusinessAction } from "../../types/Business";
 
-const initialList: BusinessState  = {
+const initialList: BusinessState = {
   currentSearch: [],
-  seenBusinesses: [{
-    id: "123456789",
-    photos: "string",
-    name: "Tacos Pampas",
-    location: {},
-    review_count: 100,
-    display_phone: "string",
-    hasBeenSeen: false
-  }]
+  seenBusinesses: []
 }
 
 export const businessSaveReducer = (state: BusinessState = initialList, action: SaveBusinessAction): BusinessState => {
@@ -18,23 +10,21 @@ export const businessSaveReducer = (state: BusinessState = initialList, action: 
     case "save-business-list":
       return {
         currentSearch: action.payload,
-        seenBusinesses: []
+        seenBusinesses: state.seenBusinesses
       };
     default:
-      return state
+      return state;
   }
 }
-
 
 export const businessSeenReducer = (state: BusinessState = initialList, action: SeeBusinessAction): BusinessState => {
   switch (action.type) {
     case "visit-business":
       return {
         currentSearch: [],
-        seenBusinesses: [...state.seenBusinesses, action.payload]
-      };
+        seenBusinesses: [...state.seenBusinesses, { ...action.payload, hasBeenSeen: true }]
+      }
     default:
-      return state
-      
+      return state;      
   }
 }

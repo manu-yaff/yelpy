@@ -5,16 +5,17 @@ export const saveBusinessList = (businesses: Business[]) => {
   return (dispatch: Dispatch<SaveBusinessAction>) => {
     dispatch({
       type: "save-business-list",
-      payload: businesses
+      payload: businesses,
     });
   };
 };
 
-export const visitBusiness = (business: Business) => {
+export const visitBusiness = (business: Business, businessList: Business[]) => {
   return (dispatch: Dispatch<SeeBusinessAction>) => {
     dispatch({
       type: "visit-business",
-      payload: business
+      payload: business,
+      list: businessList
     });
   };
 };

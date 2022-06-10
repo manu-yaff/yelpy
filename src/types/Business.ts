@@ -28,6 +28,7 @@ export interface SaveBusinessAction {
 export interface SeeBusinessAction {
 	type: string;
 	payload: Business;
+	list: Business[];
 }
 
 export interface CardsListProp {
