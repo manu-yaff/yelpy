@@ -1,3 +1,6 @@
+import { Hour  }from './OpenHoursProps';
+import { Review }from './ReviewsProps';
+
 interface Location {
 	address1?: string;
 	city?: string;
@@ -13,6 +16,12 @@ export interface Business {
 	review_count: number;
 	display_phone: string;
 	hasBeenSeen?: boolean;
+}
+
+export interface BusinessDetail extends Business {
+	isClosed: string;
+	hours: Hour[];
+	reviews: Review[];
 }
 
 export interface BusinessState {

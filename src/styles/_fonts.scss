@@ -4,12 +4,6 @@
 
 h1 {
 	font-family: 'Inter', sans-serif;
-	font-size: calc-rem(24);
-	font-weight: bold;
-}
-
-h2 {
-	font-family: 'Inter', sans-serif;
 	font-size: calc-rem(16);
 	font-weight: bold;
 }
@@ -21,7 +15,6 @@ h2 {
 
 @mixin main-paragraph() {
 	@extend .paragraph;
-	font-weight: bold;
 	color: colors.$pley-dark-gray;
 }
 

@@ -29,7 +29,7 @@ const BusinessCard = (props: Business) => {
 		>
 			{<img src={setImage(props.photos)} alt="business" onError={imageErrorHandler} />}
 			<div className={styles['flex-container']}>
-				<h2>{props.name}</h2>
+				<h1>{props.name}</h1>
 				{hasBeenSeen(props.id) && <img src={EyeIcon} alt="eye icon" />}
 			</div>
 			<p className={styles['card__location']}>
