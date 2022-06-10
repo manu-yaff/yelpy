@@ -5,9 +5,17 @@ import CardsList from '../../components/CardsList/CardsList';
 import { useLazyQuery } from '@apollo/client';
 import { SEARCH_QUERY } from '../../graphql/queries';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators, State } from '../../store'
+import { bindActionCreators } from 'redux';
 
 const HomeScreen = () => {
-	console.log('rednder')
+	const dispatch = useDispatch()
+
+	const { deposit, withdraw, visitBusiness } = bindActionCreators(actionCreators, dispatch)
+	const amount = useSelector((state: State) => state.bank);
+	const businessList = useSelector((state: State) => state.visitBusiness);
+
 	const [term, setTerm] = useState<string | undefined>();
 	const [location, setLocation] = useState<string | undefined>();
 
@@ -21,7 +29,10 @@ const HomeScreen = () => {
 
 	const handleClick = () => {
 		console.log('click recibido');
-		getSearch();
+		console.log(businessList);
+		// getSearch();
+		// meter al state
+
 	};
 
 	const handleTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,13 +55,14 @@ const HomeScreen = () => {
 
 	return (
 		<>
+			this is the state: {amount}
 			<div className={styles['main-container']}>
 				<div className={styles['inputs-container']}>
 					<Input onChange = {handleTermChange} placeholder="Search" roundedRight={false} />
 					<Input onChange = {handleLocationChange} placeholder="Location" roundedRight={true} />
 				</div>
 				<Button onClick={handleClick} />
-				{data && <CardsList businesses={data.search.business} />}
+				<CardsList businesses={businessList} />
 			</div>
 		</>
 	)

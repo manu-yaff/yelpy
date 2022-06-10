@@ -12,7 +12,7 @@ export interface Business {
 	location: Location;
 	review_count: number;
 	display_phone: string;
-
+	hasBeenSeen?: boolean;
 }
 
 export interface BusinessProps extends Business {
