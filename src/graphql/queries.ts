@@ -24,6 +24,7 @@ export const SEARCH_QUERY = gql`
 export const GET_BUSINESS_DETAIL = gql`
 	query ($id: String) {
 		business(id: $id) {
+			id
 			name
 			photos
 			location {

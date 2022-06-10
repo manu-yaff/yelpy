@@ -6,14 +6,19 @@ const Input = (props: InputProps) => {
 		props.onChange(e);
 	}
 	return (
-		<input
-			onChange={handleChange}
-			className={`
-				${styles['input']} ${props.roundedRight ?
-					styles['input--right-rounded']: styles['input--left-rounded']}`
-			}
-			type="text"
-			placeholder={props.placeholder} />
+		<>
+			<div className={styles['input-container']}>
+				<input
+					onChange={handleChange}
+					className={`
+					${styles['input']} ${props.roundedRight ?
+						styles['input--right-rounded']: styles['input--left-rounded']}`
+					}
+					type="text"
+					placeholder={props.placeholder} />
+					<img className={styles['input-icon']} src={props.icon} alt="icon" />
+			</div>
+		</>
 	)
 }
 

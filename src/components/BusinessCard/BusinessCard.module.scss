@@ -3,12 +3,14 @@
 
 .card {
 	@include fill-width();
-	img {
+	img:first-child {
 		@include rounded-borders;
 		@include fill-width();
 		max-height: 240px;
+		object-fit: cover;
 	}
-	text-decoration:none;
+	color: inherit;
+	text-decoration: none;
 	margin-top: 32px;
 	flex-grow: 1;
 }

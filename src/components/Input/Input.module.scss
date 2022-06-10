@@ -1,6 +1,11 @@
 @use "../../styles/_colors.scss";
 @import '../../styles/_layout.scss';
 
+.input-container {
+	position: relative;
+	@include fill-width();
+}
+
 .input {
 	@include fill-width();
 	height: 50px;
@@ -8,8 +13,17 @@
 	background: colors.$pley-light-gray;
 	outline: none;
 	border: none;
-	padding-left: 24px;
+	padding-left: 32px;
 	display: inline-block;
+}
+
+.input-icon {
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+	left: 8px;
+	width: 16px;
+	height: 16px;
 }
 
 .input--left-rounded {

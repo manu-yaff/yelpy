@@ -6,6 +6,11 @@
 	padding: calc-rem(16);
 }
 
+.main-container__button {
+	@include fill-width();
+	margin-top: 1rem;
+}
+
 .inputs-container {
 	@include fill-width();
 	@include place-items(center, center, row);
