@@ -24,14 +24,11 @@ const BusinessDetail = () => {
 
 	const dispatch = useDispatch()
 	const { visitBusiness } = bindActionCreators(actionCreators, dispatch)
-	const visitedBusinessList = useSelector((state: State) => state.visitBusiness);
+	const visitedBusinessList = useSelector((state: State) => state.seenBusiness.seenBusinesses);
+  
   
   useEffect(() => {
     console.log('use effect')
-    // visitedBusinessList.map((business: Business) => {
-    //   console.log(business.hasBeenSeen);
-    // })
-    // aqui voy a psar el objeto con hasbeenseen modificado
     visitBusiness( {
       id: "12345678910",
       photos: "string",
@@ -52,10 +49,6 @@ const BusinessDetail = () => {
   if(loading) return <p>Loading...</p>
   if(error) return <p>Error...</p>
   
-  // const checkSeen = visitedBusinessList.find((business: Business) => {
-  //   if (business.id === params.businessId) return true
-  //   return false
-  // })
   const test = (status: boolean | undefined) => {
     if (status) return <p>it has been seen</p>
     return <p>it is new</p>

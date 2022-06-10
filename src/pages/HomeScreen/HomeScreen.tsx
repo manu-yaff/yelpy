@@ -12,9 +12,8 @@ import { bindActionCreators } from 'redux';
 const HomeScreen = () => {
 	const dispatch = useDispatch()
 
-	const { deposit, withdraw, visitBusiness } = bindActionCreators(actionCreators, dispatch)
-	const amount = useSelector((state: State) => state.bank);
-	const businessList = useSelector((state: State) => state.visitBusiness);
+	const { saveBusinessList } = bindActionCreators(actionCreators, dispatch)
+	const businessList = useSelector((state: State) => state.saveBusinessList.currentSearch);
 
 	const [term, setTerm] = useState<string | undefined>();
 	const [location, setLocation] = useState<string | undefined>();
@@ -27,12 +26,9 @@ const HomeScreen = () => {
 		}
 	});
 
-	const handleClick = () => {
-		console.log('click recibido');
-		console.log(businessList);
-		// getSearch();
-		// meter al state
-
+	const handleClick = async () => {
+		const result = (await getSearch()).data;
+		saveBusinessList(result.search.business);
 	};
 
 	const handleTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +51,6 @@ const HomeScreen = () => {
 
 	return (
 		<>
-			this is the state: {amount}
 			<div className={styles['main-container']}>
 				<div className={styles['inputs-container']}>
 					<Input onChange = {handleTermChange} placeholder="Search" roundedRight={false} />

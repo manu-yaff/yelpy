@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import {reducer, visitedBusinessReducer } from './Reducer'
+import { businessSeenReducer, businessSaveReducer } from './businessReducer'
 
 const reducers = combineReducers({
-  bank: reducer,
-  visitBusiness: visitedBusinessReducer
+  saveBusinessList: businessSaveReducer,
+  seenBusiness: businessSeenReducer
 })
 
 export default reducers;

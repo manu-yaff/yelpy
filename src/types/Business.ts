@@ -15,9 +15,19 @@ export interface Business {
 	hasBeenSeen?: boolean;
 }
 
-export interface BusinessProps extends Business {
-	hey: Business;
-  children?: React.ReactNode;
+export interface BusinessState {
+  currentSearch: Business[];
+  seenBusinesses: Business[];
+}
+
+export interface SaveBusinessAction {
+  type: string;
+  payload: Business[];
+}
+
+export interface SeeBusinessAction {
+	type: string;
+	payload: Business;
 }
 
 export interface CardsListProp {

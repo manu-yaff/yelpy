@@ -1,27 +1,17 @@
 import { Dispatch } from "redux"
-import { Business } from "../../types/Business";
-import { Action, BusinessAction } from '../reducers/Reducer'
+import { Business, SaveBusinessAction, SeeBusinessAction } from "../../types/Business";
 
-export const deposit = (amount: number) => {
-  return (dispatch: Dispatch<Action>) => {
+export const saveBusinessList = (businesses: Business[]) => {
+  return (dispatch: Dispatch<SaveBusinessAction>) => {
     dispatch({
-      type: "deposit",
-      payload: amount
-    })
-  }
-};
-
-export const withdraw = (amount: number) => {
-  return (dispatch: Dispatch<Action>) => {
-    dispatch({
-      type: "withdraw",
-      payload: amount
-    })
-  }
+      type: "save-business-list",
+      payload: businesses
+    });
+  };
 };
 
 export const visitBusiness = (business: Business) => {
-  return (dispatch: Dispatch<BusinessAction>) => {
+  return (dispatch: Dispatch<SeeBusinessAction>) => {
     dispatch({
       type: "visit-business",
       payload: business
