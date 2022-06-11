@@ -9,6 +9,7 @@ import { BusinessDetail } from '../../types/Business';
 import styles from './BusinessDetail.module.scss';
 import BusinessCard from '../../components/BusinessCard/BusinessCard';
 import OpenHours from '../../components/OpenHours/OpenHours';
+import Toast from '../../components/Toast/Toast';
 import Reviews from '../../components/Reviews/Reviews';
 
 const BusinessDetailPage = () => {
@@ -34,9 +35,13 @@ const BusinessDetailPage = () => {
   }, [getBusinessDetail])
   
   
-  if(loading) return <p>Loading...</p>
-  if(error) return <p>Error...</p>
-	console.log(currentBusiness);
+	if(loading) {
+		return <Toast content="Loading..." textColor="white" backgroundColor="#5d8cb0" />
+	}
+
+	if (error) {
+		return <Toast content={`Error: ${error}`} textColor="white" backgroundColor="#FF3B30" />
+	}
   
   return (
     <div className={styles['business-detail']}>

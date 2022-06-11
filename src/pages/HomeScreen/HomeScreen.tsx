@@ -2,6 +2,7 @@ import styles from './HomeScreen.module.scss';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import CardsList from '../../components/CardsList/CardsList';
+import Toast from '../../components/Toast/Toast';
 import searchIcon from '../../assets/search-icon.png';
 import locationIcon from '../../assets/location-icon.png'
 import { useLazyQuery } from '@apollo/client';
@@ -47,11 +48,11 @@ const HomeScreen = () => {
 	}
 
 	if(loading) {
-		return <p>Loading...</p>
+		return <Toast content="Loading..." textColor="white" backgroundColor="#5d8cb0" />
 	}
 
 	if (error) {
-		return <p>Error</p>
+		return <Toast content={`Error: ${error}`} textColor="white" backgroundColor="#FF3B30" />
 	}
 
 	return (
