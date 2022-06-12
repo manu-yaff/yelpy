@@ -14,8 +14,8 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const token = 'DwLRUnzGCPeUFiI3rbpnrO0vIzCI96m5Y19omaxIvTBU0d0RoDcVMRZEmR4yOviNPxkmfcirRwrbSVz9SmwUh8x3MtfjmumkvRl6KA72VjySH2skGRY31y5XZTOcYnYx';
-const url = 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/graphql';
+const token = process.env.REACT_APP_YELP_KEY;
+const url = process.env.REACT_APP_API_URL;
 
 const httpLink = createHttpLink({
   uri: url,
