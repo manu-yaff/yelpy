@@ -12,4 +12,5 @@
 	$padding-x: calc-rem(140);
 	padding: $padding-y $padding-x;
 	@include rounded-borders;
+	cursor: pointer;
 }
