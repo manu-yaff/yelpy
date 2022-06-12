@@ -15,16 +15,17 @@
 	flex-grow: 1;
 }
 
-.card__location {
-	@include main-paragraph();
-}
-
-.flex-container {
+.card__heading {
 	@include place-items(space-between, center, row);
 }
 
-.flex-container:last-child {
+.card__reviews {
+	@include place-items(space-between, center, row);
 	@include secondary-paragraph();
+}
+
+.card__location {
+	@include main-paragraph();
 }
 
 @media only screen and (min-width: 600px) {

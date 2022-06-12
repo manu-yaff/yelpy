@@ -28,14 +28,14 @@ const BusinessCard = (props: Business) => {
 		to={`/negocio/${props.id}`}
 		>
 			{<img src={setImage(props.photos)} alt="business" onError={imageErrorHandler} />}
-			<div className={styles['flex-container']}>
+			<div className={styles['card__heading']}>
 				<h1>{props.name}</h1>
 				{hasBeenSeen(props.id) && <img src={EyeIcon} alt="eye icon" />}
 			</div>
 			<p className={styles['card__location']}>
 				{props.location.address1}, {props.location.city}, {props.location.country}
 			</p>
-			<div className={styles['flex-container']}>
+			<div className={styles['card__reviews']}>
 				<p>{props.review_count} reviews</p>
 				<p>{props.display_phone}</p>
 			</div>
