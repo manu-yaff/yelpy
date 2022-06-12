@@ -5,12 +5,12 @@
 	margin: calc-rem(16) 0;
 }
 
-.schedule {
+.open-hours-container__row {
   @include place-items(space-between, center, row);
 	@include main-paragraph();
 }
 
-.schedule__hours {
+.open-hours-container__hours {
 	margin-top: calc-rem(12);
 }
 

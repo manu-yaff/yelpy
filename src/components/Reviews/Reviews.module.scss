@@ -1,7 +1,13 @@
+@use '../../styles/_colors.scss';
 @import '../../styles/_layout.scss';
 @import '../../styles/_fonts.scss';
 
-.flex-container {
+.review {
+  border-bottom: 1px solid colors.$pley-gray-secondary;
+  padding: 0.5rem;
+}
+
+.review-user-info {
 	margin-top: calc-rem(14);
   @include place-items(flex-start, center, row);
   img {

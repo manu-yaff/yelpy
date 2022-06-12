@@ -18,8 +18,8 @@ const HomeScreen = () => {
 
 	const { saveBusinessList } = bindActionCreators(actionCreators, dispatch)
 	const businessList = useSelector((state: State) => state.saveBusinessList.currentSearch);
-	const [term, setTerm] = useState<string | undefined>();
-	const [location, setLocation] = useState<string | undefined>();
+	const [term, setTerm] = useState<string>("");
+	const [location, setLocation] = useState<string>("");
 
 	const [getSearch, { loading, error }] = useLazyQuery(SEARCH_QUERY, {
 		variables: {
@@ -63,7 +63,7 @@ const HomeScreen = () => {
 					<Input onChange = {handleLocationChange} icon={locationIcon} placeholder="Location" roundedRight={true} />
 				</div>
 				<div className={styles['main-container__button']}>
-					<Button onClick={handleClick} />
+					<Button onClick={handleClick}>Search</Button>
 				</div>
 				<CardsList businesses={businessList} />
 			</div>

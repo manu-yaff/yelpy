@@ -45,6 +45,7 @@ export const GET_BUSINESS_DETAIL = gql`
 			}
 			review_count
 			reviews {
+				id
 				rating
 				text
 				user {

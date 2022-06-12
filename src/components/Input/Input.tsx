@@ -10,8 +10,7 @@ const Input = (props: InputProps) => {
 			<div className={styles['input-container']}>
 				<input
 					onChange={handleChange}
-					className={`
-					${styles['input']} ${props.roundedRight ?
+					className={`${styles['input']} ${props.roundedRight ?
 						styles['input--right-rounded']: styles['input--left-rounded']}`
 					}
 					type="text"
