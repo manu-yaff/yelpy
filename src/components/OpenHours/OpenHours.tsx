@@ -14,7 +14,7 @@ const OpenHours = (props: OpenHoursProps) => {
 
   const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
-	if (props.hours[0].open.length === 0) {
+	if (props.hours.length === 0 || props.hours[0].open.length === 0) {
 		return <p>Open hours not available</p>;
 	}
 

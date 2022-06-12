@@ -20,8 +20,9 @@ const BusinessCard = (props: Business) => {
 
 	const setImage = (hasImage: string): string => {
 		if (hasImage) return hasImage
-		return ImagePlaceholder
-	}	
+		return ImagePlaceholder;
+	};
+
 	return (
 		<Link
 		className={styles['card']}

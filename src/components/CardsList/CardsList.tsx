@@ -1,8 +1,9 @@
 import { CardsListProp, Business } from '../../types/Business';
+import React from 'react';
 import styles from './CardsList.module.scss'
 import BusinessCard from '../BusinessCard/BusinessCard';
 
-const CardsList = (props: CardsListProp) => {
+const CardsList = React.memo((props: CardsListProp) => {
 	if (props.businesses.length === 0) return <p>No businesses found. Try a new search</p>
 	return (
 		<div className={styles['cards-container']}>
@@ -11,6 +12,6 @@ const CardsList = (props: CardsListProp) => {
 		})}
 		</div>
 	)
-}
+})
 
 export default CardsList;
