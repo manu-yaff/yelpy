@@ -14,9 +14,9 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const token = process.env.REACT_APP_YELP_KEY;
-const url = process.env.REACT_APP_API_URL;
-
+const token = process.env.REACT_APP_YELP_KEY
+const url = process.env.REACT_APP_API_URL
+ 
 const httpLink = createHttpLink({
   uri: url,
 });
