@@ -5,7 +5,7 @@ This project uses Yelp GraphQL Api to search businesses given a location and sea
 See [User stories](./user-stories.md)
 
 ### Figma Design
-See [Figma design]('https://www.figma.com/file/cg5j0o9EB0pBQCcs0e25fI/Frontend-challenge-GuruHotel?node-id=0%3A1')
+See [Figma design](https://www.figma.com/file/cg5j0o9EB0pBQCcs0e25fI/Frontend-challenge-GuruHotel?node-id=0%3A1)
 
 ### Languages and Tools used
 <p align="left">
