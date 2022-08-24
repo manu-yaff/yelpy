@@ -1,24 +1,32 @@
-import styles from './Input.module.scss';
-import { InputProps } from '../../types/InputProps';
+import { FunctionComponent } from 'react';
+import style from './Input.module.scss';
 
-const Input = (props: InputProps) => {
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		props.onChange(e);
-	}
+interface IProps {
+	placeholder: string;
+	icon: React.ReactNode;
+	cornersStyle: string;
+	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const Input: FunctionComponent<IProps> = ({
+	placeholder,
+	icon,
+	cornersStyle,
+	onChange,
+}) => {
 	return (
 		<>
-			<div className={styles['input-container']}>
+			<div className={`${style['input-container']} ${style[cornersStyle]}`}>
+				{icon}
 				<input
-					onChange={handleChange}
-					className={`${styles['input']} ${props.roundedRight ?
-						styles['input--right-rounded']: styles['input--left-rounded']}`
-					}
 					type="text"
-					placeholder={props.placeholder} />
-					<img className={styles['input-icon']} src={props.icon} alt="icon" />
+					placeholder={placeholder}
+					className={`${style['input']}`}
+					onChange={onChange}
+				/>
 			</div>
 		</>
-	)
-}
+	);
+};
 
 export default Input;

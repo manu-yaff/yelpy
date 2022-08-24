@@ -1,16 +1,10 @@
-@use '../../styles/_colors.scss';
-@import '../../styles/_layout.scss';
-
+@use "../../styles/colors";
 
 .button {
-	width: 100%;
-	border: none;
-	background-color: colors.$pley-green;
-	color: colors.$pley-white;
-	border-raidus: 8px;
-	$padding-y: calc-rem(16);
-	$padding-x: calc-rem(140);
-	padding: $padding-y $padding-x;
-	@include rounded-borders;
-	cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  border-radius: 8px;
+  padding: 16px;
+  border: none;
+  color: colors.$pley-white;
+  background-color: colors.$pley-green;
 }
