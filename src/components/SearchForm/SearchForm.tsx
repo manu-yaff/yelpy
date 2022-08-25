@@ -1,5 +1,6 @@
 import Input from "../Input/Input";
 import Button from "../Button/Button";
+import Spinner from '../Spinner/Spinner';
 import UseFetch from "../../hooks/useFetch";
 import { MdOutlineSearch } from "react-icons/md";
 import { useState } from "react";
@@ -40,7 +41,7 @@ const SearchForm = () => {
         />
         <Button onClick={() => sendQuery()}>Search</Button>
       </form>
-      {loading && <h3>Loading...</h3>}
+      {loading && <Spinner />}
       {error && <h3>{error.message}</h3>}
       {searchResult &&
         searchResult.search?.business.map((item) => (
