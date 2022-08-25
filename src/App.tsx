@@ -1,10 +1,13 @@
 import './App.module.scss';
 import HomeScreen from './pages/HomeScreen/HomeScreen';
+import Layout from './components/Layout/Layout';
 
 function App() {
 	return (
 		<>
-			<HomeScreen />
+      <Layout>
+        <HomeScreen />
+      </Layout>
 		</>
 	);
 }

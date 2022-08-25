@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const URL = process.env.REACT_APP_API_URL as string;
 const TOKEN = process.env.REACT_APP_YELP_KEY;
@@ -18,25 +18,16 @@ const initFetch = (query: string, variables: Object) => {
   }
 };
 
-type UseFetchState = {
+type UseFetchState<T> = {
   loading: boolean;
-  data: null | Business[];
+  fetchedData: null | T;
   error: null | Error;
   sendQuery: () => void;
 }
 
-interface Response {
-  func: () => void;
-  state: UseFetchState;
-}
 
-interface Business {
-  id: string;
-  name: string;
-}
-
-const UseFetch = (query: string, variables: Object): UseFetchState => {
-  const [data, setData] = useState<Business[]>([]);
+const UseFetch = <T> (query: string, variables: Object): UseFetchState<T> => {
+  const [fetchedData, setFetchedData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -45,15 +36,15 @@ const UseFetch = (query: string, variables: Object): UseFetchState => {
     try {
       const response = await fetch(URL, initFetch(query, variables));
       const { data } = await response.json();
-      setData(data.search.business);
-      console.log(data.search.business);
+      setFetchedData(data);
+      console.log(data);
     } catch (err) {
       setError(err as Error);
     }
     setLoading(false);
   };
 
-  return { data, loading, error, sendQuery };
+  return { fetchedData, loading, error, sendQuery };
 };
 
 export default UseFetch;
