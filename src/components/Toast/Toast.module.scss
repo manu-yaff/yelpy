@@ -1,0 +1,20 @@
+@use '../../styles/_colors.scss';
+
+.toast {
+  width: 90%;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 8px;
+  color: colors.$pley-white;
+  padding: 24px;
+}
+
+.toast--success {
+  background-color: colors.$pley-green;
+}
+
+.toast--error {
+  background-color: colors.$pley-red;
+}
