@@ -25,12 +25,12 @@ type UseFetchState<T> = {
   sendQuery: () => void;
 };
 
-const UseFetch = <T>(query: string, variables: Object): UseFetchState<T> => {
+const UseFetch = <T> (query: string, variables: Object): UseFetchState<T> => {
   const [fetchedData, setFetchedData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  async function sendQuery() {
+  async function sendQuery () {
     setLoading(true);
     try {
       const response = await fetch(URL, initFetch(query, variables));

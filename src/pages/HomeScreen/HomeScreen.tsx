@@ -6,7 +6,6 @@ const HomeScreen = () => {
 		<>
 			<h1>Yelp api</h1>
 			<SearchForm />
-			<BusinessesList />
 		</>
 	);
 };

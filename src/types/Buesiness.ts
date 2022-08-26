@@ -1,12 +1,16 @@
+import { Location } from './Location';
+
 export interface Business {
   id: string;
+  photos: string[];
   name: string;
-}
-
-export interface Search {
-  business: Business[];
+  location: Location;
+  review_count: number;
+  display_phone: string;
 }
 
 export interface SearchApiResponse {
-  search: Search;
+  search: {
+    business: Business[]
+  } | null;
 }
