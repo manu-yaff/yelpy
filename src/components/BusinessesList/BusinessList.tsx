@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { Business } from '../../types/Buesiness';
-import BusinessItem from '../BusinessItem/BusinessItem';
+import BusinessCard from '../BusinessCard/BusinessCard';
 
 interface IProps {
 	list: Business[];
@@ -11,7 +11,7 @@ const BusinessesList: FunctionComponent<IProps> = ({ list }) => {
 	return (
 		<>
 			{list.map((business) => {
-				return <BusinessItem key={business.id} business={business} />;
+				return <BusinessCard key={business.id} business={business} />;
 			})}
 		</>
 	);
