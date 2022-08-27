@@ -18,14 +18,14 @@ const initFetch = (query: string, variables: Object) => {
   };
 };
 
-type UseFetchState<T> = {
+export interface UseFetchState<T> {
   loading: boolean;
   fetchedData: null | T;
   error: null | Error;
   sendQuery: () => void;
 };
 
-const UseFetch = <T> (query: string, variables: Object): UseFetchState<T> => {
+const useFetch = <T> (query: string, variables: Object): UseFetchState<T> => {
   const [fetchedData, setFetchedData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -55,4 +55,4 @@ const UseFetch = <T> (query: string, variables: Object): UseFetchState<T> => {
   return { fetchedData, loading, error, sendQuery };
 };
 
-export default UseFetch;
+export default useFetch;
