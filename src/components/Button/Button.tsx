@@ -2,13 +2,14 @@ import { FunctionComponent } from 'react';
 import style from './Button.module.scss';
 
 interface IProps {
-	handleClick: () => void;
+	handleClick?: () => void;
+  type: "button" | "submit";
 	children: React.ReactNode;
 }
 
-const Button: FunctionComponent<IProps> = ({ children, handleClick }) => {
+const Button: FunctionComponent<IProps> = ({ children, handleClick, type }) => {
 	return (
-		<button type="button" className={style['button']} onClick={handleClick}>
+		<button type={type} className={style['button']} onClick={handleClick}>
 			{children}
 		</button>
 	);

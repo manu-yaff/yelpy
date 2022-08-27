@@ -1,13 +1,40 @@
-import SearchForm from '../../components/SearchForm/SearchForm';
-import BusinessesList from '../../components/BusinessesList/BusinessList';
+import SearchForm from "../../components/SearchForm/SearchForm";
+import BusinessList from "../../components/BusinessesList/BusinessList";
+import Toast from "../../components/Toast/Toast";
+import Spinner from "../../components/Spinner/Spinner";
+import UseFetch from "../../hooks/useFetch";
+import { useState } from "react";
+import { SEARCH_QUERY } from "../../graphql/queries";
+import { SearchApiResponse } from "../../types/Buesiness";
 
 const HomeScreen = () => {
-	return (
-		<>
-			<h1>Yelp api</h1>
-			<SearchForm />
-		</>
-	);
+  const [search, setSearch] = useState("");
+  const [location, setLocation] = useState("");
+
+  const {
+    fetchedData: searchResult,
+    loading,
+    error,
+    sendQuery,
+  } = UseFetch<SearchApiResponse>(SEARCH_QUERY, {
+    term: search,
+    location: location,
+    limit: 10,
+  });
+
+  return (
+    <>
+      <h1>Yelp api</h1>
+      <SearchForm formFunctions={{ setLocation, setSearch, sendQuery }} />
+      {loading && <Spinner />}
+      {error && <Toast toastType="error">{error.message}</Toast>}
+      {searchResult && (
+      	<BusinessList
+      		list={searchResult.search ? searchResult.search.business : []}
+      	/>
+      )}
+    </>
+  );
 };
 
 export default HomeScreen;
