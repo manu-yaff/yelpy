@@ -26,13 +26,13 @@ const SearchForm: FunctionComponent<IProps> = ({ formFunctions }) => {
         <Input
           placeholder="Search"
           icon={<MdOutlineSearch />}
-          cornersStyle="input--left-rounded"
+          cornersStyle="left-rounded"
           onChange={(event) => formFunctions.setSearch(event.target.value)}
         />
         <Input
           placeholder="Location"
           icon={<MdOutlineLocationOn />}
-          cornersStyle="input--right-rounded"
+          cornersStyle="right-rounded"
           onChange={(event) => formFunctions.setLocation(event.target.value)}
         />
         <Button type="submit">Search</Button>

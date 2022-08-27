@@ -4,7 +4,7 @@ import style from './Input.module.scss';
 interface IProps {
 	placeholder: string;
 	icon: React.ReactNode;
-	cornersStyle: string;
+	cornersStyle: 'left-rounded' | 'right-rounded';
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -16,13 +16,19 @@ const Input: FunctionComponent<IProps> = ({
 }) => {
 	return (
 		<>
-			<div className={`${style['input-container']} ${style[cornersStyle]}`}>
+			<div
+				data-testid="input-container"
+				className={`${style['input-container']} ${
+					style[`input--${cornersStyle}`]
+				}`}
+			>
 				{icon}
 				<input
 					type="text"
 					placeholder={placeholder}
 					className={`${style['input']}`}
 					onChange={onChange}
+					data-testid="input"
 				/>
 			</div>
 		</>
