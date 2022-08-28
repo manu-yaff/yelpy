@@ -35,15 +35,17 @@ const useFetch = <T> (query: string, variables: Object): UseFetchState<T> => {
     try {
       const response = await fetch(URL, initFetch(query, variables));
       if (response.ok) {
-        const { data } = await response.json();
-        setFetchedData(data);
+        const json = await response.json();
+        setFetchedData(json);
       } else {
         setError(new Error(response.statusText));
         setTimeout(() => {
           setError(null);
         }, 3000);
+        console.log(response.statusText);
       }
     } catch (err) {
+      console.log(err);
       setError(err as Error);
       setTimeout(() => {
         setError(null);
