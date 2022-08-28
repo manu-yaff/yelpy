@@ -1,25 +1,27 @@
-@use '../styles/_colors.scss';
+@use '../styles/colors';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&family=Roboto:wght@100&display=swap');
-@import '../styles/_layout.scss';
+
+$project-font: 'Inter', sans-serif;
 
 h1 {
-	font-family: 'Inter', sans-serif;
-	font-size: calc-rem(16);
-	font-weight: bold;
+  font-family: $project-font;
+  font-size: 18px;
 }
 
-.paragraph {
-	font-family: 'Inter', sans-serif;
-	font-size: calc-rem(14);
+h2 {
+  font-family: $project-font; 
+  font-size: 16px;
+  color: colors.$pley-black;
 }
 
-@mixin main-paragraph() {
-	@extend .paragraph;
-	color: colors.$pley-dark-gray;
+h3 {
+  font-family: $project-font; 
+  font-size: 14px;
+  color: colors.$pley-dark-gray;
 }
 
-@mixin secondary-paragraph() {
-	@extend .paragraph;
-	color: colors.$pley-gray-secondary;
+p {
+  font-family: $project-font; 
+  font-size: 14px;
+  color: colors.$pley-gray-secondary;
 }
-

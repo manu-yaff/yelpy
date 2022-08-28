@@ -1,23 +1,26 @@
-import Input	 from '../components/Input/Input';
-import locationIcon from '../assets/location-icon.png';
-import { renderComponent } from './utils';
-import { fireEvent, screen } from '@testing-library/react';
+import Input from '../components/Input/Input';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { MdOutlineSearch } from 'react-icons/md';
 
 describe('Input component tests', () => {
-	test('Input renders', () => {
+	test('Input renders correctly', () => {
 		const mockHandler = jest.fn();
-		const component = renderComponent(
+		render(
 			<Input
+				placeholder="Search"
+				icon={<MdOutlineSearch />}
+				cornersStyle="left-rounded"
 				onChange={mockHandler}
-				placeholder='Search'
-				icon={locationIcon}
-				roundedRight={false} />
+			/>
 		);
+		const inputContainer = screen.getByTestId('input-container');
+		expect(inputContainer).toBeInTheDocument;
+		expect(inputContainer.classList.contains('input--left-rounded')).toBe(true);
 
-		const inputElement = screen.getByPlaceholderText('Search');
-		expect(inputElement).toBeInTheDocument();
-		expect(inputElement?.classList.contains('input--left-rounded')).toBe(true)
-		fireEvent.change(inputElement, { target: { value: 'new value' } } );
+		const input = screen.getByTestId('input');
+		fireEvent.change(input, {
+			target: { value: 'new value' },
+		});
 		expect(mockHandler).toHaveBeenCalledTimes(1);
 	});
 });

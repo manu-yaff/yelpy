@@ -1,17 +1,11 @@
 import Toast from '../components/Toast/Toast';
-import { renderComponent } from './utils';
-import { screen } from '@testing-library/react';
-
-let component: HTMLElement;
+import { render, screen, fireEvent } from '@testing-library/react';
 
 describe('Toast component tests', () => {
-	test('Toast renders', () => {
-		const component = renderComponent(
-			<Toast content='Error' backgroundColor="black" textColor="white"  />
-		).container;
-		const toast = screen.getByText('Error');
-		expect(component).toHaveTextContent('Error');
-		expect(toast.style.backgroundColor).toBe("black");
-		expect(toast.style.color).toBe("white");
+	test('Toast renders correctly', () => {
+		render(<Toast toastType="success">Test message</Toast>);
+		const toast = screen.getByTestId('toast');
+		expect(toast).toHaveTextContent('Test message');
+		expect(toast.classList.contains('toast--success')).toBe(true);
 	});
 });

@@ -1,20 +1,15 @@
-import React, { Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import  './App.module.scss'
+import './App.module.scss';
 import HomeScreen from './pages/HomeScreen/HomeScreen';
-const BusinessDetail = React.lazy(() => import('./pages/BusinessDetail/BusinessDetail'))
+import Layout from './components/Layout/Layout';
 
 function App() {
-  return (
+	return (
 		<>
-		 <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/negocio/:businessId"
-          element={<Suspense><BusinessDetail /></Suspense>}
-        />
-      </Routes>
+      <Layout>
+        <HomeScreen />
+      </Layout>
 		</>
-  );
+	);
 }
 
 export default App;

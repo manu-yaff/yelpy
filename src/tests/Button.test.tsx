@@ -1,27 +1,17 @@
-import { fireEvent, RenderResult } from '@testing-library/react';
-import { renderComponent } from './utils';
-import { screen } from '@testing-library/react';
 import Button from '../components/Button/Button';
-
-let component: HTMLElement;
+import { render, screen, fireEvent } from '@testing-library/react';
 
 describe('Button component tests', () => {
-	const buttonTitle = 'Search';
-	const mockHandler = jest.fn();
-
-	beforeEach(() => {
-		component = renderComponent(
-			<Button onClick={mockHandler}>{buttonTitle}</Button>
-		).container;
-	});
-
-	test('Button renders', () => {
-		expect(component).toHaveTextContent(buttonTitle);
-	});
-
-	test('Button handles click', () => {
-		const button = screen.getByText(buttonTitle)
+	test('Button renders correctly', () => {
+		const mockHandler = jest.fn();
+		render(
+			<Button handleClick={mockHandler} type="button">
+				Search
+			</Button>
+		);
+		const button = screen.getByTestId('button');
 		fireEvent.click(button);
 		expect(mockHandler).toHaveBeenCalledTimes(1);
+		expect(button).toHaveTextContent('Search');
 	});
 });

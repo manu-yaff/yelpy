@@ -1,44 +1,15 @@
-@import '../../styles/_layout.scss';
-@import '../../styles/_fonts.scss';
-
-.card {
-	@include fill-width();
-	img:first-child {
-		@include rounded-borders;
-		@include fill-width();
-		max-height: 240px;
-		object-fit: cover;
-	}
-	color: inherit;
-	text-decoration: none;
-	margin-top: 32px;
-	flex-grow: 1;
+.business-card {
+  margin-bottom: 24px;
 }
 
-.card__heading {
-	@include place-items(space-between, center, row);
+.business-card__image {
+  width: 100%;
+  border-radius: 8px;
+  max-height: 240px;
+  object-fit: cover;
 }
 
-.card__reviews {
-	@include place-items(space-between, center, row);
-	@include secondary-paragraph();
+.flex-container {
+  display: flex;
+  justify-content: space-between;
 }
-
-.card__location {
-	@include main-paragraph();
-}
-
-@media only screen and (min-width: 600px) {
-  .card:nth-child(6n + 1),
-  .card:nth-child(6n + 2) {
-    flex-basis: 45%;
-  }
-
-  .card:nth-child(6n + 3),
-  .card:nth-child(6n + 4),
-  .card:nth-child(6n + 5) {
-    flex-basis: 30%;
-  }
-}
-
-

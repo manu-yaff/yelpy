@@ -1,14 +1,19 @@
-import styles from './Toast.module.scss';
-import { ToastProps } from '../../types/ToastProps';
+import { FunctionComponent } from 'react';
+import style from './Toast.module.scss';
 
-const Toast = (props: ToastProps) =>{
-	return (
-		<div className={styles['toast']}>
-			<p style={{ backgroundColor: props.backgroundColor, color: props.textColor }}>
-				{props.content}
-			</p>
-		</div>
-	)
+interface IProps {
+	children?: React.ReactNode;
+	toastType: 'success' | 'error';
 }
 
+const Toast: FunctionComponent<IProps> = ({ children, toastType }) => {
+	return (
+		<div
+			data-testid="toast"
+			className={`${style['toast']} ${style[`toast--${toastType}`]}`}
+		>
+			{children}
+		</div>
+	);
+};
 export default Toast;

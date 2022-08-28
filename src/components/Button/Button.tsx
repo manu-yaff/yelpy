@@ -1,15 +1,23 @@
-import styles from './Button.module.scss';
-import { ButtonProps } from '../../types/ButtonProps';
+import { FunctionComponent } from 'react';
+import style from './Button.module.scss';
 
-const Button = ({ onClick, children }: ButtonProps) => {
-	const handleClick = () => {
-		onClick();
-	};
-	return (
-		<>
-			<button onClick={handleClick} type="button" className={styles['button']}>{children}</button>
-		</>
-	)
+interface IProps {
+	handleClick?: () => void;
+	type: 'button' | 'submit';
+	children: React.ReactNode;
 }
+
+const Button: FunctionComponent<IProps> = ({ children, handleClick, type }) => {
+	return (
+		<button
+			data-testid="button"
+			type={type}
+			className={style['button']}
+			onClick={handleClick}
+		>
+			{children}
+		</button>
+	);
+};
 
 export default Button;
