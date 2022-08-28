@@ -28,7 +28,7 @@ const HomeScreen = () => {
 			<SearchForm formFunctions={{ setLocation, setSearch, sendQuery }} />
 			{loading && <Spinner />}
 			{error && <Toast toastType="error">{error.message}</Toast>}
-			{!loading && searchResult && (
+			{searchResult && (
 				<BusinessList
 					list={searchResult.search ? searchResult.search.business : []}
 				/>
