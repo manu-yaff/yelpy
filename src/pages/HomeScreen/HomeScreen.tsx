@@ -1,5 +1,5 @@
 import SearchForm from '../../components/SearchForm/SearchForm';
-import BusinessList from '../../components/BusinessesList/BusinessList';
+import BusinessList from '../../components/BusinessList/BusinessList';
 import Toast from '../../components/Toast/Toast';
 import Spinner from '../../components/Spinner/Spinner';
 import useFetch from '../../hooks/useFetch';
