@@ -7,12 +7,13 @@ import { GetBusinessDetailResponse } from '../../types/ApiResponse';
 import Spinner from '../../components/Spinner/Spinner';
 import Toast from '../../components/Toast/Toast';
 import BusinessHours from '../../components/BusinessHours/BusinessHours';
+import ReviewsList from '../../components/ReviewsList/ReviewsList';
 
 const BusinessDetail = () => {
 	const { businessId } = useParams();
 	const { fetchedData, error, loading, sendQuery } =
 		useFetch<GetBusinessDetailResponse>(GET_BUSINESS_DETAIL, {
-			id: 'PgJV1wOtwTuoUz_n5Mcyxw',
+			id: businessId,
 		});
 
 	console.log(businessId);
@@ -47,6 +48,9 @@ const BusinessDetail = () => {
 				<>
 					<BusinessCard business={businessDetail} />
 					<BusinessHours businesHours={businessDetail.hours[0]} />
+					<ReviewsList
+						reviews={businessDetail.reviews ? businessDetail.reviews : []}
+					/>
 				</>
 			);
 		}

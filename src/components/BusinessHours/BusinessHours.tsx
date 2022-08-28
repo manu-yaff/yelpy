@@ -11,6 +11,7 @@ const BusinessHours: FunctionComponent<IProps> = ({ businesHours }) => {
 	return (
 		<>
 			<h3>Business hours</h3>
+			<br />
 			{businesHours.is_open_now ? (
 				<p className={style['open']}>Open</p>
 			) : (
