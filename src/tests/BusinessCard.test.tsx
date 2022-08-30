@@ -1,6 +1,7 @@
 import BusinessCard from '../components/BusinessCard/BusinessCard';
 import { Business } from '../types/Buesiness';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 
 const location = {
 	address1: 'epigmenio gonzalez',
@@ -23,7 +24,9 @@ const testBusiness: Business = {
 describe('BusinessCard components tests', () => {
 	test('BusinessCard renders correctly', () => {
 		const component = render(
-			<BusinessCard business={testBusiness} />
+			<BrowserRouter>
+				<BusinessCard business={testBusiness} />
+			</BrowserRouter>
 		).container;
 
 		const displayImage = document.querySelector('img') as HTMLImageElement;
