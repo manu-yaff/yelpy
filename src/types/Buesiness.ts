@@ -16,9 +16,3 @@ export interface BusinessDetail extends Business {
   hours: Hour[];
   reviews: Review[];
 }
-
-export interface SearchApiResponse {
-  search: {
-    business: Business[]
-  } | null;
-}

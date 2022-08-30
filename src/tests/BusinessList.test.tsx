@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import { Business } from '../types/Buesiness';
 import BusinessList from '../components/BusinessList/BusinessList';
+import { BrowserRouter } from 'react-router-dom';
 
 const location = {
 	address1: 'epigmenio gonzalez',
@@ -24,11 +25,19 @@ const testBusiness: Business[] = [
 
 describe('BusinessList component tests', () => {
 	test('BusinessList component renders empty list', () => {
-		const component = render(<BusinessList list={[]} />).container;
+		const component = render(
+			<BrowserRouter>
+				<BusinessList list={[]} />
+			</BrowserRouter>
+		).container;
 		expect(component).toHaveTextContent(/^No results found$/);
 	});
 	test('BusinessList component renders list correctly', () => {
-		render(<BusinessList list={testBusiness} />).container;
+		render(
+			<BrowserRouter>
+				<BusinessList list={testBusiness} />
+			</BrowserRouter>
+		).container;
 		const elements = document.getElementsByClassName('business-card');
 		expect(elements).toHaveLength(1);
 	});

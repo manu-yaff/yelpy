@@ -8,12 +8,14 @@ interface IProps {
 
 const Toast: FunctionComponent<IProps> = ({ children, toastType }) => {
 	return (
-		<div
-			data-testid="toast"
-			className={`${style['toast']} ${style[`toast--${toastType}`]}`}
-		>
-			{children}
-		</div>
+		<>
+			<div
+				data-testid="toast"
+				className={`${style['toast']} ${style[`toast--${toastType}`]}`}
+			>
+				{children}
+			</div>
+		</>
 	);
 };
 export default Toast;
