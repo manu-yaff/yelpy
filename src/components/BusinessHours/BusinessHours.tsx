@@ -12,12 +12,12 @@ const BusinessHours: FunctionComponent<IProps> = ({ businesHours }) => {
 		<>
 			<h3>Business hours</h3>
 			<br />
-			{businesHours.is_open_now ? (
+			{businesHours?.is_open_now ? (
 				<p className={style['open']}>Open</p>
 			) : (
-				<p className={'closed'}>Close</p>
+				<p className={style['closed']}>Closed</p>
 			)}
-			{businesHours.open.map((day) => (
+			{businesHours?.open.map((day) => (
 				<HourItem key={day.day} day={day} />
 			))}
 		</>
