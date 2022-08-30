@@ -22,6 +22,7 @@ const BusinessListPage = () => {
 
 	useEffect(() => {
 		sendQuery();
+		// eslint-disable-next-line
 	}, []);
 
 	if (loading) {
