@@ -1,20 +1,39 @@
 .business-card {
   margin-bottom: 24px;
-  cursor: pointer;
+  cursor: pointer;  
 }
 
 a {
   text-decoration: none;
+  width: 100%;
+  flex-grow: 1;
 }
 
 .business-card__image {
   width: 100%;
   border-radius: 8px;
-  max-height: 240px;
+  height: 240px;
   object-fit: cover;
 }
 
 .flex-container {
   display: flex;
   justify-content: space-between;
+}
+
+@media only screen and (min-width: 600px) {
+  a:nth-child(6n + 1),
+  a:nth-child(6n + 2) {
+    flex-basis: 45%;
+  }
+
+  a:nth-child(6n + 3),
+  a:nth-child(6n + 4),
+  a:nth-child(6n + 5) {
+    flex-basis: 30%;
+  }
+
+  .business-card__image {
+    height: 400px;
+  }
 }
