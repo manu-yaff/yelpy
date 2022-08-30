@@ -1,6 +1,14 @@
+a {
+  text-decoration: none;
+}
+
 .search-form {
   margin: 20px 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.search-form button {
+  width: 100%;
 }

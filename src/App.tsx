@@ -1,30 +1,20 @@
 import './App.module.scss';
-import HomeScreen from './pages/HomeScreen/HomeScreen';
 import BusinessDetail from './pages/BusinessDetail/BusinessDetail';
 import Layout from './components/Layout/Layout';
 import { Routes, Route } from 'react-router-dom';
+import SearchForm from './components/SearchForm/SearchForm';
+import BusinessListPage from './pages/BusinessListPage/BusinessListPage';
 
 function App() {
 	return (
 		<>
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<Layout>
-							<HomeScreen />
-						</Layout>
-					}
-				/>
-				<Route
-					path="/business/:businessId"
-					element={
-						<Layout>
-							<BusinessDetail />
-						</Layout>
-					}
-				/>
-			</Routes>
+			<Layout>
+				<SearchForm />
+				<Routes>
+					<Route path="search/:term/:location" element={<BusinessListPage />} />
+					<Route path="/business/:businessId" element={<BusinessDetail />} />
+				</Routes>
+			</Layout>
 		</>
 	);
 }
