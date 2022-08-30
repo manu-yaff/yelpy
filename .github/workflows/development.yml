@@ -22,12 +22,11 @@ jobs:
       - run: npm install
       - run: npm run build --if-present
       - run: npm test
-      - name: Deploy to Heroku
-        if: github.event_name == 'push'
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          args: deploy --dir=build --prod
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: 'react-yelp-dev'
-          heroku_email: 'manuelyg2097@gmail.com'
-
+      # - name: Deploy to Heroku
+      #   if: github.event_name == 'push'
+      #   uses: akhileshns/heroku-deploy@v3.12.12
+      #   with:
+      #     args: deploy --dir=build --prod
+      #     heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+      #     heroku_app_name: 'react-yelp-dev'
+      #     heroku_email: 'manuelyg2097@gmail.com'
