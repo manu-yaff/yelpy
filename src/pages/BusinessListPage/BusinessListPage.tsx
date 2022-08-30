@@ -1,35 +1,49 @@
-import SearchForm from '../../components/SearchForm/SearchForm';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import BusinessList from '../../components/BusinessList/BusinessList';
-import Toast from '../../components/Toast/Toast';
 import Spinner from '../../components/Spinner/Spinner';
-import useFetch from '../../hooks/useFetch';
-import { useState } from 'react';
+import Toast from '../../components/Toast/Toast';
 import { SEARCH_QUERY } from '../../graphql/queries';
+import useFetch from '../../hooks/useFetch';
 import { SearchApiResponse } from '../../types/ApiResponse';
 
-const HomeScreen = () => {
-	const [search, setSearch] = useState('');
-	const [location, setLocation] = useState('');
-
+const BusinessListPage = () => {
+	const { term, location } = useParams();
 	const {
 		fetchedData: searchResult,
 		loading,
 		error,
 		sendQuery,
 	} = useFetch<SearchApiResponse>(SEARCH_QUERY, {
-		term: search,
+		term: term,
 		location: location,
 		limit: 10,
 	});
 
+	useEffect(() => {
+		sendQuery();
+	}, []);
+
+	if (loading) {
+		return <Spinner />;
+	}
+
+	if (error) {
+		return <Toast toastType="error" />;
+	}
+
+	if (searchResult?.errors) {
+		return (
+			<div>
+				{searchResult.errors.map((err) => (
+					<h2 key={err.message}>{err.message}</h2>
+				))}
+			</div>
+		);
+	}
+
 	return (
 		<>
-			<h1>Yelp api</h1>
-			<SearchForm formFunctions={{ setLocation, setSearch, sendQuery }} />
-			{loading && <Spinner />}
-			{error && !searchResult?.data.search && (
-				<Toast toastType="error">{error.message}</Toast>
-			)}
 			{searchResult?.data.search && (
 				<BusinessList
 					list={
@@ -43,4 +57,4 @@ const HomeScreen = () => {
 	);
 };
 
-export default HomeScreen;
+export default BusinessListPage;

@@ -16,8 +16,6 @@ const BusinessDetail = () => {
 			id: businessId,
 		});
 
-	console.log(businessId);
-
 	useEffect(() => {
 		sendQuery();
 		// eslint-disable-next-line

@@ -3,39 +3,31 @@ import Button from '../Button/Button';
 import style from './SearchForm.module.scss';
 import { MdOutlineSearch } from 'react-icons/md';
 import { MdOutlineLocationOn } from 'react-icons/md';
-import { FunctionComponent } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-interface IProps {
-	formFunctions: {
-		setSearch: Function;
-		setLocation: Function;
-		sendQuery: Function;
-	};
-}
+const SearchForm = () => {
+	const [search, setSearch] = useState('');
+	const [location, setLocation] = useState('');
 
-const SearchForm: FunctionComponent<IProps> = ({ formFunctions }) => {
 	return (
 		<>
-			<form
-				className={style['search-form']}
-				onSubmit={(event) => {
-					event.preventDefault();
-					formFunctions.sendQuery();
-				}}
-			>
+			<form className={style['search-form']}>
 				<Input
 					placeholder="Search"
 					icon={<MdOutlineSearch />}
 					cornersStyle="left-rounded"
-					onChange={(event) => formFunctions.setSearch(event.target.value)}
+					onChange={(event) => setSearch(event.target.value)}
 				/>
 				<Input
 					placeholder="Location"
 					icon={<MdOutlineLocationOn />}
 					cornersStyle="right-rounded"
-					onChange={(event) => formFunctions.setLocation(event.target.value)}
+					onChange={(event) => setLocation(event.target.value)}
 				/>
-				<Button type="submit">Search</Button>
+				<Link to={`/search/${search}/${location}`}>
+					<Button type="submit">Search</Button>
+				</Link>
 			</form>
 		</>
 	);
