@@ -8,7 +8,6 @@ import Spinner from '../../components/Spinner/Spinner';
 import Toast from '../../components/Toast/Toast';
 import BusinessHours from '../../components/BusinessHours/BusinessHours';
 import ReviewsList from '../../components/ReviewsList/ReviewsList';
-import HomeScreen from '../HomeScreen/HomeScreen';
 
 const BusinessDetail = () => {
 	const { businessId } = useParams();

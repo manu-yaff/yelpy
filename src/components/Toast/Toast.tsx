@@ -1,6 +1,5 @@
 import { FunctionComponent } from 'react';
 import style from './Toast.module.scss';
-import { useEffect, useState } from 'react';
 
 interface IProps {
 	children?: React.ReactNode;
