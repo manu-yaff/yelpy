@@ -6,6 +6,7 @@ $project-font: 'Inter', sans-serif;
 h1 {
   font-family: $project-font;
   font-size: 18px;
+  color: colors.$pley-black;
 }
 
 h2 {
@@ -24,4 +25,22 @@ p, span, div {
   font-family: $project-font; 
   font-size: 14px;
   color: colors.$pley-gray-secondary;
+}
+
+@media screen and (min-width: 600px) {
+  h1 {
+    font-size: 35px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+
+  p, span, div {
+    font-size: 16px;
+  }
 }
