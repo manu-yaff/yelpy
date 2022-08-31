@@ -21,7 +21,7 @@ a {
   justify-content: space-between;
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 900px) {
   a:nth-child(6n + 1),
   a:nth-child(6n + 2) {
     flex-basis: 45%;
