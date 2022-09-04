@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Business } from '../types/Buesiness';
+import { Business } from '../types/Business';
 import BusinessList from '../components/BusinessList/BusinessList';
 import { BrowserRouter } from 'react-router-dom';
 
