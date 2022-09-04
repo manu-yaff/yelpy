@@ -1,9 +1,16 @@
 import './App.module.scss';
-import BusinessDetail from './pages/BusinessDetail/BusinessDetail';
-import Layout from './components/Layout/Layout';
 import { Routes, Route } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import Layout from './components/Layout/Layout';
 import SearchForm from './components/SearchForm/SearchForm';
-import BusinessListPage from './pages/BusinessListPage/BusinessListPage';
+
+const BusinessListPage = React.lazy(
+	() => import('./pages/BusinessListPage/BusinessListPage')
+);
+
+const BusinessDetail = React.lazy(
+	() => import('./pages/BusinessDetail/BusinessDetail')
+);
 
 function App() {
 	return (
@@ -24,8 +31,22 @@ function App() {
 							return null;
 						})()}
 					></Route>
-					<Route path="search/:term/:location" element={<BusinessListPage />} />
-					<Route path="/business/:businessId" element={<BusinessDetail />} />
+					<Route
+						path="search/:term/:location"
+						element={
+							<Suspense fallback="loading...">
+								<BusinessListPage />
+							</Suspense>
+						}
+					/>
+					<Route
+						path="/business/:businessId"
+						element={
+							<Suspense fallback="loading...">
+								<BusinessDetail />
+							</Suspense>
+						}
+					/>
 				</Routes>
 			</Layout>
 		</>
