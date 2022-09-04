@@ -1,6 +1,6 @@
 import './App.module.scss';
 import { Routes, Route } from 'react-router-dom';
-import React from 'react';
+import React, { Suspense } from 'react';
 import Layout from './components/Layout/Layout';
 import SearchForm from './components/SearchForm/SearchForm';
 
@@ -31,8 +31,22 @@ function App() {
 							return null;
 						})()}
 					></Route>
-					<Route path="search/:term/:location" element={<BusinessListPage />} />
-					<Route path="/business/:businessId" element={<BusinessDetail />} />
+					<Route
+						path="search/:term/:location"
+						element={
+							<Suspense fallback="loading...">
+								<BusinessListPage />
+							</Suspense>
+						}
+					/>
+					<Route
+						path="/business/:businessId"
+						element={
+							<Suspense fallback="loading...">
+								<BusinessDetail />
+							</Suspense>
+						}
+					/>
 				</Routes>
 			</Layout>
 		</>
