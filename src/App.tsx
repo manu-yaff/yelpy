@@ -1,9 +1,16 @@
 import './App.module.scss';
-import BusinessDetail from './pages/BusinessDetail/BusinessDetail';
-import Layout from './components/Layout/Layout';
 import { Routes, Route } from 'react-router-dom';
+import React from 'react';
+import Layout from './components/Layout/Layout';
 import SearchForm from './components/SearchForm/SearchForm';
-import BusinessListPage from './pages/BusinessListPage/BusinessListPage';
+
+const BusinessListPage = React.lazy(
+	() => import('./pages/BusinessListPage/BusinessListPage')
+);
+
+const BusinessDetail = React.lazy(
+	() => import('./pages/BusinessDetail/BusinessDetail')
+);
 
 function App() {
 	return (
