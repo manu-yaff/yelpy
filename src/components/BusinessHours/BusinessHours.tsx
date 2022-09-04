@@ -17,9 +17,13 @@ const BusinessHours: FunctionComponent<IProps> = ({ businesHours }) => {
 			) : (
 				<p className={style['closed']}>Closed</p>
 			)}
-			{businesHours?.open.map((day) => (
-				<HourItem key={day.day} day={day} />
-			))}
+			{businesHours ? (
+				businesHours.open.map((day) => {
+					return <HourItem key={day.day} day={day} />;
+				})
+			) : (
+				<h4>Business hours not available</h4>
+			)}
 		</>
 	);
 };
