@@ -1,5 +1,5 @@
 import BusinessCard from '../components/BusinessCard/BusinessCard';
-import { Business } from '../types/Buesiness';
+import { Business } from '../types/Business';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 

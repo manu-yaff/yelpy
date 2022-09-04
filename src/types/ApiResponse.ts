@@ -1,4 +1,4 @@
-import { BusinessDetail, Business } from './Buesiness';
+import { BusinessDetail, Business } from './Business';
 
 export interface SearchApiResponse {
   errors: [

@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import { Business } from '../../types/Buesiness';
+import { Business } from '../../types/Business';
 import BusinessCard from '../BusinessCard/BusinessCard';
 import style from './BusinessList.module.scss';
 

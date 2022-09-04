@@ -8,6 +8,9 @@ import Spinner from '../../components/Spinner/Spinner';
 import Toast from '../../components/Toast/Toast';
 import BusinessHours from '../../components/BusinessHours/BusinessHours';
 import ReviewsList from '../../components/ReviewsList/ReviewsList';
+import { useDispatch } from 'react-redux';
+import { addBusiness } from '../../store/actions';
+import { bindActionCreators } from 'redux';
 
 const BusinessDetail = () => {
 	const { businessId } = useParams();
@@ -16,8 +19,12 @@ const BusinessDetail = () => {
 			id: businessId,
 		});
 
+	const dispatch = useDispatch();
+	const actions = bindActionCreators({ addBusiness }, dispatch);
+
 	useEffect(() => {
 		sendQuery();
+		dispatch(actions.addBusiness(businessId as string));
 		// eslint-disable-next-line
 	}, []);
 
