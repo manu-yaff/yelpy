@@ -28,6 +28,7 @@ const Input: FunctionComponent<IProps> = ({
 					placeholder={placeholder}
 					className={`${style['input']}`}
 					onChange={onChange}
+					required
 					data-testid="input"
 				/>
 			</div>
