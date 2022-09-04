@@ -18,7 +18,7 @@ const weekDays = [
 
 const HourItem: FunctionComponent<IProps> = ({ day }) => {
 	const checkAm = (hour: string) => {
-		if (parseInt(hour) > 12) return 'pm';
+		if (parseInt(hour) >= 12) return 'pm';
 		return 'am';
 	};
 

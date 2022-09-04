@@ -2,6 +2,8 @@ import { render } from '@testing-library/react';
 import { Business } from '../types/Business';
 import BusinessList from '../components/BusinessList/BusinessList';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../store/';
 
 const location = {
 	address1: 'epigmenio gonzalez',
@@ -26,17 +28,21 @@ const testBusiness: Business[] = [
 describe('BusinessList component tests', () => {
 	test('BusinessList component renders empty list', () => {
 		const component = render(
-			<BrowserRouter>
-				<BusinessList list={[]} />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<BusinessList list={[]} />
+				</BrowserRouter>
+			</Provider>
 		).container;
 		expect(component).toHaveTextContent(/^No results found$/);
 	});
 	test('BusinessList component renders list correctly', () => {
 		render(
-			<BrowserRouter>
-				<BusinessList list={testBusiness} />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<BusinessList list={testBusiness} />
+				</BrowserRouter>
+			</Provider>
 		).container;
 		const elements = document.getElementsByClassName('business-card');
 		expect(elements).toHaveLength(1);

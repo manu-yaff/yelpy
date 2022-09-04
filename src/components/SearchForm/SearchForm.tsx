@@ -4,15 +4,22 @@ import style from './SearchForm.module.scss';
 import { MdOutlineSearch } from 'react-icons/md';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SearchForm = () => {
 	const [search, setSearch] = useState('');
 	const [location, setLocation] = useState('');
+	const navigate = useNavigate();
 
 	return (
 		<>
-			<form className={style['search-form']}>
+			<form
+				className={style['search-form']}
+				onSubmit={(event) => {
+					event.preventDefault();
+					navigate(`/search/${search}/${location}`);
+				}}
+			>
 				<Input
 					placeholder="Search"
 					icon={<MdOutlineSearch />}
@@ -25,9 +32,7 @@ const SearchForm = () => {
 					cornersStyle="right-rounded"
 					onChange={(event) => setLocation(event.target.value)}
 				/>
-				<Link to={`/search/${search}/${location}`}>
-					<Button type="submit">Search</Button>
-				</Link>
+				<Button type="submit">Search</Button>
 			</form>
 		</>
 	);
