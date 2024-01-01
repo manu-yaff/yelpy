@@ -1,0 +1,11 @@
+@use "../../styles/colors";
+
+.button {
+  font-family: 'Inter', sans-serif;
+  border-radius: 8px;
+  padding: 16px;
+  border: none;
+  color: colors.$pley-white;
+  background-color: colors.$pley-green;
+  cursor: pointer;
+}

@@ -1,0 +1,10 @@
+@use '../../styles/colors';
+
+.open {
+  color: colors.$pley-green;
+}
+
+.closed {
+  color: colors.$pley-red;
+}
+
