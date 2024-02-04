@@ -1,0 +1,49 @@
+body {
+  padding: 5%;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.business-card {
+  margin: 0;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  height: 300px;
+}
+
+.business-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 24px;
+}
+
+.input-valid {
+  border: 3px solid rgb(52, 171, 52);
+}
+
+.input-invalid {
+  border: 3px solid red;
+}
+
+@media (min-width: 820px) {
+  .business-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .business-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 24px;
+  }
+}
