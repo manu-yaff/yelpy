@@ -5,28 +5,30 @@ export function SearchForm() {
   function handleFormSubmission(event) {
     event.preventDefault();
 
-    const formData = new FormData(form); // this has to be executed here to have the latest values
+    const searchValid = searchTermInput.validate();
+    const locationValid = locationInput.validate();
 
-    for (const [key, value] of formData) {
-      console.log(key);
-      console.log(value);
+    if (!searchValid || !locationValid) {
+      return;
     }
   }
 
   const form = document.createElement('form');
 
-  const searchTermInput = Input({
+  const searchTermInput = new Input({
     labelText: 'Search term',
     type: 'text',
     placeholder: 'eg. Tacos',
     name: 'search-term',
+    validator: (value) => value != undefined && value.length > 0,
   });
 
-  const locationInput = Input({
+  const locationInput = new Input({
     labelText: 'Location',
     type: 'text',
     placeholder: 'San Francisco',
     name: 'location',
+    validator: (value) => value != undefined && value.length > 0,
   });
 
   const btn = Button({
@@ -35,7 +37,7 @@ export function SearchForm() {
     onClick: function () {},
   });
 
-  form.append(searchTermInput, locationInput, btn);
+  form.append(searchTermInput.container, locationInput.container, btn);
   form.addEventListener('submit', handleFormSubmission);
 
   return form;

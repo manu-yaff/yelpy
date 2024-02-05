@@ -1,16 +1,45 @@
-export function Input({ type, labelText, placeholder, name }) {
-  const div = document.createElement('div');
+export function Input({ type, labelText, placeholder, name, validator }) {
+  this.type = type;
+  this.labelText = labelText;
+  this.placeholder = placeholder;
+  this.name = name;
+  this.value = undefined;
+  this.validator = validator;
+
+  this.container = document.createElement('div');
+  this.validationErrorContainer = document.createElement('div');
+
+  this.render();
+}
+
+Input.prototype.render = function () {
   const label = document.createElement('label');
   const input = document.createElement('input');
 
-  label.textContent = labelText;
-  input.type = type;
-  input.placeholder = placeholder;
-  input.name = name;
+  label.textContent = this.labelText;
+  input.type = this.type;
+  input.name = this.name;
 
-  // TODO: add for to inputs
+  input.addEventListener(
+    'input',
+    function setValue(event) {
+      this.value = event.target.value;
+      this.validate(this.value);
+    }.bind(this)
+  );
 
-  div.append(label, input);
+  this.container.append(label, input, this.validationErrorContainer);
+};
 
-  return div;
-}
+Input.prototype.validate = function () {
+  const isValid = this.validator(this.value);
+
+  if (!isValid) {
+    this.validationErrorContainer.textContent = 'Input is required!';
+    this.validationErrorContainer.style.color = 'red';
+    return false;
+  } else {
+    this.validationErrorContainer.textContent = '';
+    return true;
+  }
+};
