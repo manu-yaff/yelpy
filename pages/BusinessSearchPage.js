@@ -1,27 +1,32 @@
+import { Business } from '../components/Business.js';
 import { BusinessList } from '../components/BusinessList.js';
 import { SearchForm } from '../components/SearchForm.js';
 
 export function SearchPage() {
-  this.businessListData = {};
+  this.businessListData = {
+    data: [],
+  };
   this.container = document.createElement('section');
+  this.businessList = new BusinessList(this.businessListData.data);
   this.businessListProxy = new Proxy(this.businessListData, {
-    set: renderBusinessList.bind(this),
+    set: this.renderBusinessList.bind(this),
   });
 }
 
 SearchPage.prototype.render = function () {
-  this.searchForm = new SearchForm(setBusinessListProxy.bind(this));
-  this.container.append(this.searchForm.container);
+  const searchForm = new SearchForm(setBusinessListProxy.bind(this));
+  this.container.append(searchForm.container);
 
   body.append(this.container);
 };
 
-function renderBusinessList(_, __, newValue) {
-  const businessList = new BusinessList(newValue);
-  this.container.append(businessList.container);
+SearchPage.prototype.renderBusinessList = function (_, __, newValue) {
+  this.businessList.setBusinessList(newValue);
+  this.businessList.createBusinessList();
+  this.container.append(this.businessList.container);
 
   return true;
-}
+};
 
 function setBusinessListProxy(property, value) {
   this.businessListProxy[property] = value;

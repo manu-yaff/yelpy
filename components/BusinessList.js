@@ -1,14 +1,20 @@
 import { getBusinessBySearch } from '../external/api.js';
 import { Business } from './Business.js';
 
-export function BusinessList(list) {
+export function BusinessList() {
   this.container = document.createElement('section');
-  this.list = list;
-
-  this.createBusinessList();
+  this.list = undefined;
 }
 
+BusinessList.prototype.setBusinessList = function (list) {
+  this.list = list;
+};
+
 BusinessList.prototype.createBusinessList = function () {
+  this.container.innerHTML = '';
+
+  if (this.list.length == 0) this.container.append('No results were found for your search');
+
   const businessComponents = this.list.map((business) => new Business(business).container);
 
   businessComponents.forEach(
