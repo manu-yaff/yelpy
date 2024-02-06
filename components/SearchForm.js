@@ -48,6 +48,5 @@ SearchForm.prototype.handleFormSubmission = async function (event) {
     return;
   }
 
-  const result = await getBusinessBySearch(this.searchInput.value, this.locationInput.value);
-  this.onSubmission('data', result);
+  this.onSubmission(this.searchInput.value, this.locationInput.value);
 };

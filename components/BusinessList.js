@@ -13,6 +13,8 @@ BusinessList.prototype.setBusinessList = function (list) {
 BusinessList.prototype.createBusinessList = function () {
   this.container.innerHTML = '';
 
+  if (this.list == undefined) return;
+
   if (this.list.length == 0) this.container.append('No results were found for your search');
 
   const businessComponents = this.list.map((business) => new Business(business).container);
