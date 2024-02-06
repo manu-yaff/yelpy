@@ -1,8 +1,12 @@
-function Business(business) {
-  const businessContainer = document.createElement('article');
-  businessContainer.classList.add('business-card');
-  const { image, name, address, phone, reviewsCount } = business;
+export function Business(business) {
+  this.container = document.createElement('article');
+  this.business = business;
 
+  this.createBusinessCard();
+}
+
+Business.prototype.createBusinessCard = function () {
+  const { image, name, address, phone, reviewsCount } = this.business;
   const component = `
     <img
       src="${image}"
@@ -20,9 +24,5 @@ function Business(business) {
     </div>
   `;
 
-  businessContainer.innerHTML = component;
-
-  return businessContainer;
-}
-
-export { Business };
+  this.container.innerHTML = component;
+};

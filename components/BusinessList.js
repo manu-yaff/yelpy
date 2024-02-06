@@ -2,12 +2,18 @@ import { getBusinessBySearch } from '../external/api.js';
 import { Business } from './Business.js';
 
 export function BusinessList(list) {
-  const container = document.createElement('section');
-  const businessComponents = list.map(Business);
+  this.container = document.createElement('section');
+  this.list = list;
 
-  businessComponents.forEach(function appendBusiness(business) {
-    container.append(business);
-  });
-
-  return container;
+  this.createBusinessList();
 }
+
+BusinessList.prototype.createBusinessList = function () {
+  const businessComponents = this.list.map((business) => new Business(business).container);
+
+  businessComponents.forEach(
+    function appendBusiness(business) {
+      this.container.append(business);
+    }.bind(this)
+  );
+};
