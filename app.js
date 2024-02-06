@@ -1,5 +1,8 @@
 import { Router } from './js/router.js';
 
+window.body = document.querySelector('body');
+
 document.addEventListener('DOMContentLoaded', function initApp() {
-  Router.init();
+  const router = new Router();
+  router.init();
 });

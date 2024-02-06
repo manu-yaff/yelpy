@@ -6,6 +6,8 @@ export function Input({ type, labelText, placeholder, name, validator }) {
   this.value = undefined;
   this.validator = validator;
 
+  this.label = document.createElement('label');
+  this.input = document.createElement('input');
   this.container = document.createElement('div');
   this.validationErrorContainer = document.createElement('div');
 
@@ -13,14 +15,11 @@ export function Input({ type, labelText, placeholder, name, validator }) {
 }
 
 Input.prototype.render = function () {
-  const label = document.createElement('label');
-  const input = document.createElement('input');
+  this.label.textContent = this.labelText;
+  this.input.type = this.type;
+  this.input.name = this.name;
 
-  label.textContent = this.labelText;
-  input.type = this.type;
-  input.name = this.name;
-
-  input.addEventListener(
+  this.input.addEventListener(
     'input',
     function setValue(event) {
       this.value = event.target.value;
@@ -28,7 +27,7 @@ Input.prototype.render = function () {
     }.bind(this)
   );
 
-  this.container.append(label, input, this.validationErrorContainer);
+  this.container.append(this.label, this.input, this.validationErrorContainer);
 };
 
 Input.prototype.validate = function () {

@@ -1,44 +1,53 @@
+import { getBusinessBySearch } from '../external/api.js';
+import { isNotEmpty } from '../js/helpers/validators.js';
 import { Button } from './Button.js';
 import { Input } from './Input.js';
 
-export function SearchForm() {
-  function handleFormSubmission(event) {
-    event.preventDefault();
+export function SearchForm(onSubmission) {
+  this.container = document.createElement('form');
+  this.onSubmission = onSubmission;
 
-    const searchValid = searchTermInput.validate();
-    const locationValid = locationInput.validate();
-
-    if (!searchValid || !locationValid) {
-      return;
-    }
-  }
-
-  const form = document.createElement('form');
-
-  const searchTermInput = new Input({
+  this.searchInput = new Input({
     labelText: 'Search term',
     type: 'text',
     placeholder: 'eg. Tacos',
     name: 'search-term',
-    validator: (value) => value != undefined && value.length > 0,
+    validator: isNotEmpty,
   });
 
-  const locationInput = new Input({
+  this.locationInput = new Input({
     labelText: 'Location',
     type: 'text',
     placeholder: 'San Francisco',
     name: 'location',
-    validator: (value) => value != undefined && value.length > 0,
+    validator: isNotEmpty,
   });
 
-  const btn = Button({
+  this.submitButton = new Button({
     text: 'Search',
     type: 'submit',
-    onClick: function () {},
   });
 
-  form.append(searchTermInput.container, locationInput.container, btn);
-  form.addEventListener('submit', handleFormSubmission);
-
-  return form;
+  this.render();
 }
+
+SearchForm.prototype.render = function () {
+  this.container.append(this.searchInput.container);
+  this.container.append(this.locationInput.container);
+  this.container.append(this.submitButton.container);
+  this.container.addEventListener('submit', this.handleFormSubmission.bind(this));
+};
+
+SearchForm.prototype.handleFormSubmission = async function (event) {
+  event.preventDefault();
+
+  const searchValid = this.searchInput.validate();
+  const locationValid = this.locationInput.validate();
+
+  if (!searchValid || !locationValid) {
+    return;
+  }
+
+  const result = await getBusinessBySearch(this.searchInput.value, this.locationInput.value);
+  this.onSubmission('data', result);
+};
