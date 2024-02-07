@@ -1,27 +1,25 @@
-import { getBusinessBySearch } from '../external/api.js';
 import { Business } from './Business.js';
 
-export function BusinessList() {
+export function BusinessList(parentNode, businessList = undefined) {
   this.container = $create('section');
-  this.list = undefined;
+  this.parentNode = parentNode;
+
+  this.businessList = businessList;
 }
 
-BusinessList.prototype.setBusinessList = function (list) {
-  this.list = list;
-};
-
-BusinessList.prototype.createBusinessList = function () {
+BusinessList.prototype.render = function () {
   this.container.innerHTML = '';
 
-  if (this.list == undefined) return;
+  if (this.businessList == undefined) return;
 
-  if (this.list.length == 0) this.container.append('No results were found for your search');
+  if (this.businessList.length == 0) this.container.append('No results were found for your search');
 
-  const businessComponents = this.list.map((business) => new Business(business).container);
-
-  businessComponents.forEach(
-    function appendBusiness(business) {
-      this.container.append(business);
+  this.businessList.forEach(
+    function renderBusiness(business) {
+      const businessComp = new Business(this.container, business);
+      businessComp.render();
     }.bind(this)
   );
+
+  this.parentNode.append(this.container);
 };

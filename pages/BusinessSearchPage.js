@@ -1,4 +1,3 @@
-import { Business } from '../components/Business.js';
 import { BusinessList } from '../components/BusinessList.js';
 import { SearchForm } from '../components/SearchForm.js';
 import { getBusinessBySearch } from '../external/api.js';

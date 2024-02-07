@@ -1,11 +1,10 @@
-export function Business(business) {
+export function Business(parentNode, business) {
   this.container = $create('article');
   this.business = business;
-
-  this.createBusinessCard();
+  this.parentNode = parentNode;
 }
 
-Business.prototype.createBusinessCard = function () {
+Business.prototype.render = function () {
   const { image, name, address, phone, reviewsCount } = this.business;
   const component = `
     <img
@@ -25,4 +24,6 @@ Business.prototype.createBusinessCard = function () {
   `;
 
   this.container.innerHTML = component;
+
+  this.parentNode.append(this.container);
 };
