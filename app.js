@@ -1,8 +1,10 @@
 import { Router } from './js/router.js';
 
-window.body = document.querySelector('body');
+window.$ = document;
+window.$create = (element) => $.createElement(element);
+window.$query = (element) => $.querySelector(element);
 
-document.addEventListener('DOMContentLoaded', function initApp() {
+$.addEventListener('DOMContentLoaded', function initApp() {
   const router = new Router();
   router.init();
 });

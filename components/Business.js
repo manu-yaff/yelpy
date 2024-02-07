@@ -1,5 +1,5 @@
 export function Business(business) {
-  this.container = document.createElement('article');
+  this.container = $create('article');
   this.business = business;
 
   this.createBusinessCard();

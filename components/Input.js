@@ -6,10 +6,10 @@ export function Input({ type, labelText, placeholder, name, validator }) {
   this.value = undefined;
   this.validator = validator;
 
-  this.label = document.createElement('label');
-  this.input = document.createElement('input');
-  this.container = document.createElement('div');
-  this.validationErrorContainer = document.createElement('div');
+  this.label = $create('label');
+  this.input = $create('input');
+  this.container = $create('div');
+  this.validationErrorContainer = $create('div');
 
   this.render();
 }

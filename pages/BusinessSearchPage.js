@@ -9,9 +9,9 @@ export function SearchPage() {
     error: null,
     data: [],
   };
-  this.loader = document.createElement('p');
-  this.error = document.createElement('p');
-  this.container = document.createElement('section');
+  this.loader = $create('p');
+  this.error = $create('p');
+  this.container = $create('section');
   this.businessList = new BusinessList(this.businessListData.data);
   this.businessListProxy = new Proxy(this.businessListData, {
     set: this.renderBusinessList.bind(this),
@@ -22,7 +22,7 @@ SearchPage.prototype.render = function () {
   const searchForm = new SearchForm(this.setBusinessListProxy.bind(this));
   this.container.append(searchForm.container);
 
-  body.append(this.container);
+  $query('body').append(this.container);
 };
 
 SearchPage.prototype.renderBusinessList = function (_, property, newValue) {
@@ -56,6 +56,6 @@ SearchPage.prototype.setBusinessListProxy = async function (search, location) {
   this.businessListProxy.loading = true;
   const result = await getBusinessBySearch(search, location);
   this.businessListProxy.loading = false;
-  // this.businessListProxy.data = result;
-  this.businessListProxy.error = 'crazy error!!!';
+  this.businessListProxy.data = result;
+  // this.businessListProxy.error = 'crazy error!!!';
 };

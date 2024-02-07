@@ -2,7 +2,7 @@ import { getBusinessBySearch } from '../external/api.js';
 import { Business } from './Business.js';
 
 export function BusinessList() {
-  this.container = document.createElement('section');
+  this.container = $create('section');
   this.list = undefined;
 }
 

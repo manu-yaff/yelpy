@@ -4,7 +4,7 @@ import { Button } from './Button.js';
 import { Input } from './Input.js';
 
 export function SearchForm(onSubmission) {
-  this.container = document.createElement('form');
+  this.container = $create('form');
   this.onSubmission = onSubmission;
 
   this.searchInput = new Input({
