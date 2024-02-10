@@ -1,4 +1,4 @@
-import { Router } from './js/router.js';
+import { Router } from './router.js';
 
 window.$ = document;
 window.$create = (element) => $.createElement(element);

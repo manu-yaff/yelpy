@@ -1,11 +1,12 @@
-import { getBusinessBySearch } from '../external/api.js';
-import { isNotEmpty } from '../js/helpers/validators.js';
+import { isNotEmpty } from '../utils/validators.js';
 import { Button } from './Button.js';
 import { Input } from './Input.js';
 
-export function SearchForm(onSubmission) {
+export function SearchForm(parentNode, onFormSubmitted) {
   this.container = $create('form');
-  this.onSubmission = onSubmission;
+  this.parentNode = parentNode;
+
+  this.onFormSubmitted = onFormSubmitted;
 
   this.searchInput = new Input({
     labelText: 'Search term',
@@ -27,8 +28,6 @@ export function SearchForm(onSubmission) {
     text: 'Search',
     type: 'submit',
   });
-
-  this.render();
 }
 
 SearchForm.prototype.render = function () {
@@ -36,6 +35,7 @@ SearchForm.prototype.render = function () {
   this.container.append(this.locationInput.container);
   this.container.append(this.submitButton.container);
   this.container.addEventListener('submit', this.handleFormSubmission.bind(this));
+  this.parentNode.append(this.container);
 };
 
 SearchForm.prototype.handleFormSubmission = async function (event) {
@@ -48,5 +48,5 @@ SearchForm.prototype.handleFormSubmission = async function (event) {
     return;
   }
 
-  this.onSubmission(this.searchInput.value, this.locationInput.value);
+  this.onFormSubmitted({ searchTerm: this.searchInput.value, location: this.locationInput.value });
 };

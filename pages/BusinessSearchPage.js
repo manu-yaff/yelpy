@@ -1,60 +1,59 @@
 import { BusinessList } from '../components/BusinessList.js';
+import { Loader } from '../components/Loader.js';
+import { Error } from '../components/Error.js';
 import { SearchForm } from '../components/SearchForm.js';
 import { getBusinessBySearch } from '../external/api.js';
+import { Fetcher } from '../utils/fetcher.js';
 
-export function SearchPage() {
-  this.businessListData = {
-    loading: false,
-    error: null,
-    data: [],
-  };
-  this.loader = $create('p');
-  this.error = $create('p');
+export function SearchPage(parentNode) {
+  this.parentNode = parentNode;
   this.container = $create('section');
-  this.businessList = new BusinessList(this.businessListData.data);
-  this.businessListProxy = new Proxy(this.businessListData, {
-    set: this.renderBusinessList.bind(this),
-  });
+  this.error = $create('p');
+  this.listContainer = $create('div');
+
+  this.error = new Error(this.listContainer);
+  this.loader = new Loader(this.listContainer);
+  this.businessList = new BusinessList(this.listContainer);
+  this.fetcher = new Fetcher(this.observeState.bind(this));
 }
 
 SearchPage.prototype.render = function () {
-  const searchForm = new SearchForm(this.setBusinessListProxy.bind(this));
-  this.container.append(searchForm.container);
+  const searchForm = new SearchForm(this.container, this.onFormSubmitted.bind(this));
+  searchForm.render();
 
-  $query('body').append(this.container);
+  this.container.append(this.listContainer);
+  this.parentNode.append(this.container);
 };
 
-SearchPage.prototype.renderBusinessList = function (_, property, newValue) {
-  if (property == 'loading' && newValue == true) {
-    this.loader.textContent = 'loading';
-    this.loader.setAttribute('aria-busy', true);
+SearchPage.prototype.onFormSubmitted = async function (formValues) {
+  const { searchTerm, location } = formValues;
 
-    this.businessList.setBusinessList(undefined);
-    this.businessList.createBusinessList();
-    this.container.append(this.loader);
+  this.fetcher.fetchData(() => getBusinessBySearch(searchTerm, location));
+};
+
+SearchPage.prototype.observeState = function (obj, property, newValue) {
+  if (property == 'loading' && newValue == true) {
+    this.listContainer.replaceChildren();
+    this.loader.render();
   }
 
-  if (property == 'error') {
+  if (property == 'loading' && newValue == false) {
     this.loader.remove();
-    this.error.textContent = 'jajaja error';
-    this.container.append(this.error);
   }
 
   if (property == 'data') {
-    this.loader.remove();
+    this.businessList.setItems(newValue);
+    this.businessList.render();
+  }
+
+  if (property == 'error' && newValue != null) {
+    this.listContainer.replaceChildren();
+    this.error.render();
+  }
+
+  if (property == 'error' && newValue == null) {
     this.error.remove();
-    this.businessList.setBusinessList(newValue);
-    this.businessList.createBusinessList();
-    this.container.append(this.businessList.container);
   }
 
   return true;
-};
-
-SearchPage.prototype.setBusinessListProxy = async function (search, location) {
-  this.businessListProxy.loading = true;
-  const result = await getBusinessBySearch(search, location);
-  this.businessListProxy.loading = false;
-  this.businessListProxy.data = result;
-  // this.businessListProxy.error = 'crazy error!!!';
 };

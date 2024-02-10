@@ -1,8 +1,8 @@
-import { SearchPage } from '../pages/BusinessSearchPage.js';
+import { SearchPage } from './pages/BusinessSearchPage.js';
 
 export function Router() {
   this.routes = {
-    '/': new SearchPage(),
+    '/': new SearchPage($query('body')),
     '/business': 'business details content',
   };
 }
