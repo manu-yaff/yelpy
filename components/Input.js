@@ -1,4 +1,8 @@
-export function Input({ type, labelText, placeholder, name, validator }) {
+import { BaseComponent } from './BaseElement.js';
+
+Object.setPrototypeOf(Input, BaseComponent);
+
+export function Input({ parentNode, type, labelText, placeholder, name, validator }) {
   this.type = type;
   this.labelText = labelText;
   this.placeholder = placeholder;
@@ -6,10 +10,11 @@ export function Input({ type, labelText, placeholder, name, validator }) {
   this.value = undefined;
   this.validator = validator;
 
-  this.label = $create('label');
-  this.input = $create('input');
-  this.container = $create('div');
-  this.validationErrorContainer = $create('div');
+  BaseComponent.apply(this, [parentNode, 'div']);
+
+  this.label = BaseComponent.prototype.create('label');
+  this.input = BaseComponent.prototype.create('input');
+  this.validationErrorContainer = BaseComponent.prototype.create('div');
 
   this.render();
 }
@@ -18,6 +23,7 @@ Input.prototype.render = function () {
   this.label.textContent = this.labelText;
   this.input.type = this.type;
   this.input.name = this.name;
+  this.input.placeholder = this.placeholder;
 
   this.input.addEventListener(
     'input',
