@@ -1,11 +1,11 @@
 import { Business } from '../../components/Business.js';
-import { getByText } from '@testing-library/dom';
+import { getByText, getByAltText } from '@testing-library/dom';
 
 describe('Business', () => {
   describe('render', () => {
     it('should render business component correctly', () => {
       const businessProps = {
-        image: 'www.google.com',
+        image: 'google.com',
         name: 'Tacos Orinoco',
         address: 'Epigmenio Gonzalez',
         phone: '1234567890',
@@ -19,6 +19,10 @@ describe('Business', () => {
       getByText(business.container, businessProps.address);
       getByText(business.container, businessProps.phone);
       getByText(business.container, businessProps.reviewsCount);
+
+      const image = getByAltText(business.container, `${businessProps.name} business`);
+
+      expect(image.src).toBe(`http://localhost/${businessProps.image}`);
     });
   });
 });

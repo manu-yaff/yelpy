@@ -13,6 +13,9 @@ Business.prototype.render = function () {
     <img
       src="${image}"
       alt="${name} business"
+      onerror="(() => {
+        this.src = '../assets/default-image-not-found.jpeg'
+      })()"
     />
     <hgroup>
       <h2>${name}</h2>
