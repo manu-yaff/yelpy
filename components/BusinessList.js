@@ -20,7 +20,7 @@ BusinessList.prototype.render = function () {
 
   this.items.forEach(
     function renderBusiness(business) {
-      const businessComp = new Business(this.container, business);
+      const businessComp = new Business(this.parentNode, business);
       businessComp.render();
     }.bind(this)
   );

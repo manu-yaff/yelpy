@@ -1,11 +1,14 @@
+import { BaseComponent } from '../components/BaseElement.js';
+
+Object.setPrototypeOf(Business, BaseComponent);
 export function Business(parentNode, business) {
-  this.container = $create('article');
+  BaseComponent.apply(this, [parentNode, 'div']);
   this.business = business;
-  this.parentNode = parentNode;
 }
 
 Business.prototype.render = function () {
   const { image, name, address, phone, reviewsCount } = this.business;
+
   const component = `
     <img
       src="${image}"
@@ -19,7 +22,7 @@ Business.prototype.render = function () {
     </hgroup>
     <div class="space-between">
       <p>${phone}</p>
-      <p>${reviewsCount} reviews</p>
+      <p>${reviewsCount}</p>
     </div>
   `;
 
