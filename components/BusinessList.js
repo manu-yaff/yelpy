@@ -1,8 +1,10 @@
+import { BaseComponent } from './BaseElement.js';
 import { Business } from './Business.js';
 
+Object.setPrototypeOf(BusinessList, BaseComponent);
+
 export function BusinessList(parentNode, items = undefined) {
-  this.container = $create('section');
-  this.parentNode = parentNode;
+  BaseComponent.apply(this, [parentNode, 'section']);
 
   this.items = items;
 }
