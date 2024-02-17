@@ -1,10 +1,12 @@
 import { isNotEmpty } from '../utils/validators.js';
+import { BaseComponent } from './BaseElement.js';
 import { Button } from './Button.js';
 import { Input } from './Input.js';
 
+Object.setPrototypeOf(SearchForm, BaseComponent);
+
 export function SearchForm(parentNode, onFormSubmitted) {
-  this.container = $create('form');
-  this.parentNode = parentNode;
+  BaseComponent.apply(this, [parentNode, 'form']);
 
   this.onFormSubmitted = onFormSubmitted;
 

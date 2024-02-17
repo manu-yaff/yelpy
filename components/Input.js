@@ -29,7 +29,7 @@ Input.prototype.render = function () {
     'input',
     function setValue(event) {
       this.value = event.target.value;
-      this.validate(this.value);
+      this.validate(this.value); // TODO: check if this call is needed
     }.bind(this)
   );
 
