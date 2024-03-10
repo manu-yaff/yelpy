@@ -9,6 +9,7 @@ export function Business(parentNode, business) {
 Business.prototype.render = function () {
   const { image, name, address, phone, reviewsCount } = this.business;
 
+  // TODO: change this for default image constant
   const component = `
     <img
       src="${image}"
