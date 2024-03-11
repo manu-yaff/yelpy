@@ -95,7 +95,40 @@ describe('businessDetailAdapter', () => {
           {
             rating: 5,
             text: 'some review text',
-            timeCreated: '2024-02-16 23:18:05',
+            timeCreated: '2024-02-16',
+            user: {
+              profileUrl: DEFAULT_USER_PROFILE_PIC_URL,
+              name: 'Name not provided',
+            },
+          },
+        ],
+      })
+    );
+  });
+
+  it('should show default message when review text is not present', () => {
+    const result = businessDetailAdapter({
+      ...businessDetailResponse,
+      reviews: [
+        {
+          rating: 2,
+          text: undefined,
+          time_created: '2024-02-16',
+          user: {
+            profile_url: undefined,
+            name: undefined,
+          },
+        },
+      ],
+    });
+
+    expect(result).toEqual(
+      expect.objectContaining({
+        reviews: [
+          {
+            rating: 2,
+            text: 'Review text not available',
+            timeCreated: '2024-02-16',
             user: {
               profileUrl: DEFAULT_USER_PROFILE_PIC_URL,
               name: 'Name not provided',

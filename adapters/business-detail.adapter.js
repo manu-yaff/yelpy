@@ -12,10 +12,10 @@ function adaptReview({ rating, text, time_created, user }) {
   return {
     rating,
     text: text ?? 'Review text not available',
-    timeCreated: time_created,
+    timeCreated: time_created.slice(0, 10),
     user: {
-      profileUrl: user.profile_url ?? DEFAULT_USER_PROFILE_PIC_URL,
-      name: user.name ?? 'Name not provided',
+      profileUrl: user?.profile_url ?? DEFAULT_USER_PROFILE_PIC_URL,
+      name: user?.name ?? 'Name not provided',
     },
   };
 }
