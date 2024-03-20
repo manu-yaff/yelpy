@@ -138,4 +138,10 @@ describe('businessDetailAdapter', () => {
       })
     );
   });
+
+  it('should return empty array when reviews are not present', () => {
+    const result = businessDetailAdapter({ ...businessDetailResponse, reviews: undefined });
+
+    expect(result).toEqual(expect.objectContaining({ reviews: [] }));
+  });
 });

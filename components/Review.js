@@ -1,6 +1,6 @@
 export function Review({ user, text, timeCreated, rating }) {
   const markup = `
-    <div>
+    <div data-testid="review-item">
       <div>
         <img
           src="${user.profileUrl}"
@@ -18,14 +18,12 @@ export function Review({ user, text, timeCreated, rating }) {
         ${renderRating()}
       <div>
       <p>${text}<p>
-    </p>
-  `;
+    </div>`;
 
   function renderRating() {
-    return Array.from(
-      { length: rating },
-      () => '<i class="ph-duotone ph-star" data-testid="review-star-icon"></i>'
-    ).join('');
+    return new Array(rating)
+      .map(() => '<i class="ph-duotone ph-star" data-testid="review-star-icon"></i>')
+      .join('');
   }
 
   function render(container) {
@@ -34,7 +32,12 @@ export function Review({ user, text, timeCreated, rating }) {
     return container;
   }
 
+  function getMarkup() {
+    return markup;
+  }
+
   return {
-    render,
+    render: render,
+    getMarkup: getMarkup,
   };
 }

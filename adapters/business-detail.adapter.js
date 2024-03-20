@@ -32,7 +32,7 @@ export function businessDetailAdapter(businessDetailResponse) {
     rating: rating ?? 'Rating not available',
     isOpen: hours[0].is_open_now ?? 'Info not available',
     hours: hours[0].open.map(adaptHour),
-    photos: photos.length > 0 ? photos : IMAGE_NOT_FOUND_PATH,
-    reviews: reviews.map(adaptReview),
+    photos: photos?.length > 0 ? photos : IMAGE_NOT_FOUND_PATH,
+    reviews: reviews?.length > 0 ? reviews.map(adaptReview) : [],
   };
 }
