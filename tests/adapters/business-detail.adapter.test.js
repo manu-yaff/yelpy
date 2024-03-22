@@ -46,11 +46,12 @@ describe('businessDetailAdapter', () => {
         reviewCount: 'No reviews were found',
         rating: 'Rating not available',
         isOpen: 'Info not available',
+        hours: 'Business hours not available',
       })
     );
   });
 
-  it('should should default message when start or date is not defined for hour', () => {
+  it('should set default message when start or date is not defined for hour', () => {
     const result = businessDetailAdapter({
       ...businessDetailResponse,
       hours: [

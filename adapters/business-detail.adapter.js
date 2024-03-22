@@ -24,6 +24,7 @@ export function businessDetailAdapter(businessDetailResponse) {
   const { id, name, display_phone, review_count, rating, hours, photos, reviews } =
     businessDetailResponse;
 
+  // TODO: should I only adapt the information received or also add this empty states values here
   return {
     id,
     name,
@@ -31,7 +32,7 @@ export function businessDetailAdapter(businessDetailResponse) {
     reviewCount: review_count ?? 'No reviews were found',
     rating: rating ?? 'Rating not available',
     isOpen: hours[0].is_open_now ?? 'Info not available',
-    hours: hours[0].open.map(adaptHour),
+    hours: hours[0].open.length > 0 ? hours[0].open.map(adaptHour) : 'Business hours not available',
     photos: photos?.length > 0 ? photos : IMAGE_NOT_FOUND_PATH,
     reviews: reviews?.length > 0 ? reviews.map(adaptReview) : [],
   };

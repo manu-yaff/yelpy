@@ -14,7 +14,7 @@ export function ReviewList(reviews) {
       listContainer.insertAdjacentHTML('beforeend', reviewMarkup);
     });
 
-    container.innerHTML = '';
+    container.innerHTML = ''; // TODO: check to see if replaceChildren can be used
     container.appendChild(listContainer);
 
     return container;
