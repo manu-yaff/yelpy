@@ -5,6 +5,9 @@ export const businessDetailResponse = {
   display_phone: '(415) 644-0838',
   review_count: 1758,
   rating: 4.3,
+  location: {
+    formatted_address: '475 3rd St\nSan Francisco, CA 94107',
+  },
   hours: [
     {
       is_open_now: false,
@@ -13,6 +16,11 @@ export const businessDetailResponse = {
           end: '1400',
           start: '1200',
           day: 0,
+        },
+        {
+          end: '1400',
+          start: '1200',
+          day: 1,
         },
       ],
     },

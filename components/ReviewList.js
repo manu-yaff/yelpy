@@ -1,26 +1,18 @@
 import { Review } from './Review.js';
 
 export function ReviewList(reviews) {
-  function render(container) {
-    if (reviews.length == 0) {
-      container.innerHTML = 'No reviews were found';
-      return container;
-    }
+  function getMarkup() {
+    if (reviews.length == 0) return '<p>No reviews were found</p>';
 
-    const listContainer = document.createElement('div');
-
-    reviews.forEach((review) => {
-      const reviewMarkup = Review(review).getMarkup();
-      listContainer.insertAdjacentHTML('beforeend', reviewMarkup);
-    });
-
-    container.innerHTML = ''; // TODO: check to see if replaceChildren can be used
-    container.appendChild(listContainer);
-
-    return container;
+    return `
+      <div>
+        <p>Reviews</p>
+        ${reviews.map((review) => Review(review).getMarkup()).join('')}
+      </div>
+    `;
   }
 
   return {
-    render: render,
+    getMarkup,
   };
 }

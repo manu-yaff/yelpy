@@ -8,7 +8,7 @@ export function BusinessHours({ isOpen, dayHours }) {
       <div>
         ${dayHours
           .map((dayHour) => {
-            return OpeningDayHours({ weekday: dayHour.weekday, hours: dayHour.hours }).getMarkup();
+            return OpeningDayHours({ weekday: dayHour[0], hours: dayHour[1] }).getMarkup();
           })
           .join('')}
       </div>

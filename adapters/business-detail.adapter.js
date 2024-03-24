@@ -21,14 +21,15 @@ function adaptReview({ rating, text, time_created, user }) {
 }
 
 export function businessDetailAdapter(businessDetailResponse) {
-  const { id, name, display_phone, review_count, rating, hours, photos, reviews } =
+  const { id, name, location, display_phone, review_count, rating, hours, photos, reviews } =
     businessDetailResponse;
 
   // TODO: should I only adapt the information received or also add this empty states values here
   return {
     id,
     name,
-    displayPhone: display_phone ?? 'Phone not available',
+    address: location.formatted_address ?? 'Address not available',
+    displayPhone: display_phone ?? 'Phone not available', // TODO: rename according to how components received the props
     reviewCount: review_count ?? 'No reviews were found',
     rating: rating ?? 'Rating not available',
     isOpen: hours[0].is_open_now ?? 'Info not available',

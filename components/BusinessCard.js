@@ -8,7 +8,7 @@ export function BusinessCard(props) {
       <div>
         <p>${address}</p>
         <div>
-          <p>${reviews}</p>
+          <p>${reviews} reviews</p>
           <p>${phone}</p>
         </div>
       </div>

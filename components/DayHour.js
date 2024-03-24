@@ -44,9 +44,9 @@ export function OpeningDayHours({ weekday, hours }) {
       <p>
         ${weekday}
       </p>
-      <div>
-        ${hours.map((hourRange) => `<p>${hourRange}</p>`).join('')}
-      </div>
+      <p>
+        ${hours}
+      </p>
     </div>
   `;
 
