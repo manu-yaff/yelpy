@@ -7,25 +7,29 @@ export function Business(parentNode, business) {
 }
 
 Business.prototype.render = function () {
-  const { image, name, address, phone, reviewsCount } = this.business;
+  const { image, name, address, phone, reviewsCount, id } = this.business;
 
+  // TODO: change this for default image constant
+  // TODO: add event listener for error
   const component = `
-    <img
-      src="${image}"
-      alt="${name} business"
-      onerror="(() => {
-        this.src = '../assets/default-image-not-found.jpeg'
-      })()"
-    />
-    <hgroup>
-      <h2>${name}</h2>
+    <div onclick="(() => {window.router.navigateTo('/business-${id}')})()">
+      <img
+        src="${image}"
+        alt="${name} business"
+        onerror="(() => {
+          this.src = '../assets/default-image-not-found.jpeg'
+        })()"
+      />
+      <hgroup>
+        <h2>${name}</h2>
+        <div class="space-between">
+          <p>${address}</p>
+        </div>
+      </hgroup>
       <div class="space-between">
-        <p>${address}</p>
+        <p>${phone}</p>
+        <p>${reviewsCount}</p>
       </div>
-    </hgroup>
-    <div class="space-between">
-      <p>${phone}</p>
-      <p>${reviewsCount}</p>
     </div>
   `;
 
