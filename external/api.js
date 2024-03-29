@@ -1,5 +1,5 @@
 import { API_HOST } from '../constants.js';
-import { SEARCH_BUSINESS_QUERY } from '../graphql/queries.js';
+import { BUSINESS_DETAIL_QUERY, SEARCH_BUSINESS_QUERY } from '../graphql/queries.js';
 import { adaptBusinessResponse } from '../adapters/business.adapter.js';
 
 async function getBusinessBySearch(searchTerm, location) {
@@ -27,4 +27,27 @@ async function getBusinessBySearch(searchTerm, location) {
   }
 }
 
-export { getBusinessBySearch };
+async function getBusinessDetail(businessId) {
+  try {
+    const result = await fetch(API_HOST, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        query: BUSINESS_DETAIL_QUERY,
+        variables: {
+          id: businessId,
+        },
+      }),
+    });
+
+    const { data } = await result.json();
+
+    return data.business;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { getBusinessBySearch, getBusinessDetail };

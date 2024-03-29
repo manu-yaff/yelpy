@@ -14,3 +14,38 @@ export const SEARCH_BUSINESS_QUERY = `
     }
   }
 `;
+
+export const BUSINESS_DETAIL_QUERY = `
+  query Business($id: String!) {
+    business(id: $id) {
+      name
+      id
+      phone
+      display_phone
+      review_count
+      rating
+      hours {
+        is_open_now
+        open {
+          end
+          start
+          day
+        }
+      }
+      photos
+      reviews(limit: 5) {
+        id
+        rating
+        text
+        time_created
+        user {
+          profile_url
+          name
+        }
+      }
+      location {
+        formatted_address
+      }
+    }
+  }
+`;

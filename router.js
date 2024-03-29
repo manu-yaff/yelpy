@@ -4,7 +4,7 @@ import { SearchPage } from './pages/BusinessSearchPage.js';
 export function Router() {
   this.routes = {
     '/': new SearchPage($query('body')),
-    '/business-1': BusinessDetailPage(),
+    '/business-1': BusinessDetailPage,
   };
 }
 
@@ -13,21 +13,27 @@ Router.prototype.init = function () {
   const defaultRoute = '/';
   const route = Object.hasOwn(this.routes, initialPath) ? initialPath : defaultRoute;
 
-  window.addEventListener('popstate', function listenForPushEvents() {
-    console.log('route has changed');
-  });
+  window.addEventListener(
+    'popstate',
+    function listenForPushEvents(event) {
+      console.log('route has changed');
+      console.log(this);
+      this.navigateTo(location.pathname);
+    }.bind(this)
+  );
 
   this.navigateTo(route);
 };
 
-Router.prototype.navigateTo = function (location) {
+Router.prototype.navigateTo = async function (location) {
   const body = document.querySelector('body');
   body.replaceChildren();
 
   history.pushState({}, '', location);
 
   if (location.startsWith('/business-')) {
-    this.routes['/business-1'].render(body);
+    const businessDetail = await this.routes['/business-1']();
+    businessDetail.render(body);
   } else {
     this.routes['/'].render();
   }

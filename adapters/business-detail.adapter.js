@@ -32,8 +32,9 @@ export function businessDetailAdapter(businessDetailResponse) {
     displayPhone: display_phone ?? 'Phone not available', // TODO: rename according to how components received the props
     reviewCount: review_count ?? 'No reviews were found',
     rating: rating ?? 'Rating not available',
-    isOpen: hours[0].is_open_now ?? 'Info not available',
-    hours: hours[0].open.length > 0 ? hours[0].open.map(adaptHour) : 'Business hours not available',
+    isOpen: hours[0]?.is_open_now ?? 'Info not available',
+    hours:
+      hours[0]?.open.length > 0 ? hours[0].open.map(adaptHour) : 'Business hours not available',
     photos: photos?.length > 0 ? photos : IMAGE_NOT_FOUND_PATH,
     reviews: reviews?.length > 0 ? reviews.map(adaptReview) : [],
   };
