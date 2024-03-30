@@ -1,40 +1,55 @@
 import { BusinessDetailPage } from './pages/BusinessDetailPage.js';
 import { SearchPage } from './pages/BusinessSearchPage.js';
+import { DOM } from './utils/dom.js';
 
 export function Router() {
-  this.routes = {
-    '/': new SearchPage($query('body')),
-    '/business-1': BusinessDetailPage,
+  const dom = DOM();
+
+  const routes = {
+    home: '/',
+    detail: '/detail',
+  };
+
+  const defaultRoute = routes.home;
+
+  const regexRoutesMapping = {
+    '/': /^\/$/,
+    '/detail': /\/business-.+/,
+  };
+
+  const routesMapping = {
+    [routes.home]: BusinessList(),
+    [routes.detail]: {
+      getMarkup: () => '<h1>detail page</h1>',
+    },
+  };
+
+  function getCurrentUrl() {
+    return window.location.pathname;
+  }
+
+  function navigateTo(route) {
+    const body = document.querySelector('body');
+
+    const matchingRoute = Object.entries(regexRoutesMapping).find(([_, regex]) =>
+      regex.test(route)
+    );
+
+    if (matchingRoute) {
+      dom.render(body, routesMapping[matchingRoute[0]].getMarkup());
+    } else {
+      history.pushState({}, '', '/');
+      dom.render(body, routesMapping[defaultRoute].getMarkup());
+    }
+  }
+
+  function init() {
+    const route = getCurrentUrl();
+    navigateTo(route);
+  }
+
+  return {
+    getCurrentUrl,
+    init,
   };
 }
-
-Router.prototype.init = function () {
-  const initialPath = window.location.pathname;
-  const defaultRoute = '/';
-  const route = Object.hasOwn(this.routes, initialPath) ? initialPath : defaultRoute;
-
-  window.addEventListener(
-    'popstate',
-    function listenForPushEvents(event) {
-      console.log('route has changed');
-      console.log(this);
-      this.navigateTo(location.pathname);
-    }.bind(this)
-  );
-
-  this.navigateTo(route);
-};
-
-Router.prototype.navigateTo = async function (location) {
-  const body = document.querySelector('body');
-  body.replaceChildren();
-
-  history.pushState({}, '', location);
-
-  if (location.startsWith('/business-')) {
-    const businessDetail = await this.routes['/business-1']();
-    businessDetail.render(body);
-  } else {
-    this.routes['/'].render();
-  }
-};
