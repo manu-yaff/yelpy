@@ -1,11 +1,28 @@
-import { BaseComponent } from './BaseElement.js';
+export function Button({ text, onClick, type = 'button' }) {
+  const buttonId = `${text}-button`;
 
-Object.setPrototypeOf(Button, BaseComponent);
+  const markup = `
+    <button id="${buttonId}" type="${type}">${text}</button>
+  `;
 
-export function Button({ parentNode, text, onClick, type = 'button' }) {
-  BaseComponent.apply(this, [parentNode, 'button']);
+  function getMarkup() {
+    return markup;
+  }
 
-  this.container.textContent = text;
-  this.container.type = type;
-  this.container.addEventListener('click', onClick);
+  function addEventListenersToButton() {
+    const btn = document.getElementById(buttonId);
+    btn.addEventListener('click', function setOnClickHandler() {
+      onClick();
+    });
+  }
+
+  function render(container) {
+    container.insertAdjacentHTML('beforeend', markup);
+    addEventListenersToButton();
+  }
+
+  return {
+    getMarkup,
+    render,
+  };
 }
