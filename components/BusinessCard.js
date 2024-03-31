@@ -1,8 +1,9 @@
-export function BusinessCard(props) {
-  const { imageUrl, name, address, phone, reviews } = props;
+import { IMAGE_NOT_FOUND_PATH, ROUTES } from '../constants.js';
 
+export function BusinessCard({ id, imageUrl, name, address, phone, reviews }) {
+  const cardId = `business-card-${id}`;
   const markup = `
-    <div>
+    <div id="${cardId}">
       <img src="${imageUrl}" alt="${name} business image" />
       <p>${name}</p>
       <div>
@@ -19,5 +20,22 @@ export function BusinessCard(props) {
     return markup;
   }
 
-  return { getMarkup };
+  function addEventListenersToCard() {
+    const card = document.getElementById(cardId);
+    const imageCard = document.querySelector(`#${cardId} > img`);
+    card.addEventListener('click', function navigateToDetailView() {
+      router.navigateTo(`${ROUTES.detail}${id}`);
+    });
+
+    imageCard.addEventListener('error', function setDefaultImage() {
+      imageCard.src = IMAGE_NOT_FOUND_PATH;
+    });
+  }
+
+  function render(container) {
+    container.insertAdjacentHTML('beforeend', markup);
+    addEventListenersToCard();
+  }
+
+  return { render, getMarkup };
 }
