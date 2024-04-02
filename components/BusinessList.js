@@ -1,31 +1,45 @@
-import { BaseComponent } from './BaseElement.js';
-import { Business } from './Business.js';
+import { BusinessCard } from './BusinessCard.js';
 
-Object.setPrototypeOf(BusinessList, BaseComponent);
+export function BusinessList({ items }) {
+  const container = document.createElement('div');
+  const businessListId = 'business-list';
 
-export function BusinessList(parentNode, items = undefined) {
-  BaseComponent.apply(this, [parentNode, 'section']);
+  const markup = `
+    <div>
+      <div id="${businessListId}"></div>
+    </div>
+  `;
 
-  this.items = items;
+  initComponent();
+
+  function initComponent() {
+    container.insertAdjacentHTML('beforeend', markup);
+    const listElement = container.querySelector(`#${businessListId}`);
+
+    if (items.length === 0) {
+      const emptyState = document.createElement('p');
+      emptyState.insertAdjacentText('beforeend', 'No business were found for your search');
+
+      listElement.appendChild(emptyState);
+      return;
+    }
+
+    items.map((item) => {
+      const businessComp = BusinessCard(item);
+      listElement.appendChild(businessComp.getContainer());
+    });
+  }
+
+  function getMarkup() {
+    return markup;
+  }
+
+  function getContainer() {
+    return container;
+  }
+
+  return {
+    getMarkup,
+    getContainer,
+  };
 }
-
-BusinessList.prototype.setItems = function (items) {
-  this.items = items;
-};
-
-BusinessList.prototype.render = function () {
-  this.container.innerHTML = '';
-
-  if (this.items == undefined) return;
-
-  if (this.items.length == 0) this.container.append('No results were found for your search');
-
-  this.items.forEach(
-    function renderBusiness(business) {
-      const businessComp = new Business(this.parentNode, business);
-      businessComp.render();
-    }.bind(this)
-  );
-
-  this.parentNode.append(this.container);
-};
