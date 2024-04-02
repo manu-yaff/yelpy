@@ -16,51 +16,114 @@ const businessCard = BusinessCard({
 ///////////////////////////////////////////////////////
 
 export function Router() {
-  const dom = DOM();
+  const urlParams = {};
 
-  const defaultRoute = ROUTES.home;
-
-  const regexRoutesMapping = {
-    '/': /^\/$/,
-    '/business-': /\/business-.+/,
-  };
-
-  const routesMapping = {
-    [ROUTES.home]: businessCard,
-    [ROUTES.detail]: {
-      render: (container) => container.replaceChildren('detail page'),
+  const routes = [
+    {
+      path: '/',
+      component: businessList,
     },
-  };
+    {
+      path: '/login',
+      component: 'this is the login component is the home component',
+    },
+    {
+      path: '/settings',
+      component: 'this is the settings component',
+    },
+    {
+      path: '/help',
+      component: 'this is the help component',
+    },
+    {
+      path: '/business/:id',
+      component: {
+        getContainer: () => {
+          const el = document.createElement('div');
+          el.textContent = 'this is the business id route';
+          return el;
+        },
+      },
+    },
+  ];
+
+  function matchRoute(url) {
+    function routeSegmentsEqualToUrlSegments(routeSegments, urlSegments) {
+      return routeSegments.length == urlSegments.length;
+    }
+
+    function extractUrlParams(routeSegments, urlSegments) {
+      routeSegments.forEach((routeSegment, index) => {
+        if (routeSegment.startsWith(':')) {
+          const paramName = routeSegment.split(':').slice(1);
+          const paramValue = urlSegments[index];
+
+          urlParams[paramName] = paramValue;
+        }
+      });
+    }
+
+    const match = routes.find((route) => {
+      if (route.path == url) {
+        return true;
+      }
+
+      // check the path matches with the parametized route
+      const routeSegments = route.path.split('/');
+      const urlSegments = url.split('/');
+
+      if (!routeSegmentsEqualToUrlSegments) return false;
+
+      const hasMatched = routeSegments.every(
+        (segment, index) => segment === urlSegments[index] || segment.startsWith(':')
+      );
+
+      if (hasMatched) {
+        extractUrlParams(routeSegments, urlSegments);
+        return true;
+      }
+    });
+
+    return match?.component ?? '404 not found';
+  }
+
+  function navigateTo(route) {
+    history.pushState({}, '', route);
+    const matchedComponent = matchRoute(route);
+
+    const body = document.querySelector('main');
+
+    body.replaceChildren();
+    body.appendChild(matchedComponent.getContainer());
+  }
+
+  function preventATagsFromDefault() {
+    const aTags = document.querySelectorAll('a');
+
+    aTags.forEach(function setEventListener(aTag) {
+      aTag.addEventListener('click', function preventDefault(event) {
+        event.preventDefault();
+
+        const href = aTag.getAttribute('href');
+        navigateTo(href);
+      });
+    });
+  }
+
+  function init() {
+    const currentUrl = getCurrentUrl();
+
+    preventATagsFromDefault();
+    navigateTo(currentUrl);
+  }
 
   function getCurrentUrl() {
     return window.location.pathname;
   }
 
-  function navigateTo(route) {
-    const body = document.querySelector('body');
-
-    const matchingRoute = Object.entries(regexRoutesMapping).find(([_, regex]) =>
-      regex.test(route)
-    );
-
-    if (matchingRoute) {
-      history.pushState({}, '', route);
-      routesMapping[matchingRoute[0]].render(body);
-    } else {
-      history.pushState({}, '', '/');
-      routesMapping[defaultRoute].render(body);
-    }
+  function getUrlParams() {
+    return urlParams;
   }
 
-  // TODO: handle navigation backwards and forwards
-  function init() {
-    const route = getCurrentUrl();
-    navigateTo(route);
-  }
-
-  return {
-    getCurrentUrl,
-    init,
-    navigateTo,
-  };
+  return { init, getUrlParams, navigateTo };
 }
