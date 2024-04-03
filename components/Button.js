@@ -1,28 +1,28 @@
 export function Button({ text, onClick, type = 'button' }) {
+  const componentContainer = document.createElement('button');
   const buttonId = `${text}-button`;
 
-  const markup = `
-    <button id="${buttonId}" type="${type}">${text}</button>
-  `;
+  initComponent();
 
-  function getMarkup() {
-    return markup;
+  function initComponent() {
+    componentContainer.setAttribute('id', buttonId);
+    componentContainer.setAttribute('type', type);
+    componentContainer.textContent = text;
+
+    addEventListenersToButton();
+  }
+
+  function getContainer() {
+    return componentContainer;
   }
 
   function addEventListenersToButton() {
-    const btn = document.getElementById(buttonId);
-    btn.addEventListener('click', function setOnClickHandler() {
+    componentContainer.addEventListener('click', function setOnClickHandler() {
       onClick();
     });
   }
 
-  function render(container) {
-    container.insertAdjacentHTML('beforeend', markup);
-    addEventListenersToButton();
-  }
-
   return {
-    getMarkup,
-    render,
+    getContainer,
   };
 }
