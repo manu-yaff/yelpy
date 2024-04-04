@@ -1,16 +1,17 @@
-import { IMAGE_NOT_FOUND_PATH } from '../constants.js';
+import { IMAGE_NOT_FOUND_PATH, ROUTES } from '../constants.js';
 
 export function BusinessCard({ id, imageUrl, name, address, phone, reviews }) {
   const componentContainer = document.createElement('div');
+  const businessDetailPath = `${ROUTES.detail}/${id}`;
   const markup = `
     <div>
-      <a href="/business/${id}">
+      <a href="${businessDetailPath}">
         <img src="${imageUrl}" alt="${name} business image" />
         <p>${name}</p>
         <div>
           <p>${address}</p>
           <div>
-            <p>${reviews} reviews</p>
+            <p>${reviews}</p>
             <p>${phone}</p>
           </div>
         </div>
@@ -27,7 +28,9 @@ export function BusinessCard({ id, imageUrl, name, address, phone, reviews }) {
     });
 
     const aTag = componentContainer.querySelector('a');
-    aTag.addEventListener('click', window.router.preventATagFromDefault);
+    aTag.addEventListener('click', (event) => {
+      window.router.preventATagFromDefault(event, businessDetailPath);
+    });
   }
 
   function initComponent() {

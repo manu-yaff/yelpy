@@ -8,5 +8,9 @@ export const DEFAULT_USER_PROFILE_PIC_URL = '/assets/default-avatar.jpg';
 
 export const ROUTES = {
   home: '/',
-  detail: '/business-',
+  detail: '/business',
+};
+
+export const CUSTOM_EVENTS = {
+  navigation: 'custom-navigation',
 };

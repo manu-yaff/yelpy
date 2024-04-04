@@ -1,21 +1,22 @@
-export function Fetcher(notified) {
-  this._state = {
-    error: null,
+export function FetchData({ callback, observer }) {
+  const state = {
     loading: false,
+    error: null,
     data: null,
   };
 
-  this.state = new Proxy(this._state, {
-    set: notified,
-  });
+  const proxyState = new Proxy(state, { set: observer });
+
+  (async function () {
+    try {
+      proxyState.loading = true;
+
+      const data = await callback();
+      proxyState.data = data;
+    } catch (error) {
+      proxyState.error = error;
+    } finally {
+      proxyState.loading = false;
+    }
+  })();
 }
-
-Fetcher.prototype.fetchData = async function (callback) {
-  this.state.loading = true;
-
-  const [data, error] = await callback();
-
-  error ? (this.state.error = error) : (this.state.data = data);
-
-  this.state.loading = false;
-};

@@ -1,19 +1,5 @@
-import { BusinessCard } from './components/BusinessCard.js';
-import { BusinessDetailPage } from './pages/BusinessDetailPage.js';
-import { SearchPage } from './pages/BusinessSearchPage.js';
-import { DOM } from './utils/dom.js';
-import { ROUTES } from './constants.js';
-
-///////////////////////////////////////////////////////
-const businessCard = BusinessCard({
-  id: 'Y2Iqqe13-n7_60q9ND0vMA',
-  imageUrl: 'https://google.com',
-  name: 'Tacos San Juan',
-  address: 'San Juan de los Lagos',
-  phone: '4659081243',
-  reviews: 10,
-});
-///////////////////////////////////////////////////////
+import { BusinessSearchPage } from './pages/BusinessSearchPage.js';
+import { CUSTOM_EVENTS } from './constants.js';
 
 export function Router() {
   const urlParams = {};
@@ -21,28 +7,18 @@ export function Router() {
   const routes = [
     {
       path: '/',
-      component: businessList,
-    },
-    {
-      path: '/login',
-      component: 'this is the login component is the home component',
-    },
-    {
-      path: '/settings',
-      component: 'this is the settings component',
-    },
-    {
-      path: '/help',
-      component: 'this is the help component',
+      component: BusinessSearchPage,
     },
     {
       path: '/business/:id',
-      component: {
-        getContainer: () => {
-          const el = document.createElement('div');
-          el.textContent = 'this is the business id route';
-          return el;
-        },
+      component: function () {
+        return {
+          getContainer: () => {
+            const doc = document.createElement('div');
+            doc.textContent = 'detail page';
+            return doc;
+          },
+        };
       },
     },
   ];
@@ -68,7 +44,6 @@ export function Router() {
         return true;
       }
 
-      // check the path matches with the parametized route
       const routeSegments = route.path.split('/');
       const urlSegments = url.split('/');
 
@@ -84,7 +59,7 @@ export function Router() {
       }
     });
 
-    return match?.component ?? '404 not found';
+    return match?.component ?? '404';
   }
 
   function navigateTo(route) {
@@ -94,26 +69,25 @@ export function Router() {
     const body = document.querySelector('main');
 
     body.replaceChildren();
-    body.appendChild(matchedComponent.getContainer());
+    body.appendChild(matchedComponent().getContainer());
   }
 
-  function preventATagsFromDefault() {
-    const aTags = document.querySelectorAll('a');
+  function preventATagFromDefault(event, targetPath) {
+    event.preventDefault();
 
-    aTags.forEach(function setEventListener(aTag) {
-      aTag.addEventListener('click', function preventDefault(event) {
-        event.preventDefault();
-
-        const href = aTag.getAttribute('href');
-        navigateTo(href);
-      });
-    });
+    const customEvent = new CustomEvent(CUSTOM_EVENTS.navigation, { detail: { targetPath } });
+    window.dispatchEvent(customEvent);
   }
 
   function init() {
     const currentUrl = getCurrentUrl();
 
-    preventATagsFromDefault();
+    window.addEventListener(CUSTOM_EVENTS.navigation, (event) => {
+      navigateTo(event.detail.targetPath);
+    });
+
+    window.router = this;
+
     navigateTo(currentUrl);
   }
 
@@ -125,5 +99,5 @@ export function Router() {
     return urlParams;
   }
 
-  return { init, getUrlParams, navigateTo };
+  return { init, getUrlParams, navigateTo, preventATagFromDefault };
 }

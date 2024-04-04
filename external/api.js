@@ -21,9 +21,9 @@ async function getBusinessBySearch(searchTerm, location) {
     const { data } = await result.json();
     const businessList = data.search.business;
 
-    return [businessList.map(adaptBusinessResponse), null];
+    return businessList.map(adaptBusinessResponse);
   } catch (error) {
-    return [error.message, null];
+    return error.message;
   }
 }
 

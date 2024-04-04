@@ -1,13 +1,15 @@
+import { IMAGE_NOT_FOUND_PATH } from '../constants.js';
+
 function adaptBusinessResponse(businessResponse) {
   const { id, photos, name, location, phone, review_count } = businessResponse;
 
   return {
     id,
-    image: photos.length > 0 ? photos[0] : 'default image', // check it case it has no photos, check image does not load
-    name,
-    address: location.formatted_address,
-    phone,
-    reviewsCount: review_count,
+    imageUrl: photos?.length > 0 ? photos[0] : IMAGE_NOT_FOUND_PATH,
+    name: name ?? 'Name not available',
+    address: location?.formatted_address ?? 'Address not available',
+    phone: phone ?? 'Phone not available',
+    reviews: review_count ? `${review_count} reviews` : 'Review count not available',
   };
 }
 
