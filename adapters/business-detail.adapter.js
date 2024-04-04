@@ -28,9 +28,9 @@ export function businessDetailAdapter(businessDetailResponse) {
   return {
     id,
     name,
-    address: location.formatted_address ?? 'Address not available',
+    address: location?.formatted_address ?? 'Address not available',
     displayPhone: display_phone ?? 'Phone not available', // TODO: rename according to how components received the props
-    reviewCount: review_count ?? 'No reviews were found',
+    reviewCount: review_count ? `${review_count} reviews` : 'No reviews were found',
     rating: rating ?? 'Rating not available',
     isOpen: hours[0]?.is_open_now ?? 'Info not available',
     hours:

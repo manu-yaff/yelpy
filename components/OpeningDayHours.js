@@ -39,26 +39,25 @@ export function groupHoursByDay(hours) {
 }
 
 export function OpeningDayHours({ weekday, hours }) {
-  var markup = `
+  const componentContainer = document.createElement('div');
+
+  const markup = `
     <div>
       <p>
-        ${weekday}
-      </p>
-      <p>
-        ${hours}
+        ${weekday} - ${hours}
       </p>
     </div>
   `;
 
-  function render(target) {
-    target.innerHTML = markup;
+  initComponent();
 
-    return target;
+  function initComponent() {
+    componentContainer.insertAdjacentHTML('beforeend', markup);
   }
 
-  function getMarkup() {
-    return markup;
+  function getContainer() {
+    return componentContainer;
   }
 
-  return { render, getMarkup };
+  return { getContainer };
 }
