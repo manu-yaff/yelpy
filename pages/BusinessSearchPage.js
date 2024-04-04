@@ -1,4 +1,5 @@
 import { BusinessList } from '../components/BusinessList.js';
+import { ErrorComponent } from '../components/Error.js';
 import { SearchForm } from '../components/SearchForm.js';
 import { getBusinessBySearch } from '../external/api.js';
 import { FetchData } from '../utils/fetcher.js';
@@ -6,6 +7,7 @@ import { FetchData } from '../utils/fetcher.js';
 export function BusinessSearchPage() {
   const componentContainer = document.createElement('section');
   const listContainer = document.createElement('div');
+  const errorComponent = ErrorComponent();
 
   const searchForm = SearchForm({
     onFormSubmitted,
@@ -25,7 +27,7 @@ export function BusinessSearchPage() {
 
     if (isError) {
       listContainer.replaceChildren();
-      listContainer.textContent = 'Error!';
+      listContainer.appendChild(errorComponent.getContainer());
     }
 
     if (isData) {
