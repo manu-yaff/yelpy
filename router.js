@@ -1,5 +1,6 @@
 import { BusinessSearchPage } from './pages/BusinessSearchPage.js';
 import { CUSTOM_EVENTS } from './constants.js';
+import { BusinessDetailPage } from './pages/BusinessDetailPage.js';
 
 export function Router() {
   const urlParams = {};
@@ -11,15 +12,7 @@ export function Router() {
     },
     {
       path: '/business/:id',
-      component: function () {
-        return {
-          getContainer: () => {
-            const doc = document.createElement('div');
-            doc.textContent = 'detail page';
-            return doc;
-          },
-        };
-      },
+      component: BusinessDetailPage,
     },
   ];
 
@@ -62,14 +55,16 @@ export function Router() {
     return match?.component ?? '404';
   }
 
-  function navigateTo(route) {
+  async function navigateTo(route) {
     history.pushState({}, '', route);
     const matchedComponent = matchRoute(route);
 
     const body = document.querySelector('main');
 
     body.replaceChildren();
-    body.appendChild(matchedComponent().getContainer());
+
+    const component = await matchedComponent();
+    body.appendChild(component.getContainer());
   }
 
   function preventATagFromDefault(event, targetPath) {

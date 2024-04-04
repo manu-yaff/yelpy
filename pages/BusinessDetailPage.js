@@ -1,42 +1,45 @@
-import { businessDetailResponse } from '../tests/mocks/businessDetailResponse.js';
 import { businessDetailAdapter } from '../adapters/business-detail.adapter.js';
 import { BusinessCard } from '../components/BusinessCard.js';
 import { BusinessHours } from '../components/BusinessHours.js';
-import { ReviewList } from '../components/ReviewList.js';
-import { formatDayHours, groupHoursByDay } from '../components/DayHour.js';
+import { formatDayHours, groupHoursByDay } from '../components/OpeningDayHours.js';
 import { getBusinessDetail } from '../external/api.js';
 
 export async function BusinessDetailPage() {
-  const businessId = window.location.pathname.split('/business-')[1];
+  const componentContainer = document.createElement('div');
+  const { id } = window.router.getUrlParams();
 
-  const businessDetail = await getBusinessDetail(businessId);
-  const adaptedResponse = businessDetailAdapter(businessDetail);
-
+  const response = await getBusinessDetail(id);
+  const businessDetail = businessDetailAdapter(response);
   const { photos, name, address, displayPhone, reviewCount, isOpen, hours, reviews } =
-    adaptedResponse;
+    businessDetail;
 
-  const businessCardComponent = BusinessCard({
-    imageUrl: photos[0],
+  const businessCard = BusinessCard({
     name,
     address,
     reviews: reviewCount,
     phone: displayPhone,
+    imageUrl: photos[0],
   });
 
-  const businessHoursComponent = BusinessHours({
+  const businessHours = BusinessHours({
     isOpen,
     dayHours: hours.length > 0 ? formatDayHours(groupHoursByDay(hours)) : [],
   });
 
-  const reviewsComponent = ReviewList(reviews);
+  initComponent();
 
-  function render(container) {
-    container.insertAdjacentHTML('beforeend', businessCardComponent.getMarkup());
-    container.insertAdjacentHTML('beforeend', businessHoursComponent.getMarkup());
-    container.insertAdjacentHTML('beforeend', reviewsComponent.getMarkup());
+  function initComponent() {
+    componentContainer.insertAdjacentText('beforeend', 'detail');
+
+    componentContainer.append(businessCard.getContainer());
+    componentContainer.append(businessHours.getContainer());
+  }
+
+  function getContainer() {
+    return componentContainer;
   }
 
   return {
-    render,
+    getContainer,
   };
 }
