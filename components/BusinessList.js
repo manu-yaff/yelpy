@@ -24,7 +24,7 @@ export function BusinessList({ items }) {
       return;
     }
 
-    items.map((item) => {
+    items.forEach((item) => {
       const businessComp = BusinessCard(item);
       listElement.appendChild(businessComp.getContainer());
     });
