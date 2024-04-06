@@ -1,4 +1,14 @@
-// TODO: define where to validate inputs, here or in parent component
+/**
+ * @param {Object} props
+ * @example
+ * props {
+ *  type: 'text'
+ *  labelText: 'Location'
+ *  placeholder: 'eg San Francisco'
+ *  name: 'location-input' - used to retrieve value in FormData
+ *  required: true
+ * }
+ */
 export function Input({ type, labelText, placeholder, name, required }) {
   const componentContainer = document.createElement('div');
   const markup = `
@@ -10,8 +20,6 @@ export function Input({ type, labelText, placeholder, name, required }) {
       ${required ? 'required' : ''}/>
   `;
 
-  initComponent();
-
   function initComponent() {
     componentContainer.insertAdjacentHTML('beforeend', markup);
     const input = componentContainer.querySelector('input');
@@ -21,16 +29,13 @@ export function Input({ type, labelText, placeholder, name, required }) {
     });
   }
 
-  function getMarkup() {
-    return markup;
-  }
-
   function getContainer() {
     return componentContainer;
   }
 
+  initComponent();
+
   return {
-    getMarkup,
     getContainer,
   };
 }
