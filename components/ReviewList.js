@@ -1,16 +1,26 @@
 import { Review } from './Review.js';
 
+/**
+ *
+ * @param {Object} props
+ * @example props {
+ *  items: Array<{@link Review}>
+ * }
+ */
 export function ReviewList({ items }) {
   const componentContainer = document.createElement('div');
+  const reviewsContainerId = 'reviews-container';
 
   const markup = `
     <div>
       <p>Reviews</p>
-      <div id="reviews-container"></div>
+      <div id="${reviewsContainerId}"></div>
     </div>
   `;
 
-  initComponent();
+  function getContainer() {
+    return componentContainer;
+  }
 
   function initComponent() {
     if (items.length == 0) {
@@ -20,7 +30,7 @@ export function ReviewList({ items }) {
 
     componentContainer.insertAdjacentHTML('beforeend', markup);
 
-    const reviewsContainer = componentContainer.querySelector('#reviews-container');
+    const reviewsContainer = componentContainer.querySelector(`#${reviewsContainerId}`);
 
     items.forEach((item) => {
       const reviewComp = Review(item);
@@ -29,9 +39,7 @@ export function ReviewList({ items }) {
     });
   }
 
-  function getContainer() {
-    return componentContainer;
-  }
+  initComponent();
 
   return {
     getContainer,

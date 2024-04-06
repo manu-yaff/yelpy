@@ -1,6 +1,7 @@
 import { BusinessCard } from '../components/BusinessCard.js';
 import { BusinessHours } from '../components/BusinessHours.js';
 import { formatDayHours, groupHoursByDay } from '../components/OpeningDayHours.js';
+import { ReviewList } from '../components/ReviewList.js';
 import { getBusinessDetail } from '../external/api.js';
 
 export async function BusinessDetailPage() {
@@ -24,6 +25,8 @@ export async function BusinessDetailPage() {
     dayHours: hours.length > 0 ? formatDayHours(groupHoursByDay(hours)) : [],
   });
 
+  const reviewsComponent = ReviewList({ items: reviews });
+
   initComponent();
 
   function initComponent() {
@@ -31,6 +34,7 @@ export async function BusinessDetailPage() {
 
     componentContainer.append(businessCard.getContainer());
     componentContainer.append(businessHours.getContainer());
+    componentContainer.append(reviewsComponent.getContainer());
   }
 
   function getContainer() {
