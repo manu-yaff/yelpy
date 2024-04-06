@@ -1,11 +1,17 @@
+/**
+ *
+ * @param {Object} props
+ * @example
+ * props {
+ *  text: 'Search'
+ *  type: 'submit'
+ *  onClick: () => { console.log('onclick function')}
+ * }
+ */
 export function Button({ text, onClick, type = 'button' }) {
   const componentContainer = document.createElement('button');
-  const buttonId = `${text}-button`;
-
-  initComponent();
 
   function initComponent() {
-    componentContainer.setAttribute('id', buttonId);
     componentContainer.setAttribute('type', type);
     componentContainer.textContent = text;
 
@@ -21,6 +27,8 @@ export function Button({ text, onClick, type = 'button' }) {
       onClick();
     });
   }
+
+  initComponent();
 
   return {
     getContainer,

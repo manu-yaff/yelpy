@@ -1,4 +1,3 @@
-import { businessDetailAdapter } from '../adapters/business-detail.adapter.js';
 import { BusinessCard } from '../components/BusinessCard.js';
 import { BusinessHours } from '../components/BusinessHours.js';
 import { formatDayHours, groupHoursByDay } from '../components/OpeningDayHours.js';
@@ -8,8 +7,7 @@ export async function BusinessDetailPage() {
   const componentContainer = document.createElement('div');
   const { id } = window.router.getUrlParams();
 
-  const response = await getBusinessDetail(id);
-  const businessDetail = businessDetailAdapter(response);
+  const businessDetail = await getBusinessDetail(id);
   const { photos, name, address, displayPhone, reviewCount, isOpen, hours, reviews } =
     businessDetail;
 
