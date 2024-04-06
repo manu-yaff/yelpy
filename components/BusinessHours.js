@@ -25,7 +25,7 @@ export function BusinessHours({ isOpen, dayHours }) {
   function getOpeningStatus(isOpen) {
     if (isOpen === undefined) return 'Info not available';
 
-    return isOpen ? 'Open' : 'False';
+    return isOpen ? 'Open' : 'Closed';
   }
 
   function getContainer() {

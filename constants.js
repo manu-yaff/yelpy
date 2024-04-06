@@ -14,3 +14,13 @@ export const ROUTES = {
 export const CUSTOM_EVENTS = {
   navigation: 'custom-navigation',
 };
+
+export const WEEKDAYS = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday',
+];
