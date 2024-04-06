@@ -1,6 +1,13 @@
 import { Button } from './Button.js';
 import { Input } from './Input.js';
 
+/**
+ *
+ * @param {Object} params
+ * @example props {
+ *  onFormSubmitted: () => { console.log('callback to be called on form submission') }
+ * }
+ */
 export function SearchForm({ onFormSubmitted }) {
   const SEARCH_FORM_NAME = 'search-form';
   const componentContainer = document.createElement('form');
@@ -26,19 +33,6 @@ export function SearchForm({ onFormSubmitted }) {
     onClick: () => {},
   });
 
-  initComponent();
-
-  function initComponent() {
-    componentContainer.append(
-      searchInput.getContainer(),
-      locationInput.getContainer(),
-      submitButton.getContainer()
-    );
-
-    componentContainer.setAttribute('name', SEARCH_FORM_NAME);
-    componentContainer.addEventListener('submit', handleFormSubmission);
-  }
-
   function handleFormSubmission(event) {
     event.preventDefault();
 
@@ -53,6 +47,19 @@ export function SearchForm({ onFormSubmitted }) {
   function getContainer() {
     return componentContainer;
   }
+
+  function initComponent() {
+    componentContainer.append(
+      searchInput.getContainer(),
+      locationInput.getContainer(),
+      submitButton.getContainer()
+    );
+
+    componentContainer.setAttribute('name', SEARCH_FORM_NAME);
+    componentContainer.addEventListener('submit', handleFormSubmission);
+  }
+
+  initComponent();
 
   return { getContainer };
 }
