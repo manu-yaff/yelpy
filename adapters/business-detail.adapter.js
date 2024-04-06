@@ -56,7 +56,7 @@ export function adaptBusinessDetailObject({
     rating,
     address: location?.formatted_address,
     phone: display_phone,
-    reviewCount: review_count,
+    reviewsCount: review_count,
     isOpen: hours[0]?.is_open_now,
     photos: photos?.length > 0 ? photos : IMAGE_NOT_FOUND_PATH,
     hours: hours[0]?.open.length > 0 ? hours[0].open.map(adaptHour) : [],
