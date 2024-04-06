@@ -1,5 +1,18 @@
 import { DEFAULT_USER_PROFILE_PIC_URL } from '../constants.js';
 
+/**
+ *
+ * @param {Object} props
+ * @example props {
+ *  user: {
+ *    name: 'Jonh Doe'
+ *    profileUrl: 'https://user-profile.png'
+ *  }
+ *  text: 'This place is amazing'
+ *  timeCreated: '2024-01-28'
+ *  rating: 4
+ * }
+ */
 export function Review({ user, text, timeCreated, rating }) {
   const componentContainer = document.createElement('div');
   const markup = `
@@ -20,8 +33,6 @@ export function Review({ user, text, timeCreated, rating }) {
       <p>${text}</p>
     </div>`;
 
-  initComponent();
-
   function addEventListeners() {
     const profileImg = componentContainer.querySelector('img');
 
@@ -30,20 +41,22 @@ export function Review({ user, text, timeCreated, rating }) {
     });
   }
 
-  function initComponent() {
-    componentContainer.insertAdjacentHTML('beforeend', markup);
-    addEventListeners();
-  }
-
   function renderReviewRating() {
     return Array.from({ length: rating })
-      .map(() => '<i class="ph-duotone ph-star" data-testid="review-star-icon"></i>')
+      .map(() => '<i class="ph-duotone ph-star"></i>')
       .join('');
   }
 
   function getContainer() {
     return componentContainer;
   }
+
+  function initComponent() {
+    componentContainer.insertAdjacentHTML('beforeend', markup);
+    addEventListeners();
+  }
+
+  initComponent();
 
   return {
     getContainer,
