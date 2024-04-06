@@ -15,8 +15,6 @@ export function BusinessSearchPage() {
     onFormSubmitted,
   });
 
-  initComponent();
-
   function handleStateChanges(_, property, value, __) {
     const isLoading = property == 'loading' && value;
     const isError = property == 'error' && value;
@@ -47,14 +45,16 @@ export function BusinessSearchPage() {
     });
   }
 
+  function getContainer() {
+    return componentContainer;
+  }
+
   function initComponent() {
     componentContainer.append(searchForm.getContainer());
     componentContainer.append(listContainer);
   }
 
-  function getContainer() {
-    return componentContainer;
-  }
+  initComponent();
 
   return { getContainer };
 }
