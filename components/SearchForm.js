@@ -50,13 +50,9 @@ export function SearchForm({ onFormSubmitted }) {
     });
   }
 
-  function getMarkup() {
-    return markup;
-  }
-
   function getContainer() {
     return componentContainer;
   }
 
-  return { getMarkup, getContainer };
+  return { getContainer };
 }

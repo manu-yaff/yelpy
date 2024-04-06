@@ -1,16 +1,26 @@
 import { IMAGE_NOT_FOUND_PATH } from '../constants.js';
 
-function adaptBusinessResponse(businessResponse) {
-  const { id, photos, name, location, phone, review_count } = businessResponse;
-
+/**
+ * @param {Object} business
+ * @example
+ * business {
+ *  id: 'Y2Iqqe13-n7_60q9ND0vMA'
+ *  name: 'Burgers Jonh'
+ *  phone: '+524424034677'
+ *  photos: ['https://s3-media1.fl.yelpcdn.com/bphoto/EPQjzmlcf6bjSsFo3paTXg/o.jpg']
+ *  location: {
+ *    'formatted_address': 'Ignacio Allende Sur 13\nCol'
+ *  }
+ *  reviewCount: 87
+ * }
+ */
+export function adaptBusinessObject({ id, name, phone, photos, location, review_count }) {
   return {
     id,
+    name,
+    phone,
     imageUrl: photos?.length > 0 ? photos[0] : IMAGE_NOT_FOUND_PATH,
-    name: name ?? 'Name not available',
-    address: location?.formatted_address ?? 'Address not available',
-    phone: phone ?? 'Phone not available',
-    reviews: review_count ? `${review_count} reviews` : 'Review count not available',
+    address: location?.formatted_address,
+    reviewsCount: review_count,
   };
 }
-
-export { adaptBusinessResponse };
