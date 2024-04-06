@@ -12,7 +12,7 @@ import { IMAGE_NOT_FOUND_PATH, ROUTES } from '../constants.js';
  *  reviewCount: 87
  * }
  */
-export function BusinessCard({ id, imageUrl, name, address, phone, reviewCount }) {
+export function BusinessCard({ id, imageUrl, name, address, phone, reviewsCount }) {
   const componentContainer = document.createElement('div');
   const renderOnHomePage = window.location.pathname == '/';
   const businessDetailPath = `${ROUTES.detail}/${id}`;
@@ -24,7 +24,7 @@ export function BusinessCard({ id, imageUrl, name, address, phone, reviewCount }
         <div>
           <p>${address ?? 'Address not available'}</p>
           <div>
-            <p>${reviewCount ? `${reviewCount} reviews` : 'Review count not available'}</p>
+            <p>${reviewsCount ? `${reviewsCount} reviews` : 'Review count not available'}</p>
             <p>${phone ?? 'Phone not available'}</p>
           </div>
         </div>

@@ -11,7 +11,7 @@ import { IMAGE_NOT_FOUND_PATH } from '../constants.js';
  *  location: {
  *    'formatted_address': 'Ignacio Allende Sur 13\nCol'
  *  }
- *  reviewCount: 87
+ *  review_count: 87
  * }
  */
 export function adaptBusinessObject({ id, name, display_phone, photos, location, review_count }) {

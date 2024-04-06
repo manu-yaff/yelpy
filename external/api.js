@@ -24,6 +24,7 @@ async function getBusinessBySearch(searchTerm, location) {
 
     return businessList.map(adaptBusinessObject);
   } catch (error) {
+    console.error(error);
     return error.message;
   }
 }
@@ -44,12 +45,12 @@ async function getBusinessDetail(businessId) {
     });
 
     const { data } = await result.json();
-
     const businessDetail = data.business;
 
     return adaptBusinessDetailObject(businessDetail);
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return error.message;
   }
 }
 

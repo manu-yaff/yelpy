@@ -1,5 +1,19 @@
 import { BusinessCard } from './BusinessCard.js';
 
+/**
+ * @param {Object} props
+ * @example
+ * props {
+ *  items: [
+ *    id: 'Y2Iqqe13-n7_60q9ND0vMA'
+ *    imageUrl: 'https://s3-media1.fl.yelpcdn.com/bphoto/EPQjzmlcf6bjSsFo3paTXg/o.jpg'
+ *    name: 'Burgers Jonh'
+ *    address: 'San Francisco'
+ *    phone: '+524424034677'
+ *    reviewCount: 87
+ *  ]
+ * }
+ */
 export function BusinessList({ items }) {
   const container = document.createElement('div');
   const businessListId = 'business-list';
@@ -9,8 +23,6 @@ export function BusinessList({ items }) {
       <div id="${businessListId}"></div>
     </div>
   `;
-
-  initComponent();
 
   function initComponent() {
     container.insertAdjacentHTML('beforeend', markup);
@@ -30,16 +42,13 @@ export function BusinessList({ items }) {
     });
   }
 
-  function getMarkup() {
-    return markup;
-  }
-
   function getContainer() {
     return container;
   }
 
+  initComponent();
+
   return {
-    getMarkup,
     getContainer,
   };
 }
