@@ -1,5 +1,6 @@
 import { BusinessList } from '../components/BusinessList.js';
 import { ErrorComponent } from '../components/Error.js';
+import { Loader } from '../components/Loader.js';
 import { SearchForm } from '../components/SearchForm.js';
 import { getBusinessBySearch } from '../external/api.js';
 import { FetchData } from '../utils/fetcher.js';
@@ -8,6 +9,7 @@ export function BusinessSearchPage() {
   const componentContainer = document.createElement('section');
   const listContainer = document.createElement('div');
   const errorComponent = ErrorComponent();
+  const loaderComponent = Loader();
 
   const searchForm = SearchForm({
     onFormSubmitted,
@@ -22,7 +24,7 @@ export function BusinessSearchPage() {
 
     if (isLoading) {
       listContainer.replaceChildren();
-      listContainer.textContent = 'loading...';
+      listContainer.appendChild(loaderComponent.getContainer());
     }
 
     if (isError) {
