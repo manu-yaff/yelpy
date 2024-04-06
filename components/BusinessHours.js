@@ -1,17 +1,36 @@
-import { OpeningDayHours, formatDayHours } from './OpeningDayHours.js';
+import { OpeningDayHours } from './OpeningDayHours.js';
 
+/**
+ * @param {Object} props
+ * @example
+ * props {
+ *  isOpen: true
+ *  dayHours: [
+ *    ['Monday', '9:00am - 8:00pm']
+ *    ['Tuesday', '9:00am - 2:00pm', '16:00pm - 20:00pm']
+ *  ]
+ * }
+ */
 export function BusinessHours({ isOpen, dayHours }) {
   const componentContainer = document.createElement('div');
   const dayHoursContainerId = 'day-hours-container';
   const markup = `
     <div>
       <p>Business hours</p>
-      <p>${isOpen}</p>
+      <p>${getOpeningStatus(isOpen)}</p>
       <div id="${dayHoursContainerId}"></div>
     </div>
   `;
 
-  initComponent();
+  function getOpeningStatus(isOpen) {
+    if (isOpen === undefined) return 'Info not available';
+
+    return isOpen ? 'Open' : 'False';
+  }
+
+  function getContainer() {
+    return componentContainer;
+  }
 
   function initComponent() {
     componentContainer.insertAdjacentHTML('beforeend', markup);
@@ -25,16 +44,14 @@ export function BusinessHours({ isOpen, dayHours }) {
     }
 
     dayHours.forEach((item) => {
-      const [, ...rest] = item;
+      const [, ...hoursIntervals] = item;
 
-      const dayHourComp = OpeningDayHours({ weekday: item[0], hours: rest.join(' - ') });
+      const dayHourComp = OpeningDayHours({ weekday: item[0], hours: hoursIntervals.join(' - ') });
       dayHoursContainer.append(dayHourComp.getContainer());
     });
   }
 
-  function getContainer() {
-    return componentContainer;
-  }
+  initComponent();
 
   return {
     getContainer,

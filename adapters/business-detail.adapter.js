@@ -11,31 +11,55 @@ function adaptHour({ day, start, end }) {
 function adaptReview({ rating, text, time_created, user }) {
   return {
     rating,
-    text: text ?? 'Review text not available',
+    text,
     timeCreated: time_created.slice(0, 10),
     user: {
       profileUrl: user?.profile_url ?? DEFAULT_USER_PROFILE_PIC_URL,
-      name: user?.name ?? 'Name not provided',
+      name: user?.name,
     },
   };
 }
 
-export function businessDetailAdapter(businessDetailResponse) {
-  const { id, name, location, display_phone, review_count, rating, hours, photos, reviews } =
-    businessDetailResponse;
-
-  // TODO: should I only adapt the information received or also add this empty states values here
+/**
+ * @param {Object} businessDetail
+ * @example
+ * businessDetail {
+ *  id: 'Y2Iqqe13-n7_60q9ND0vMA'
+ *  name: 'Burgers Jonh'
+ *  phone: '+524424034677'
+ *  photos: ['https://s3-media1.fl.yelpcdn.com/bphoto/EPQjzmlcf6bjSsFo3paTXg/o.jpg']
+ *  location: {
+ *    'formatted_address': 'Ignacio Allende Sur 13\nCol'
+ *  }
+ *  reviews: [{
+ *    'id': 'pZOg8DPBp2_L28BseHK76Q',
+ *    'rating': 5,
+ *    'text': 'Wow! If you're in Querétaro this is a must visit place'
+ *    'time_created': '2024-02-28 09:22:54',
+ *  }]
+ * }
+ */
+export function adaptBusinessDetailObject({
+  id,
+  name,
+  location,
+  display_phone,
+  review_count,
+  rating,
+  hours,
+  photos,
+  reviews,
+}) {
   return {
     id,
     name,
-    address: location?.formatted_address ?? 'Address not available',
-    displayPhone: display_phone ?? 'Phone not available', // TODO: rename according to how components received the props
-    reviewCount: review_count ? `${review_count} reviews` : 'No reviews were found',
-    rating: rating ?? 'Rating not available',
-    isOpen: hours[0]?.is_open_now ?? 'Info not available',
-    hours:
-      hours[0]?.open.length > 0 ? hours[0].open.map(adaptHour) : 'Business hours not available',
+    rating,
+    address: location?.formatted_address,
+    phone: display_phone,
+    reviewCount: review_count,
+    isOpen: hours[0]?.is_open_now,
     photos: photos?.length > 0 ? photos : IMAGE_NOT_FOUND_PATH,
+    hours: hours[0]?.open.length > 0 ? hours[0].open.map(adaptHour) : [],
     reviews: reviews?.length > 0 ? reviews.map(adaptReview) : [],
   };
 }
