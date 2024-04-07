@@ -77,6 +77,10 @@ export function Router() {
   function init() {
     const currentUrl = getCurrentUrl();
 
+    window.addEventListener('popstate', () => {
+      navigateTo(getCurrentUrl());
+    });
+
     window.addEventListener(CUSTOM_EVENTS.navigation, (event) => {
       navigateTo(event.detail.targetPath);
     });
