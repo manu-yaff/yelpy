@@ -1,31 +1,54 @@
-import { BaseComponent } from './BaseElement.js';
-import { Business } from './Business.js';
+import { BusinessCard } from './BusinessCard.js';
 
-Object.setPrototypeOf(BusinessList, BaseComponent);
+/**
+ * @param {Object} props
+ * @example
+ * props {
+ *  items: [
+ *    id: 'Y2Iqqe13-n7_60q9ND0vMA'
+ *    imageUrl: 'https://s3-media1.fl.yelpcdn.com/bphoto/EPQjzmlcf6bjSsFo3paTXg/o.jpg'
+ *    name: 'Burgers Jonh'
+ *    address: 'San Francisco'
+ *    phone: '+524424034677'
+ *    reviewCount: 87
+ *  ]
+ * }
+ */
+export function BusinessList({ items }) {
+  const container = document.createElement('div');
+  const businessListId = 'business-list';
 
-export function BusinessList(parentNode, items = undefined) {
-  BaseComponent.apply(this, [parentNode, 'section']);
+  const markup = `
+    <div>
+      <div id="${businessListId}"></div>
+    </div>
+  `;
 
-  this.items = items;
+  function initComponent() {
+    container.insertAdjacentHTML('beforeend', markup);
+    const listElement = container.querySelector(`#${businessListId}`);
+
+    if (items.length === 0) {
+      const emptyState = document.createElement('p');
+      emptyState.insertAdjacentText('beforeend', 'No business were found for your search');
+
+      listElement.appendChild(emptyState);
+      return;
+    }
+
+    items.forEach((item) => {
+      const businessComp = BusinessCard(item);
+      listElement.appendChild(businessComp.getContainer());
+    });
+  }
+
+  function getContainer() {
+    return container;
+  }
+
+  initComponent();
+
+  return {
+    getContainer,
+  };
 }
-
-BusinessList.prototype.setItems = function (items) {
-  this.items = items;
-};
-
-BusinessList.prototype.render = function () {
-  this.container.innerHTML = '';
-
-  if (this.items == undefined) return;
-
-  if (this.items.length == 0) this.container.append('No results were found for your search');
-
-  this.items.forEach(
-    function renderBusiness(business) {
-      const businessComp = new Business(this.parentNode, business);
-      businessComp.render();
-    }.bind(this)
-  );
-
-  this.parentNode.append(this.container);
-};

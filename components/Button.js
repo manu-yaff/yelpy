@@ -1,11 +1,36 @@
-import { BaseComponent } from './BaseElement.js';
+/**
+ *
+ * @param {Object} props
+ * @example
+ * props {
+ *  text: 'Search'
+ *  type: 'submit'
+ *  onClick: () => { console.log('onclick function')}
+ * }
+ */
+export function Button({ text, onClick, type = 'button' }) {
+  const componentContainer = document.createElement('button');
 
-Object.setPrototypeOf(Button, BaseComponent);
+  function initComponent() {
+    componentContainer.setAttribute('type', type);
+    componentContainer.textContent = text;
 
-export function Button({ parentNode, text, onClick, type = 'button' }) {
-  BaseComponent.apply(this, [parentNode, 'button']);
+    addEventListenersToButton();
+  }
 
-  this.container.textContent = text;
-  this.container.type = type;
-  this.container.addEventListener('click', onClick);
+  function getContainer() {
+    return componentContainer;
+  }
+
+  function addEventListenersToButton() {
+    componentContainer.addEventListener('click', function setOnClickHandler() {
+      onClick();
+    });
+  }
+
+  initComponent();
+
+  return {
+    getContainer,
+  };
 }

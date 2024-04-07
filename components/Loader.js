@@ -1,14 +1,18 @@
-export function Loader(parentNode) {
-  this.parentNode = parentNode;
-  this.container = $create('p');
+export function Loader() {
+  const componentContainer = document.createElement('p');
+
+  function initComponent() {
+    componentContainer.textContent = 'Loading...';
+    componentContainer.setAttribute('aria-busy', true);
+  }
+
+  function getContainer() {
+    return componentContainer;
+  }
+
+  initComponent();
+
+  return {
+    getContainer,
+  };
 }
-
-Loader.prototype.render = function () {
-  this.container.textContent = 'Loading...';
-  this.container.setAttribute('aria-busy', true);
-  this.parentNode.append(this.container);
-};
-
-Loader.prototype.remove = function () {
-  this.container.remove();
-};

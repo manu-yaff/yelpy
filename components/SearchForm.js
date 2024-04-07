@@ -1,54 +1,65 @@
-import { isNotEmpty } from '../utils/validators.js';
-import { BaseComponent } from './BaseElement.js';
 import { Button } from './Button.js';
 import { Input } from './Input.js';
 
-Object.setPrototypeOf(SearchForm, BaseComponent);
-
-export function SearchForm(parentNode, onFormSubmitted) {
-  BaseComponent.apply(this, [parentNode, 'form']);
-
-  this.onFormSubmitted = onFormSubmitted;
-
-  this.searchInput = new Input({
+/**
+ *
+ * @param {Object} params
+ * @example props {
+ *  onFormSubmitted: () => { console.log('callback to be called on form submission') }
+ * }
+ */
+export function SearchForm({ onFormSubmitted }) {
+  const SEARCH_FORM_NAME = 'search-form';
+  const componentContainer = document.createElement('form');
+  const searchInput = Input({
     labelText: 'Search term',
     type: 'text',
     placeholder: 'eg. Tacos',
     name: 'search-term',
-    validator: isNotEmpty,
+    required: true,
   });
 
-  this.locationInput = new Input({
+  const locationInput = Input({
     labelText: 'Location',
     type: 'text',
     placeholder: 'San Francisco',
     name: 'location',
-    validator: isNotEmpty,
+    required: true,
   });
 
-  this.submitButton = new Button({
+  const submitButton = Button({
     text: 'Search',
     type: 'submit',
+    onClick: () => {},
   });
-}
 
-SearchForm.prototype.render = function () {
-  this.container.append(this.searchInput.container);
-  this.container.append(this.locationInput.container);
-  this.container.append(this.submitButton.container);
-  this.container.addEventListener('submit', this.handleFormSubmission.bind(this));
-  this.parentNode.append(this.container);
-};
+  function handleFormSubmission(event) {
+    event.preventDefault();
 
-SearchForm.prototype.handleFormSubmission = async function (event) {
-  event.preventDefault();
+    const formData = new FormData(this);
 
-  const searchValid = this.searchInput.validate();
-  const locationValid = this.locationInput.validate();
-
-  if (!searchValid || !locationValid) {
-    return;
+    onFormSubmitted({
+      searchTerm: formData.get('search-term'),
+      location: formData.get('location'),
+    });
   }
 
-  this.onFormSubmitted({ searchTerm: this.searchInput.value, location: this.locationInput.value });
-};
+  function getContainer() {
+    return componentContainer;
+  }
+
+  function initComponent() {
+    componentContainer.append(
+      searchInput.getContainer(),
+      locationInput.getContainer(),
+      submitButton.getContainer()
+    );
+
+    componentContainer.setAttribute('name', SEARCH_FORM_NAME);
+    componentContainer.addEventListener('submit', handleFormSubmission);
+  }
+
+  initComponent();
+
+  return { getContainer };
+}

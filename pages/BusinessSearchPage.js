@@ -1,59 +1,60 @@
 import { BusinessList } from '../components/BusinessList.js';
+import { ErrorComponent } from '../components/Error.js';
 import { Loader } from '../components/Loader.js';
-import { Error } from '../components/Error.js';
 import { SearchForm } from '../components/SearchForm.js';
 import { getBusinessBySearch } from '../external/api.js';
-import { Fetcher } from '../utils/fetcher.js';
+import { FetchData } from '../utils/fetcher.js';
 
-export function SearchPage(parentNode) {
-  this.parentNode = parentNode;
-  this.container = $create('section');
-  this.error = $create('p');
-  this.listContainer = $create('div');
+export function BusinessSearchPage() {
+  const componentContainer = document.createElement('section');
+  const listContainer = document.createElement('div');
+  const errorComponent = ErrorComponent();
+  const loaderComponent = Loader();
 
-  this.error = new Error(this.listContainer);
-  this.loader = new Loader(this.listContainer);
-  this.businessList = new BusinessList(this.listContainer);
-  this.fetcher = new Fetcher(this.observeState.bind(this));
+  const searchForm = SearchForm({
+    onFormSubmitted,
+  });
+
+  function handleStateChanges(_, property, value, __) {
+    const isLoading = property == 'loading' && value;
+    const isError = property == 'error' && value;
+    const isData = property == 'data' && value;
+
+    if (isLoading) {
+      listContainer.replaceChildren();
+      listContainer.appendChild(loaderComponent.getContainer());
+    }
+
+    if (isError) {
+      listContainer.replaceChildren();
+      listContainer.appendChild(errorComponent.getContainer());
+    }
+
+    if (isData) {
+      const businessList = BusinessList({ items: value });
+      listContainer.replaceChildren(businessList.getContainer());
+    }
+
+    return true;
+  }
+
+  function onFormSubmitted({ searchTerm, location }) {
+    FetchData({
+      observer: handleStateChanges,
+      callback: () => getBusinessBySearch(searchTerm, location),
+    });
+  }
+
+  function getContainer() {
+    return componentContainer;
+  }
+
+  function initComponent() {
+    componentContainer.append(searchForm.getContainer());
+    componentContainer.append(listContainer);
+  }
+
+  initComponent();
+
+  return { getContainer };
 }
-
-SearchPage.prototype.render = function () {
-  const searchForm = new SearchForm(this.container, this.onFormSubmitted.bind(this));
-  searchForm.render();
-
-  this.container.append(this.listContainer);
-  this.parentNode.append(this.container);
-};
-
-SearchPage.prototype.onFormSubmitted = async function (formValues) {
-  const { searchTerm, location } = formValues;
-
-  this.fetcher.fetchData(() => getBusinessBySearch(searchTerm, location));
-};
-
-SearchPage.prototype.observeState = function (obj, property, newValue) {
-  if (property == 'loading' && newValue == true) {
-    this.listContainer.replaceChildren();
-    this.loader.render();
-  }
-
-  if (property == 'loading' && newValue == false) {
-    this.loader.remove();
-  }
-
-  if (property == 'data') {
-    this.businessList.setItems(newValue);
-    this.businessList.render();
-  }
-
-  if (property == 'error' && newValue != null) {
-    this.listContainer.replaceChildren();
-    this.error.render();
-  }
-
-  if (property == 'error' && newValue == null) {
-    this.error.remove();
-  }
-
-  return true;
-};

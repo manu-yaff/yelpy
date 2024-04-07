@@ -1,13 +1,12 @@
-export function Error(parentNode) {
-  this.parentNode = parentNode;
-  this.container = $create('p');
+export function ErrorComponent() {
+  const componentContainer = document.createElement('p');
+  componentContainer.textContent = 'An error ocurred!';
+
+  function getContainer() {
+    return componentContainer;
+  }
+
+  return {
+    getContainer,
+  };
 }
-
-Error.prototype.render = function () {
-  this.container.textContent = 'Error!';
-  this.parentNode.append(this.container);
-};
-
-Error.prototype.remove = function () {
-  this.container.remove();
-};

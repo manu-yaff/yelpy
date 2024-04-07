@@ -1,18 +1,47 @@
 import { Review } from './Review.js';
 
-export function ReviewList(reviews) {
-  function getMarkup() {
-    if (reviews.length == 0) return '<p>No reviews were found</p>';
+/**
+ *
+ * @param {Object} props
+ * @example props {
+ *  items: Array<{@link Review}>
+ * }
+ */
+export function ReviewList({ items }) {
+  const componentContainer = document.createElement('div');
+  const reviewsContainerId = 'reviews-container';
 
-    return `
-      <div>
-        <p>Reviews</p>
-        ${reviews.map((review) => Review(review).getMarkup()).join('')}
-      </div>
-    `;
+  const markup = `
+    <div>
+      <p>Reviews</p>
+      <div id="${reviewsContainerId}"></div>
+    </div>
+  `;
+
+  function getContainer() {
+    return componentContainer;
   }
 
+  function initComponent() {
+    if (items.length == 0) {
+      componentContainer.insertAdjacentHTML('beforeend', '<p>No reviews were found</p>');
+      return;
+    }
+
+    componentContainer.insertAdjacentHTML('beforeend', markup);
+
+    const reviewsContainer = componentContainer.querySelector(`#${reviewsContainerId}`);
+
+    items.forEach((item) => {
+      const reviewComp = Review(item);
+
+      reviewsContainer.appendChild(reviewComp.getContainer());
+    });
+  }
+
+  initComponent();
+
   return {
-    getMarkup,
+    getContainer,
   };
 }

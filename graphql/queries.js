@@ -9,7 +9,7 @@ export const SEARCH_BUSINESS_QUERY = `
           formatted_address
         }
         review_count
-        phone
+        display_phone
       }
     }
   }
@@ -20,7 +20,6 @@ export const BUSINESS_DETAIL_QUERY = `
     business(id: $id) {
       name
       id
-      phone
       display_phone
       review_count
       rating
