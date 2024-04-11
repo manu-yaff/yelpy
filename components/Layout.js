@@ -4,7 +4,22 @@ import { SearchForm } from './SearchForm.js';
 export function Layout() {
   const componentContainer = document.querySelector('main');
   const pageContainer = document.createElement('section');
-  const searchForm = SearchForm({ onFormSubmitted });
+  const { searchTerm, location } = getQueryParams();
+
+  const searchForm = SearchForm({
+    searchTermValue: searchTerm,
+    locationValue: location,
+    onFormSubmitted,
+  });
+
+  function getQueryParams() {
+    const url = new URL(window.location.href);
+
+    const searchTerm = url.searchParams.get('search_term');
+    const location = url.searchParams.get('location');
+
+    return { searchTerm, location };
+  }
 
   function onFormSubmitted({ searchTerm, location }) {
     const url = new URL(window.location.href);
@@ -12,7 +27,6 @@ export function Layout() {
     url.searchParams.set('search_term', searchTerm);
     url.searchParams.set('location', location);
 
-    // TODO: build the url and navigate to it
     router.navigateTo(`${ROUTES.search}${url.search}`);
   }
 

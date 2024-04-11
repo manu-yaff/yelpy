@@ -9,7 +9,7 @@
  *  required: true
  * }
  */
-export function Input({ type, labelText, placeholder, name, required }) {
+export function Input({ type, labelText, placeholder, name, required, value }) {
   const componentContainer = document.createElement('div');
   const markup = `
     <label for="${name}">${labelText}</label>
@@ -17,7 +17,9 @@ export function Input({ type, labelText, placeholder, name, required }) {
       type="${type}"
       placeholder="${placeholder}"
       name="${name}"
-      ${required ? 'required' : ''}/>
+      ${required ? 'required' : ''}
+      ${value ? `value="${value}"` : ''}
+    />
   `;
 
   function initComponent() {

@@ -25,7 +25,7 @@ export function BusinessCard({ id, imageUrl, name, address, phone, reviewsCount 
           <p>${address ?? 'Address not available'}</p>
           <div>
             <p>${reviewsCount ? `${reviewsCount} reviews` : 'Review count not available'}</p>
-            <p>${phone ?? 'Phone not available'}</p>
+            <p>${phone ? phone : 'Phone not available'}</p>
           </div>
         </div>
       </a>
