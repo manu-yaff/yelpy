@@ -3,6 +3,7 @@ import { CUSTOM_EVENTS, MAIN_SECTION_ID } from './constants.js';
 import { BusinessDetailPage } from './pages/BusinessDetailPage.js';
 import { Layout } from './components/Layout.js';
 import { NotFoundPage } from './pages/NotFoundPage.js';
+import { HomePage } from './pages/HomePage.js';
 
 export function Router() {
   const layoutContainer = Layout();
@@ -12,14 +13,7 @@ export function Router() {
     {
       path: '/',
       regex: /^\/$/,
-      component: () => {
-        const container = document.createElement('div');
-        container.textContent = 'this is the home page, I should write something in here';
-
-        return {
-          getContainer: () => container,
-        };
-      },
+      component: HomePage,
     },
     {
       path: '/search',
