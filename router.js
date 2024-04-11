@@ -87,6 +87,8 @@ export function Router() {
 
     window.router = this;
 
+    document.querySelector('body').appendChild(layoutContainer.getContainer());
+
     navigateTo(currentUrl);
   }
 
