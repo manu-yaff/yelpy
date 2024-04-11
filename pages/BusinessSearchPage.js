@@ -1,7 +1,6 @@
 import { BusinessList } from '../components/BusinessList.js';
 import { ErrorComponent } from '../components/Error.js';
 import { Loader } from '../components/Loader.js';
-import { SearchForm } from '../components/SearchForm.js';
 import { getBusinessBySearch } from '../external/api.js';
 import { FetchData } from '../utils/fetcher.js';
 
@@ -11,9 +10,16 @@ export function BusinessSearchPage() {
   const errorComponent = ErrorComponent();
   const loaderComponent = Loader();
 
-  const searchForm = SearchForm({
-    onFormSubmitted,
-  });
+  const { searchTerm, location } = getQueryParams();
+
+  function getQueryParams() {
+    const url = new URL(window.location.href);
+
+    const searchTerm = url.searchParams.get('search_term');
+    const location = url.searchParams.get('location');
+
+    return { searchTerm, location };
+  }
 
   function handleStateChanges(_, property, value, __) {
     const isLoading = property == 'loading' && value;
@@ -38,19 +44,16 @@ export function BusinessSearchPage() {
     return true;
   }
 
-  function onFormSubmitted({ searchTerm, location }) {
-    FetchData({
-      observer: handleStateChanges,
-      callback: () => getBusinessBySearch(searchTerm, location),
-    });
-  }
-
   function getContainer() {
     return componentContainer;
   }
 
   function initComponent() {
-    componentContainer.append(searchForm.getContainer());
+    FetchData({
+      observer: handleStateChanges,
+      callback: () => getBusinessBySearch(searchTerm, location),
+    });
+
     componentContainer.append(listContainer);
   }
 

@@ -55,6 +55,7 @@ export async function BusinessDetailPage() {
           const reviewsComponent = ReviewList({ items: reviews });
 
           componentContainer.replaceChildren();
+          componentContainer.insertAdjacentHTML('beforeend', '<h3>Business details</h3>');
           componentContainer.append(businessCard.getContainer());
           componentContainer.append(businessHours.getContainer());
           componentContainer.append(reviewsComponent.getContainer());

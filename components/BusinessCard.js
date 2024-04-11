@@ -14,7 +14,7 @@ import { IMAGE_NOT_FOUND_PATH, ROUTES } from '../constants.js';
  */
 export function BusinessCard({ id, imageUrl, name, address, phone, reviewsCount }) {
   const componentContainer = document.createElement('div');
-  const renderOnHomePage = window.location.pathname == '/';
+  const renderOnHomePage = !!window.location.search;
   const businessDetailPath = `${ROUTES.detail}/${id}`;
   const markup = `
     <div>
@@ -25,7 +25,7 @@ export function BusinessCard({ id, imageUrl, name, address, phone, reviewsCount 
           <p>${address ?? 'Address not available'}</p>
           <div>
             <p>${reviewsCount ? `${reviewsCount} reviews` : 'Review count not available'}</p>
-            <p>${phone ?? 'Phone not available'}</p>
+            <p>${phone ? phone : 'Phone not available'}</p>
           </div>
         </div>
       </a>

@@ -8,7 +8,7 @@ import { Input } from './Input.js';
  *  onFormSubmitted: () => { console.log('callback to be called on form submission') }
  * }
  */
-export function SearchForm({ onFormSubmitted }) {
+export function SearchForm({ searchTermValue, locationValue, onFormSubmitted }) {
   const SEARCH_FORM_NAME = 'search-form';
   const componentContainer = document.createElement('form');
   const searchInput = Input({
@@ -17,6 +17,7 @@ export function SearchForm({ onFormSubmitted }) {
     placeholder: 'eg. Tacos',
     name: 'search-term',
     required: true,
+    value: searchTermValue,
   });
 
   const locationInput = Input({
@@ -25,6 +26,7 @@ export function SearchForm({ onFormSubmitted }) {
     placeholder: 'San Francisco',
     name: 'location',
     required: true,
+    value: locationValue,
   });
 
   const submitButton = Button({
