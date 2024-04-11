@@ -1,17 +1,33 @@
 import { BusinessSearchPage } from './pages/BusinessSearchPage.js';
-import { CUSTOM_EVENTS } from './constants.js';
+import { CUSTOM_EVENTS, MAIN_SECTION_ID } from './constants.js';
 import { BusinessDetailPage } from './pages/BusinessDetailPage.js';
+import { Layout } from './components/Layout.js';
 
 export function Router() {
+  const layoutContainer = Layout();
   const urlParams = {};
 
   const routes = [
     {
       path: '/',
+      regex: /^\/$/,
+      component: () => {
+        const container = document.createElement('div');
+        container.textContent = 'this is the home page, I should write something in here';
+
+        return {
+          getContainer: () => container,
+        };
+      },
+    },
+    {
+      path: '/search',
+      regex: /^\/search?/,
       component: BusinessSearchPage,
     },
     {
       path: '/business/:id',
+      regex: /^\/business\/([^\/]+)$/,
       component: BusinessDetailPage,
     },
   ];
@@ -21,33 +37,22 @@ export function Router() {
       return routeSegments.length == urlSegments.length;
     }
 
-    function extractUrlParams(routeSegments, urlSegments) {
-      routeSegments.forEach((routeSegment, index) => {
-        if (routeSegment.startsWith(':')) {
-          const paramName = routeSegment.split(':').slice(1);
-          const paramValue = urlSegments[index];
-
-          urlParams[paramName] = paramValue;
-        }
-      });
-    }
-
     const match = routes.find((route) => {
-      if (route.path == url) {
-        return true;
-      }
+      const routeRegex = new RegExp(route.regex);
 
-      const routeSegments = route.path.split('/');
-      const urlSegments = url.split('/');
+      if (routeRegex.test(url)) {
+        const urlSegments = url.split('/');
+        const pathSegments = route.path.split('/');
 
-      if (!routeSegmentsEqualToUrlSegments) return false;
+        urlSegments.forEach((segment, index) => {
+          if (pathSegments[index].startsWith(':')) {
+            const paramName = pathSegments[index].slice(1);
+            const paramValue = segment;
 
-      const hasMatched = routeSegments.every(
-        (segment, index) => segment === urlSegments[index] || segment.startsWith(':')
-      );
+            urlParams[paramName] = paramValue;
+          }
+        });
 
-      if (hasMatched) {
-        extractUrlParams(routeSegments, urlSegments);
         return true;
       }
     });
@@ -57,14 +62,15 @@ export function Router() {
 
   async function navigateTo(route) {
     history.pushState({}, '', route);
+
     const matchedComponent = matchRoute(route);
 
-    const body = document.querySelector('main');
+    const mainSection = document.getElementById(MAIN_SECTION_ID);
 
-    body.replaceChildren();
+    mainSection.replaceChildren();
 
     const component = await matchedComponent();
-    body.appendChild(component.getContainer());
+    mainSection.appendChild(component.getContainer());
   }
 
   function preventATagFromDefault(event, targetPath) {
@@ -93,7 +99,7 @@ export function Router() {
   }
 
   function getCurrentUrl() {
-    return window.location.pathname;
+    return window.location.pathname + window.location.search;
   }
 
   function getUrlParams() {

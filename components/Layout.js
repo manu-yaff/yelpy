@@ -12,7 +12,8 @@ export function Layout() {
     url.searchParams.set('search_term', searchTerm);
     url.searchParams.set('location', location);
 
-    router.navigateTo(ROUTES.search, url.search);
+    // TODO: build the url and navigate to it
+    router.navigateTo(`${ROUTES.search}${url.search}`);
   }
 
   function getContainer() {

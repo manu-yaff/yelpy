@@ -9,6 +9,7 @@ export const DEFAULT_USER_PROFILE_PIC_URL = '/assets/default-avatar.jpg';
 export const ROUTES = {
   home: '/',
   detail: '/business',
+  search: '/search',
 };
 
 export const CUSTOM_EVENTS = {
@@ -24,3 +25,5 @@ export const WEEKDAYS = [
   'Saturday',
   'Sunday',
 ];
+
+export const MAIN_SECTION_ID = 'main-section';
