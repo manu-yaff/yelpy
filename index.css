@@ -30,6 +30,10 @@ main {
   height: 32px;
 }
 
+.business-card__detail {
+  padding: 16px;
+}
+
 /* review */
 .user-profile {
   display: flex;
