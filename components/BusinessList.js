@@ -21,7 +21,7 @@ export function BusinessList({ items }) {
   const markup = `
     <div>
       <h3>Results for your search</h3>
-      <div id="${businessListId}"></div>
+      <div id="${businessListId}" class="business-list"></div>
     </div>
   `;
 
