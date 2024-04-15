@@ -16,7 +16,7 @@ export function BusinessHours({ isOpen, dayHours }) {
   const dayHoursContainerId = 'day-hours-container';
   const markup = `
     <div>
-      <p>Business hours</p>
+      <h3>Business hours</h3>
       <p>${getOpeningStatus(isOpen)}</p>
       <div id="${dayHoursContainerId}"></div>
     </div>

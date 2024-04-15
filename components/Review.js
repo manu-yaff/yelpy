@@ -17,16 +17,16 @@ export function Review({ user, text, timeCreated, rating }) {
   const componentContainer = document.createElement('div');
   const markup = `
     <div>
-      <div>
+      <div class="user-profile">
         <img
           src="${user.profileUrl}"
           alt="user profile"
         />
-        <div>
-          <p>${user.name}</p>
-          <p>${timeCreated}</p>
-        </div>
+        <p>${user.name}</p>
+      </div>
       <div>
+        <p>${timeCreated}</p>
+      </div>
       <div> 
         ${renderReviewRating()}
       </div> 
@@ -43,7 +43,7 @@ export function Review({ user, text, timeCreated, rating }) {
 
   function renderReviewRating() {
     return Array.from({ length: rating })
-      .map(() => '<i class="ph-duotone ph-star"></i>')
+      .map(() => '<i class="ph-fill ph-star review-icon"></i>')
       .join('');
   }
 

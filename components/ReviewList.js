@@ -13,7 +13,7 @@ export function ReviewList({ items }) {
 
   const markup = `
     <div>
-      <p>Reviews</p>
+      <h3>Reviews</h3>
       <div id="${reviewsContainerId}"></div>
     </div>
   `;

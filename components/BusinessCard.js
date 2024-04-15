@@ -17,19 +17,30 @@ export function BusinessCard({ id, imageUrl, name, address, phone, reviewsCount 
   const renderOnHomePage = !!window.location.search;
   const businessDetailPath = `${ROUTES.detail}/${id}`;
   const markup = `
-    <div>
+    <article class=" ${renderOnHomePage ? 'business-card' : 'business-card__detail'}">
       <a href="${businessDetailPath}">
         <img src="${imageUrl}" alt="${name ?? 'unknown'} business" />
-        <p>${name ?? 'Name not available'}</p>
+        <h3>${name ?? 'Name not available'}</h3>
         <div>
-          <p>${address ?? 'Address not available'}</p>
           <div>
-            <p>${reviewsCount ? `${reviewsCount} reviews` : 'Review count not available'}</p>
-            <p>${phone ? phone : 'Phone not available'}</p>
+            <p class="business-card__address">
+              <i class="ph-duotone ph-map-pin-simple-area"></i>
+              ${address ?? 'Address not available'}
+            </p>
+          </div>
+          <div>
+            <p>
+              <i class="ph-duotone ph-calendar-star"></i>
+              ${reviewsCount ? `${reviewsCount} reviews` : 'Review count not available'}
+            </p>
+            <p>
+              <i class="ph-duotone ph-phone"></i>
+              ${phone ? phone : 'Phone not available'}
+            </p>
           </div>
         </div>
       </a>
-    </div>
+    </article>
   `;
 
   function initComponent() {
