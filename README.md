@@ -49,5 +49,5 @@ I'll be creating several versions of this project for fun and to practice. In ea
 Branches for each version
 
 - Vanilla JS -> [pure-vanilla-js](https://github.com/manu-yaff/yelp/tree/version/pure-vanilla-js)
-- Typescript (TBD)
+- Typescript -> [typescript](https://github.com/manu-yaff/yelp/tree/version/typescript)
 - React (TBD)
