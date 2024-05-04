@@ -17,7 +17,7 @@ export function BusinessCard(props: BusinessCardProps) {
 
   const router = getRouter();
   const componentContainer = $.createElement('div');
-  const renderedOnHomePage: boolean = !!window.location.search;
+  const renderedOnHomePage: boolean = Boolean(window.location.search);
   const businessDetailPath = `${ROUTES.detail}/${id}`;
 
   const markup = `
