@@ -5,7 +5,7 @@ export function BusinessCard(props) {
     const { id, imageUrl, reviewsCount, name = 'Business name not available', address = 'Address not available', phone = 'Phone not available', } = props;
     const router = getRouter();
     const componentContainer = $.createElement('div');
-    const renderedOnHomePage = !!window.location.search;
+    const renderedOnHomePage = Boolean(window.location.search);
     const businessDetailPath = `${ROUTES.detail}/${id}`;
     const markup = `
     <article class=" ${renderedOnHomePage ? 'business-card' : 'business-card__detail'}">
