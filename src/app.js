@@ -4,8 +4,8 @@ const path = require('path');
 
 const PORT = 9000;
 
-const publicDir = path.join(__dirname, 'public');
-const indexFilePath = path.join(__dirname, '/public/index.html');
+const publicDir = path.join(__dirname, '');
+const indexFilePath = path.join(__dirname, '/index.html');
 
 const server = http.createServer((req, res) => {
   const requestedPath = path.join(publicDir, req.url);

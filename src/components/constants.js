@@ -3,5 +3,9 @@ export const CONSTANTS = {
     search: 'search-term',
     location: 'location',
   },
+  layout: {
+    formSectionId: 'form-section',
+    contentSectionId: 'content-section',
+  },
   // TODO: add route names
 };

@@ -1,4 +1,4 @@
-import { Layout } from '../components/Layout.js';
+import { Layout } from '../components/Layout/index.js';
 import { BusinessPage } from '../pages/BusinessPage.js';
 import { HomePage } from '../pages/HomePage.js';
 import { NotFoundPage } from '../pages/NotFoundPage.js';
@@ -78,7 +78,7 @@ export class Router {
 
       const pageContent = new pageConstructor();
 
-      document.body.append(layout.getContainer(), pageContent.getContainer());
+      document.body.append(layout.container, pageContent.container);
     } else {
       const notFound = new NotFoundPage();
 
