@@ -5,13 +5,13 @@ const searchBusinessQuery = `
     search(term: $searchTerm, location: $location, limit: 10) {
       business {
         id
-        photos
         name
+        display_phone
+        review_count
+        photos
         location {
           formatted_address
         }
-        review_count
-        display_phone
       }
     }
   }
