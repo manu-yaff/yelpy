@@ -8,18 +8,18 @@ type GraphqlBody struct {
 type BusinessSearchResponse struct {
 	Data struct {
 		Search struct {
-			Business []BusinessFromYelp `json:"business"`
+			Business []Business `json:"business"`
 		} `json:"search"`
 	} `json:"data"`
 }
 
 type BusinessDetailResponse struct {
 	Data struct {
-		Business BusinessDetailFromYelp `json:"business"`
+		Business BusinessDetail `json:"business"`
 	} `json:"data"`
 }
 
-type BusinessFromYelp struct {
+type Business struct {
 	Id           string   `json:"id"`
 	Name         string   `json:"name"`
 	DisplayPhone string   `json:"display_phone"`
@@ -27,9 +27,9 @@ type BusinessFromYelp struct {
 	ReviewCount  int      `json:"review_count"`
 }
 
-type BusinessDetailFromYelp struct {
-	BusinessFromYelp
-	Hours   []Hour   `json:"hours"`
+type BusinessDetail struct {
+	Business
+	Hours   []Open   `json:"hours"`
 	Photos  []string `json:"photos"`
 	Reviews []Review `json:"reviews"`
 }
@@ -42,15 +42,15 @@ type Review struct {
 	User        User   `json:"user"`
 }
 
-type HourYelp struct {
+type Hour struct {
 	Start string `json:"start"`
 	End   string `json:"end"`
 	Day   int    `json:"day"`
 }
 
-type Hour struct {
-	IsOpen bool       `json:"is_open_now"`
-	Open   []HourYelp `json:"open"`
+type Open struct {
+	IsOpen bool   `json:"is_open_now"`
+	Open   []Hour `json:"open"`
 }
 
 type User struct {

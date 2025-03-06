@@ -26,7 +26,7 @@ type SearchVariables struct {
 	Location   string `json:"location"`
 }
 
-func (y YelpService) SearchByTermAndLocation(term, location string) ([]BusinessFromYelp, error) {
+func (y YelpService) SearchByTermAndLocation(term, location string) ([]Business, error) {
 	// create the request
 	requestBody := GraphqlBody{
 		Query: searchBusinessQuery,
@@ -38,12 +38,12 @@ func (y YelpService) SearchByTermAndLocation(term, location string) ([]BusinessF
 
 	jsonBody, err := json.Marshal(requestBody)
 	if err != nil {
-		return []BusinessFromYelp{}, errors.New("Error converting request body to json string")
+		return []Business{}, errors.New("Error converting request body to json string")
 	}
 
 	request, err := http.NewRequest(http.MethodPost, y.ApiUrl, bytes.NewBuffer(jsonBody))
 	if err != nil {
-		return []BusinessFromYelp{}, errors.New("Error creating http request")
+		return []Business{}, errors.New("Error creating http request")
 	}
 
 	request.Header.Add("Authorization", fmt.Sprintf("Bearer %s", y.Token))
@@ -53,7 +53,7 @@ func (y YelpService) SearchByTermAndLocation(term, location string) ([]BusinessF
 	response, err := y.Client.Do(request)
 	if err != nil {
 		fmt.Println(err)
-		return []BusinessFromYelp{}, errors.New("Error sending the http request")
+		return []Business{}, errors.New("Error sending the http request")
 	}
 
 	defer response.Body.Close()
@@ -61,12 +61,12 @@ func (y YelpService) SearchByTermAndLocation(term, location string) ([]BusinessF
 	// read the bytes from the request
 	bytes, err := io.ReadAll(response.Body)
 	if err != nil {
-		return []BusinessFromYelp{}, errors.New("Error reading response content")
+		return []Business{}, errors.New("Error reading response content")
 	}
 
 	if response.StatusCode != http.StatusOK {
 		fmt.Println(string(bytes))
-		return []BusinessFromYelp{}, errors.New("Error, request code is different than 200")
+		return []Business{}, errors.New("Error, request code is different than 200")
 	}
 
 	// convert to struct
@@ -74,7 +74,7 @@ func (y YelpService) SearchByTermAndLocation(term, location string) ([]BusinessF
 	err = json.Unmarshal(bytes, &businessResponse)
 
 	if err != nil {
-		return []BusinessFromYelp{}, errors.New("Error converting json response to struct")
+		return []Business{}, errors.New("Error converting json response to struct")
 	}
 
 	return businessResponse.Data.Search.Business, nil
@@ -137,7 +137,7 @@ func (y YelpService) GetBusinessDetail(id string) (business.BusinessDetailEntity
 	return business, nil
 }
 
-func (b BusinessDetailFromYelp) Adapt() business.BusinessDetailEntity {
+func (b BusinessDetail) Adapt() business.BusinessDetailEntity {
 	hours := make([]business.Hour, len(b.Hours[0].Open))
 
 	for i, h := range b.Hours[0].Open {

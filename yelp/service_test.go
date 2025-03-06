@@ -24,14 +24,14 @@ func (m *MockClient) Do(req *http.Request) (*http.Response, error) {
 }
 
 func TestBusinessSearch(t *testing.T) {
-	business := BusinessFromYelp{
+	business := Business{
 		Id:           "123",
 		Name:         "Test Business",
 		DisplayPhone: "+1 123-456-7890",
 		ReviewCount:  100,
 	}
 
-	want := []BusinessFromYelp{business}
+	want := []Business{business}
 
 	client := MockClient{graphqlQuery: BusinessSearchResponseMock}
 	service := YelpService{Client: &client, ApiUrl: "https://test.com", Token: "test-token"}
