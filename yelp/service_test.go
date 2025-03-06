@@ -11,21 +11,6 @@ import (
 	"example.com/yelpy/business"
 )
 
-const mockJsonResponse = `{
-   "data": {
-      "search": {
-        "business": [
-           {
-             "id": "123",
-             "name": "Test Business",
-             "display_phone": "+1 123-456-7890",
-             "review_count": 100
-           }
-        ]
-      }
-   }
-}`
-
 type MockClient struct {
 	graphqlQuery string
 }
@@ -48,7 +33,7 @@ func TestBusinessSearch(t *testing.T) {
 
 	want := []BusinessFromYelp{business}
 
-	client := MockClient{graphqlQuery: mockJsonResponse}
+	client := MockClient{graphqlQuery: BusinessSearchResponseMock}
 	service := YelpService{Client: &client, ApiUrl: "https://test.com", Token: "test-token"}
 
 	got, err := service.SearchByTermAndLocation("tacos", "san francisco")
