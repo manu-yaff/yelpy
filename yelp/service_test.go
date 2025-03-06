@@ -25,10 +25,10 @@ func (m *MockClient) Do(req *http.Request) (*http.Response, error) {
 
 func TestBusinessSearch(t *testing.T) {
 	business := BusinessFromYelp{
-		Id:          "123",
-		Name:        "Test Business",
-		Phone:       "+1 123-456-7890",
-		ReviewCount: 100,
+		Id:           "123",
+		Name:         "Test Business",
+		DisplayPhone: "+1 123-456-7890",
+		ReviewCount:  100,
 	}
 
 	want := []BusinessFromYelp{business}
