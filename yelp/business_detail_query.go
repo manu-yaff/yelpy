@@ -1,6 +1,6 @@
 package yelp
 
-const BusinessDetailQuery = `
+const businessDetailQuery = `
   query Business($id: String!) {
     business(id: $id) {
       id

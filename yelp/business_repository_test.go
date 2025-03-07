@@ -34,9 +34,9 @@ func TestBusinessSearch(t *testing.T) {
 	want := []Business{business}
 
 	client := MockClient{graphqlQuery: BusinessSearchResponseMock}
-	service := YelpService{Client: &client, ApiUrl: "https://test.com", Token: "test-token"}
+	repository := YelpGraphqlRepository{Client: &client, ApiUrl: "https://test.com", Token: "test-token"}
 
-	got, err := service.SearchByTermAndLocation("tacos", "san francisco")
+	got, err := repository.SearchByTermAndLocation("tacos", "san francisco")
 
 	if err != nil {
 		t.Errorf("got error but didn't expect one %v", err)
@@ -50,9 +50,9 @@ func TestBusinessSearch(t *testing.T) {
 
 func TestBusinessDetail(t *testing.T) {
 	client := MockClient{graphqlQuery: BusinessDetailResponseMock}
-	service := YelpService{Client: &client, ApiUrl: "https://test.com", Token: "test-token"}
+	repository := YelpGraphqlRepository{Client: &client, ApiUrl: "https://test.com", Token: "test-token"}
 
-	got, err := service.GetBusinessDetail("test-id")
+	got, err := repository.GetBusinessDetail("test-id")
 
 	want := business.BusinessDetailEntity{
 		Business: business.BusinessEntity{
@@ -69,8 +69,6 @@ func TestBusinessDetail(t *testing.T) {
 		},
 		Reviews: []business.Review{},
 	}
-
-	fmt.Println("*******************")
 
 	if err != nil {
 		t.Errorf("got error but didn't expect one %v", err)

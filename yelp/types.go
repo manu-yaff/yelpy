@@ -1,8 +1,8 @@
 package yelp
 
 type GraphqlBody struct {
-	Query     string          `json:"query"`
-	Variables SearchVariables `json:"variables"`
+	Query     string                 `json:"query"`
+	Variables map[string]interface{} `json:"variables"`
 }
 
 type BusinessSearchResponse struct {
