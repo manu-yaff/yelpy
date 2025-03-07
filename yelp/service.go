@@ -132,33 +132,7 @@ func (y YelpService) GetBusinessDetail(id string) (business.BusinessDetailEntity
 	}
 
 	// adapt the response
-	business := businessDetailFromYelp.Data.Business.Adapt()
+	business := businessDetailFromYelp.Data.Business.toEntity()
 
 	return business, nil
-}
-
-func (b BusinessDetail) Adapt() business.BusinessDetailEntity {
-	hours := make([]business.Hour, len(b.Hours[0].Open))
-
-	for i, h := range b.Hours[0].Open {
-		hours[i] = business.Hour{
-			Start: h.Start,
-			End:   h.End,
-			Day:   h.Day,
-		}
-	}
-
-	return business.BusinessDetailEntity{
-		Business: business.BusinessEntity{
-			Id:          b.Id,
-			Name:        b.Name,
-			Phone:       b.DisplayPhone,
-			Address:     b.Location.FormattedAddress,
-			ReviewCount: b.ReviewCount,
-			Photos:      b.Photos,
-		},
-		IsOpen:  b.Hours[0].IsOpen,
-		Hours:   hours,
-		Reviews: []business.Review{},
-	}
 }
