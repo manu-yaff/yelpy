@@ -1,5 +1,5 @@
 import { Business } from '../../domain/entities/business'
-import { BusinessFromYelp } from '../repositories/business-repository.types'
+import { BusinessFromYelp } from '../repositories/yelp-business-repository.types'
 
 export function businessFromApiToBusinessEntity(business: BusinessFromYelp): Business {
   return new Business({

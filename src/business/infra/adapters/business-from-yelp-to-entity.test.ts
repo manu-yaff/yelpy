@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { BusinessFromYelp } from '../repositories/business-repository.types'
+import { BusinessFromYelp } from '../repositories/yelp-business-repository.types'
 import { businessFromApiToBusinessEntity } from './business-from-yelp-to-entity'
 
 describe(businessFromApiToBusinessEntity.name, () => {
