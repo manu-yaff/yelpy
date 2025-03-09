@@ -6,6 +6,7 @@ import { YelpGraphqlRepository } from '../../repositories/yelp-business-reposito
 
 function SearchPage() {
   const [searchParams] = useSearchParams()
+
   const term = searchParams.get('term')
   const location = searchParams.get('location')
 
@@ -23,7 +24,6 @@ function SearchPage() {
           const result = await useCase.execute(term, location)
           setData(result)
         } catch (error) {
-          console.log(error)
           if (error instanceof Error) setError(error)
         } finally {
           setLoading(false)

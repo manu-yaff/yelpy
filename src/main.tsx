@@ -3,8 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import SearchForm from './business/infra/presenters/components/SearchForm'
 import BusinessDetailPage from './business/infra/presenters/pages/BusinessDetailPage'
+import SearchPage from './business/infra/presenters/pages/BusinessSearchPage'
 import HomePage from './business/infra/presenters/pages/HomePage'
-import SearchPage from './business/infra/presenters/pages/SearchPage'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
