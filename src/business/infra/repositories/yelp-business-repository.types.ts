@@ -6,6 +6,12 @@ export interface YelpSearchBusinessResponse {
   }
 }
 
+export interface YelpBusinessDetailResponse {
+  data: {
+    business: BusinessDetailFromYelp
+  }
+}
+
 export interface BusinessFromYelp {
   id: string
   name: string
@@ -15,4 +21,28 @@ export interface BusinessFromYelp {
   location: {
     formatted_address: string
   }
+}
+
+export interface BusinessDetailFromYelp extends BusinessFromYelp {
+  hours: Array<Hour>
+  reviews: Array<Review>
+}
+
+interface Hour {
+  start: string
+  end: string
+  day: number
+}
+
+interface User {
+  profile_url: string
+  name: string
+}
+
+interface Review {
+  id: string
+  rating: number
+  text: string
+  time_created: string
+  user: User
 }

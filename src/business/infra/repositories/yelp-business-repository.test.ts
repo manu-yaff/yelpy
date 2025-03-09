@@ -1,74 +1,166 @@
 import { describe, expect, it, vi } from 'vitest'
+import { businessDetailFromApiToBusinessDetailEntity } from '../adapters/business-detail-from-yelp-to-entity'
 import { businessFromApiToBusinessEntity } from '../adapters/business-from-yelp-to-entity'
 import { GraphqlError, YelpGraphqlRepository } from './yelp-business-repository'
-import { YelpSearchBusinessResponse } from './yelp-business-repository.types'
+import {
+  BusinessDetailFromYelp,
+  YelpBusinessDetailResponse,
+  YelpSearchBusinessResponse,
+} from './yelp-business-repository.types'
 
 vi.mock('../adapters/business-from-yelp-to-entity', () => ({
   businessFromApiToBusinessEntity: vi.fn(),
 }))
 
+vi.mock('../adapters/business-detail-from-yelp-to-entity', () => ({
+  businessDetailFromApiToBusinessDetailEntity: vi.fn(),
+}))
+
 describe(YelpGraphqlRepository.name, () => {
-  it('should throw an error when there a network error', async () => {
-    const spy = vi.fn()
+  describe(YelpGraphqlRepository.prototype.searchByTermAndLocation.name, () => {
+    it('should throw an error when there is a network error', async () => {
+      const spy = vi.fn()
 
-    spy.mockRejectedValue(new Error('random error'))
+      spy.mockRejectedValue(new Error('random error'))
 
-    const repository = new YelpGraphqlRepository(spy)
+      const repository = new YelpGraphqlRepository(spy)
 
-    await expect(async () => {
-      await repository.searchByTermAndLocation('tacos', 'san francisco')
-    }).rejects.toThrowError('random error')
+      await expect(async () => {
+        await repository.searchByTermAndLocation('tacos', 'san francisco')
+      }).rejects.toThrowError('random error')
 
-    expect(spy).toHaveBeenCalledTimes(1)
-  })
+      expect(spy).toHaveBeenCalledTimes(1)
+    })
 
-  it('should throw an error when there is a error with graphql', async () => {
-    const mockResponse = {
-      ok: false,
-      status: 400,
-      statusText: 'Bad Request',
-    }
+    it('should throw an error when there is a error with graphql', async () => {
+      const mockResponse = {
+        ok: false,
+        status: 400,
+        statusText: 'Bad Request',
+      }
 
-    const fetchMock = vi.fn().mockResolvedValue(mockResponse)
+      const fetchMock = vi.fn().mockResolvedValue(mockResponse)
 
-    const repository = new YelpGraphqlRepository(fetchMock)
+      const repository = new YelpGraphqlRepository(fetchMock)
 
-    await expect(async () => {
-      await repository.searchByTermAndLocation('tacos', 'san francisco')
-    }).rejects.toThrowError(GraphqlError)
-  })
+      await expect(async () => {
+        await repository.searchByTermAndLocation('tacos', 'san francisco')
+      }).rejects.toThrowError(GraphqlError)
+    })
 
-  it('should return business search result', async () => {
-    const mockBusinessResponse: YelpSearchBusinessResponse = {
-      data: {
-        search: {
-          business: [
-            {
-              id: '1',
-              name: 'Test Business',
-              display_phone: '1234567890',
-              photos: ['https://test.com/image.jpg'],
-              review_count: 10,
-              location: {
-                formatted_address: 'San Francisco',
+    it('should return business search result', async () => {
+      const mockBusinessResponse: YelpSearchBusinessResponse = {
+        data: {
+          search: {
+            business: [
+              {
+                id: '1',
+                name: 'Test Business',
+                display_phone: '1234567890',
+                photos: ['https://test.com/image.jpg'],
+                review_count: 10,
+                location: {
+                  formatted_address: 'San Francisco',
+                },
               },
-            },
-          ],
+            ],
+          },
         },
-      },
-    }
+      }
 
-    const mockResponse = {
-      ok: true,
-      json: vi.fn().mockResolvedValue(mockBusinessResponse),
-    }
+      const mockResponse = {
+        ok: true,
+        json: vi.fn().mockResolvedValue(mockBusinessResponse),
+      }
 
-    const fetchMock = vi.fn().mockResolvedValue(mockResponse)
+      const fetchMock = vi.fn().mockResolvedValue(mockResponse)
 
-    const repository = new YelpGraphqlRepository(fetchMock)
+      const repository = new YelpGraphqlRepository(fetchMock)
 
-    await repository.searchByTermAndLocation('tacos', 'san francisco')
+      await repository.searchByTermAndLocation('tacos', 'san francisco')
 
-    expect(businessFromApiToBusinessEntity).toHaveBeenCalledTimes(1)
+      expect(businessFromApiToBusinessEntity).toHaveBeenCalledTimes(1)
+      // TODO: add this expect(result).toBeInstanceOf(Business)
+    })
+  })
+
+  describe(YelpGraphqlRepository.prototype.getBusinessDetail.name, () => {
+    it('should throw an error when there is a network error', async () => {
+      const mockFetch = vi.fn()
+      const mockId = 'test-id'
+      mockFetch.mockRejectedValue(new Error('Connection refused error'))
+
+      const repository = new YelpGraphqlRepository(mockFetch)
+
+      await expect(async () => {
+        await repository.getBusinessDetail(mockId)
+      }).rejects.toThrow('Connection refused error')
+    })
+
+    it('should throw an error when there is a error with graphql', async () => {
+      const mockBusinessId = '1'
+      const mockFetch = vi.fn()
+
+      mockFetch.mockResolvedValue({
+        ok: false,
+        status: 409,
+      })
+
+      const repository = new YelpGraphqlRepository(mockFetch)
+
+      await expect(async () => {
+        await repository.getBusinessDetail(mockBusinessId)
+      }).rejects.toThrowError(GraphqlError)
+    })
+
+    it('should return business detail', async () => {
+      const mockBusinessDetail: BusinessDetailFromYelp = {
+        id: '1',
+        name: 'Test Business',
+        display_phone: '1234567890',
+        photos: ['https://test.com/image.jpg'],
+        review_count: 10,
+        location: {
+          formatted_address: 'San Francisco',
+        },
+        hours: [
+          {
+            start: '0000',
+            end: '0000',
+            day: 1,
+          },
+        ],
+        reviews: [
+          {
+            id: '1',
+            rating: 10,
+            text: 'Test review',
+            time_created: '2024-09-24 04:05:22',
+            user: {
+              profile_url: 'https://example.com/image.jpg',
+              name: 'Test name',
+            },
+          },
+        ],
+      }
+
+      const mockBusinessDetailResponse: YelpBusinessDetailResponse = {
+        data: {
+          business: mockBusinessDetail,
+        },
+      }
+
+      const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: vi.fn().mockResolvedValue(mockBusinessDetailResponse),
+      })
+
+      const repository = new YelpGraphqlRepository(mockFetch)
+
+      await repository.getBusinessDetail('1')
+
+      expect(businessDetailFromApiToBusinessDetailEntity).toHaveBeenCalledTimes(1)
+    })
   })
 })
