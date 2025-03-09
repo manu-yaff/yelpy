@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
 import { SearchByTermAndLocationUseCase } from '../../../application/search-by-term-and-location'
-import { Business } from '../../../domain/entities/business'
+import { Business } from '../../../domain/entities/Business'
 import { YelpGraphqlRepository } from '../../repositories/yelp-business-repository'
 
 function SearchPage() {

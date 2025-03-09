@@ -1,4 +1,4 @@
-import { Business } from '../domain/entities/business'
+import { Business } from '../domain/entities/Business'
 import { BusinessRepository } from '../domain/repositories/business-repository'
 
 export class SearchByTermAndLocationUseCase {

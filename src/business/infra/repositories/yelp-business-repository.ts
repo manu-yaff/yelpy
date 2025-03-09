@@ -1,4 +1,4 @@
-import { Business } from '../../domain/entities/business'
+import { Business } from '../../domain/entities/Business'
 import { BusinessRepository } from '../../domain/repositories/business-repository'
 import { businessFromApiToBusinessEntity } from '../adapters/business-from-yelp-to-entity'
 import { searchBusinessQuery } from '../graphql-queries/search-business-query'

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { Business, defaultImageUrlMessage, defaultPhoneMessage } from '.'
+import { Business, defaultImageUrlMessage, defaultPhoneMessage } from './Business'
 
 describe(Business.name, () => {
   const mockBusiness = {

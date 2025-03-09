@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
 import { describe, expect, it, vi } from 'vitest'
 import { SearchByTermAndLocationUseCase } from '../../../application/search-by-term-and-location'
-import { Business } from '../../../domain/entities/business'
+import { Business } from '../../../domain/entities/Business'
 import BusinessSearchPage from './BusinessSearchPage'
 
 vi.mock('react-router', async (importOriginal) => {
