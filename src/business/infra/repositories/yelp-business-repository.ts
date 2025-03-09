@@ -15,7 +15,7 @@ export class YelpGraphqlRepository implements BusinessRepository {
   private fetchFn: Fetch
 
   constructor(fetchFn: Fetch) {
-    this.fetchFn = fetchFn
+    this.fetchFn = fetchFn.bind(globalThis)
   }
 
   async searchByTermAndLocation(searchTerm: string, location: string): Promise<Array<Business>> {
