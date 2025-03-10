@@ -10,13 +10,22 @@ import {
   YelpSearchBusinessResponse,
 } from './yelp-business-repository.types'
 
-export const NetworkError = 'Error sending the request'
-export const GraphqlError = 'Graphql error'
-
 export type Fetch = typeof fetch
 
 export type YelpGraphqlApiConfig = {
   apiUrl: string
+}
+
+export class UnexpectedError extends Error {
+  constructor() {
+    super('Unxepected error')
+  }
+}
+
+export class YelpGraphqlError extends Error {
+  constructor() {
+    super('Yelp graphql error')
+  }
 }
 
 export class YelpGraphqlRepository implements BusinessRepository {
@@ -29,21 +38,31 @@ export class YelpGraphqlRepository implements BusinessRepository {
   }
 
   private async sendGraphqlRequest(variables: Record<string, unknown>): Promise<Response> {
-    return await this.fetchFn(this.apiConfig.apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ query: searchBusinessQuery, variables }),
-    })
+    try {
+      const response = await this.fetchFn(this.apiConfig.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: searchBusinessQuery, variables }),
+      })
+
+      if (!response.ok) {
+        throw new YelpGraphqlError()
+      }
+
+      return response
+    } catch (error) {
+      console.error(JSON.stringify(error))
+
+      if (error instanceof YelpGraphqlError) throw error
+
+      throw new UnexpectedError()
+    }
   }
 
   async searchByTermAndLocation(searchTerm: string, location: string): Promise<Array<Business>> {
     const response = await this.sendGraphqlRequest({ searchTerm, location })
-
-    if (!response.ok) {
-      throw new Error(GraphqlError)
-    }
 
     const { data } = (await response.json()) as YelpSearchBusinessResponse
 
