@@ -37,6 +37,22 @@ export class YelpGraphqlRepository implements BusinessRepository {
     this.apiConfig = graphqlApiConfig
   }
 
+  async searchByTermAndLocation(searchTerm: string, location: string): Promise<Array<Business>> {
+    const response = await this.sendGraphqlRequest({ searchTerm, location })
+
+    const { data } = (await response.json()) as YelpSearchBusinessResponse
+
+    return data.search.business.map(businessFromApiToBusinessEntity)
+  }
+
+  async getBusinessDetail(id: string): Promise<BusinessDetailEntity> {
+    const response = await this.sendGraphqlRequest({ id })
+
+    const { data } = (await response.json()) as YelpBusinessDetailResponse
+
+    return businessDetailFromApiToBusinessDetailEntity(data.business)
+  }
+
   private async sendGraphqlRequest(variables: Record<string, unknown>): Promise<Response> {
     try {
       const response = await this.fetchFn(this.apiConfig.apiUrl, {
@@ -59,36 +75,5 @@ export class YelpGraphqlRepository implements BusinessRepository {
 
       throw new UnexpectedError()
     }
-  }
-
-  async searchByTermAndLocation(searchTerm: string, location: string): Promise<Array<Business>> {
-    const response = await this.sendGraphqlRequest({ searchTerm, location })
-
-    const { data } = (await response.json()) as YelpSearchBusinessResponse
-
-    return data.search.business.map(businessFromApiToBusinessEntity)
-  }
-
-  async getBusinessDetail(id: string): Promise<BusinessDetailEntity> {
-    const response = await this.fetchFn(apiHost, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query: businessDetailQuery,
-        variables: {
-          id,
-        },
-      }),
-    })
-
-    if (!response.ok) {
-      throw new Error(GraphqlError)
-    }
-
-    const { data } = (await response.json()) as YelpBusinessDetailResponse
-
-    return businessDetailFromApiToBusinessDetailEntity(data.business)
   }
 }
