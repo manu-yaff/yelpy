@@ -3,41 +3,43 @@ import { BusinessDetailEntity } from '../../domain/entities/BusinessDetail'
 import { BusinessRepository } from '../../domain/repositories/business-repository'
 import { businessDetailFromApiToBusinessDetailEntity } from '../adapters/business-detail-from-yelp-to-entity'
 import { businessFromApiToBusinessEntity } from '../adapters/business-from-yelp-to-entity'
-import { businessDetailQuery } from '../graphql-queries/business-detail-query'
-import { searchBusinessQuery } from '../graphql-queries/search-business-query'
+import { businessDetailQuery } from './graphql-queries/business-detail-query'
+import { searchBusinessQuery } from './graphql-queries/search-business-query'
 import {
   YelpBusinessDetailResponse,
   YelpSearchBusinessResponse,
 } from './yelp-business-repository.types'
-
-const apiHost = import.meta.env.VITE_YELP_API_HOST
 
 export const NetworkError = 'Error sending the request'
 export const GraphqlError = 'Graphql error'
 
 export type Fetch = typeof fetch
 
+export type YelpGraphqlApiConfig = {
+  apiUrl: string
+}
+
 export class YelpGraphqlRepository implements BusinessRepository {
   private fetchFn: Fetch
+  private apiConfig: YelpGraphqlApiConfig
 
-  constructor(fetchFn: Fetch) {
+  constructor(fetchFn: Fetch, graphqlApiConfig: YelpGraphqlApiConfig) {
     this.fetchFn = fetchFn.bind(globalThis)
+    this.apiConfig = graphqlApiConfig
   }
 
-  async searchByTermAndLocation(searchTerm: string, location: string): Promise<Array<Business>> {
-    const response = await this.fetchFn(apiHost, {
+  private async sendGraphqlRequest(variables: Record<string, unknown>): Promise<Response> {
+    return await this.fetchFn(this.apiConfig.apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        query: searchBusinessQuery,
-        variables: {
-          searchTerm,
-          location,
-        },
-      }),
+      body: JSON.stringify({ query: searchBusinessQuery, variables }),
     })
+  }
+
+  async searchByTermAndLocation(searchTerm: string, location: string): Promise<Array<Business>> {
+    const response = await this.sendGraphqlRequest({ searchTerm, location })
 
     if (!response.ok) {
       throw new Error(GraphqlError)
@@ -68,10 +70,6 @@ export class YelpGraphqlRepository implements BusinessRepository {
 
     const { data } = (await response.json()) as YelpBusinessDetailResponse
 
-    const temp = businessDetailFromApiToBusinessDetailEntity(data.business)
-
-    console.log('this is return from the adapter', temp)
-
-    return temp
+    return businessDetailFromApiToBusinessDetailEntity(data.business)
   }
 }

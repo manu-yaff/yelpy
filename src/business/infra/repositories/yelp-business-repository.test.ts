@@ -7,6 +7,9 @@ import {
   YelpBusinessDetailResponse,
   YelpSearchBusinessResponse,
 } from './yelp-business-repository.types'
+import { mockBusinessResponse, mockYelpApiConfig } from './mocks/yelp-api-response'
+import { searchBusinessQuery } from './graphql-queries/search-business-query'
+import { Business } from '../../domain/entities/Business'
 
 vi.mock('../adapters/business-from-yelp-to-entity', () => ({
   businessFromApiToBusinessEntity: vi.fn(),
@@ -48,25 +51,10 @@ describe(YelpGraphqlRepository.name, () => {
       }).rejects.toThrowError(GraphqlError)
     })
 
-    it('should return business search result', async () => {
-      const mockBusinessResponse: YelpSearchBusinessResponse = {
-        data: {
-          search: {
-            business: [
-              {
-                id: '1',
-                name: 'Test Business',
-                display_phone: '1234567890',
-                photos: ['https://test.com/image.jpg'],
-                review_count: 10,
-                location: {
-                  formatted_address: 'San Francisco',
-                },
-              },
-            ],
-          },
-        },
-      }
+    it('should send graphql request', async () => {
+      // Arrange
+      const searchTerm = 'tacos'
+      const location = 'san francisco'
 
       const mockResponse = {
         ok: true,
@@ -75,12 +63,43 @@ describe(YelpGraphqlRepository.name, () => {
 
       const fetchMock = vi.fn().mockResolvedValue(mockResponse)
 
-      const repository = new YelpGraphqlRepository(fetchMock)
+      const repository = new YelpGraphqlRepository(fetchMock, mockYelpApiConfig)
 
-      await repository.searchByTermAndLocation('tacos', 'san francisco')
+      // Act
+      await repository.searchByTermAndLocation(searchTerm, location)
 
-      expect(businessFromApiToBusinessEntity).toHaveBeenCalledTimes(1)
-      // TODO: add this expect(result).toBeInstanceOf(Business)
+      // Assert
+      expect(fetchMock).toBeCalledWith(mockYelpApiConfig.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: searchBusinessQuery,
+          variables: { searchTerm, location },
+        }),
+      })
+    })
+
+    it('should return business entity object', async () => {
+      // Arrange
+      const searchTerm = 'tacos'
+      const location = 'san francisco'
+
+      const mockResponse = {
+        ok: true,
+        json: vi.fn().mockResolvedValue(mockBusinessResponse),
+      }
+
+      const fetchMock = vi.fn().mockResolvedValue(mockResponse)
+
+      const repository = new YelpGraphqlRepository(fetchMock, mockYelpApiConfig)
+
+      // Act
+      const result = await repository.searchByTermAndLocation(searchTerm, location)
+
+      // Assert
+      expect(result).toBeInstanceOf(Array<Business>)
     })
   })
 
