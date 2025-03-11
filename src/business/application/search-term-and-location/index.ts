@@ -1,5 +1,5 @@
-import { Business } from '../domain/entities/Business'
-import { BusinessRepository } from '../domain/repositories/business-repository'
+import { Business } from '../../domain/entities/Business'
+import { BusinessRepository } from '../../domain/repositories/business'
 
 export class SearchByTermAndLocationUseCase {
   private repository: BusinessRepository
