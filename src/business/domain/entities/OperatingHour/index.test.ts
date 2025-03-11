@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { OperatingHour, OperatingHourType } from './OperatingHour'
+import { OperatingHour, OperatingHourType } from '.'
 
 describe(OperatingHour.name, () => {
   describe(OperatingHour.prototype.formatted.name, () => {
