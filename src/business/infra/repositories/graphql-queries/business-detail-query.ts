@@ -17,10 +17,11 @@ export const businessDetailQuery = `
           end
         }
       }
-      reviews {
+      reviews(limit: 5) {
         id
         rating
         text
+        time_created
         user {
           name,
           image_url,

@@ -43,7 +43,7 @@ describe(BusinessDetailMapper.name, () => {
           time_created: '2024-12-27 14:33:48',
           user: {
             name: 'sam',
-            profile_url: '',
+            image_url: '',
           },
         },
       ]

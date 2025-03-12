@@ -24,7 +24,7 @@ export class BusinessDetailMapper {
             timeCreated: r.time_created,
             user: new User({
               name: r.user.name,
-              profileUrl: r.user.profile_url,
+              profileUrl: r.user.image_url,
             }),
           })
       ),
