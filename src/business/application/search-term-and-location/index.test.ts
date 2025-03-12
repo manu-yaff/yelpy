@@ -3,6 +3,7 @@ import { SearchByTermAndLocationUseCase } from '.'
 import { BusinessRepository } from '../../domain/repositories/business'
 
 class MockRepository implements BusinessRepository {
+  getBusinessDetail = vi.fn()
   searchByTermAndLocation = vi.fn()
 }
 
