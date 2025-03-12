@@ -7,7 +7,6 @@ interface BusinessHoursProps {
 function BusinessHours({ hours }: BusinessHoursProps) {
   return (
     <div>
-      <h3>Hours</h3>
       <ul>
         {hours.map((hour) => {
           const { start, end, day } = hour.formatted()

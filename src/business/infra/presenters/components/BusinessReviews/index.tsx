@@ -7,8 +7,6 @@ interface BusinessReviewsProps {
 function BusinessReviews({ reviews }: BusinessReviewsProps) {
   return (
     <div>
-      <h3>Reviews</h3>
-
       {reviews.map((review) => (
         <ul key={review.id()}>
           <li>{review.timeCreated()}</li>

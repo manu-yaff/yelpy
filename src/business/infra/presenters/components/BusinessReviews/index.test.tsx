@@ -22,7 +22,6 @@ describe('BusinessReviews Component', () => {
   test('renders reviews correctly', () => {
     render(<BusinessReviews reviews={mockReviews} />)
 
-    expect(screen.getByText('Reviews')).toBeInTheDocument()
     expect(screen.getByText('2024-03-12')).toBeInTheDocument()
     expect(screen.getByText('5')).toBeInTheDocument()
     expect(screen.getByText('Test Review')).toBeInTheDocument()

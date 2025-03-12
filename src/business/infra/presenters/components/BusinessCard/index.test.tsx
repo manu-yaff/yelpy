@@ -28,7 +28,7 @@ describe(BusinessCard.name, () => {
     expect(screen.getByText('https://example.com/image.jpg')).toBeInTheDocument()
   })
 
-  it.only('renders business info inside a link when shouldRedirectToDetailPage is true', () => {
+  it('renders business info inside a link when shouldRedirectToDetailPage is true', () => {
     render(<BusinessCard business={mockBusiness} shouldRedirectToDetailPage={true} />, {
       wrapper: MemoryRouter,
     })
