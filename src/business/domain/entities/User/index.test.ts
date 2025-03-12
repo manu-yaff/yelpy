@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { defaultProfileUrl, User, UserType } from '.'
+import { DEFAULT_USER_PROFILE_URL, User, UserType } from '.'
 
 describe(User.name, () => {
   describe(User.prototype.name.name, () => {
@@ -30,7 +30,7 @@ describe(User.name, () => {
       const user = new User(mockUser)
 
       // Assert
-      expect(user.profileUrl()).toBe(defaultProfileUrl)
+      expect(user.profileUrl()).toBe(DEFAULT_USER_PROFILE_URL)
     })
 
     it('should return user profile url when present', () => {

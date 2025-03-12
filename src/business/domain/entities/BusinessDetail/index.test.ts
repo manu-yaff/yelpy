@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { BusinessDetail, hoursNotProvided, OpeningStatus } from '.'
+import { BusinessDetail, HOURS_NOT_PROVIDED, OpeningStatus } from '.'
 import { Business } from '../Business'
 import { OperatingHour } from '../OperatingHour'
 import { Review } from '../Review'
@@ -98,7 +98,7 @@ describe(BusinessDetail.name, () => {
       })
 
       // Assert
-      expect(result.isOpen()).toBe(hoursNotProvided)
+      expect(result.isOpen()).toBe(HOURS_NOT_PROVIDED)
     })
   })
 

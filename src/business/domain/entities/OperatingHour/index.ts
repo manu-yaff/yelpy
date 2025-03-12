@@ -4,14 +4,14 @@ export type OperatingHourType = {
   day: number
 }
 
-const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 export class OperatingHour {
   constructor(private data: OperatingHourType) {}
 
   public formatted() {
     return {
-      day: weekdays[this.data.day],
+      day: WEEKDAYS[this.data.day],
       start: this.formatHour(this.data.start),
       end: this.formatHour(this.data.end),
     }

@@ -3,8 +3,8 @@ import { BusinessDetail } from '../../../domain/entities/BusinessDetail'
 import { BusinessRepository } from '../../../domain/repositories/business'
 import { BusinessDetailMapper } from '../../adapters/business-detail-from-yelp-to-entity'
 import { BusinessMapper } from '../../adapters/business-from-yelp-to-entity'
-import { businessDetailQuery } from '../graphql-queries/business-detail-query'
-import { searchBusinessQuery } from '../graphql-queries/search-business-query'
+import { BUSINESS_DETAIL_QUERY } from '../graphql-queries/business-detail-query'
+import { SEARCH_BUSINESS_QUERY } from '../graphql-queries/search-business-query'
 import { YelpBusinessDetailResponse, YelpSearchBusinessResponse } from './types'
 
 export type Fetch = typeof fetch
@@ -35,7 +35,7 @@ export class YelpGraphqlRepository implements BusinessRepository {
   }
 
   async searchByTermAndLocation(searchTerm: string, location: string): Promise<Array<Business>> {
-    const response = await this.sendGraphqlRequest(searchBusinessQuery, { searchTerm, location })
+    const response = await this.sendGraphqlRequest(SEARCH_BUSINESS_QUERY, { searchTerm, location })
 
     const { data } = (await response.json()) as YelpSearchBusinessResponse
 
@@ -43,7 +43,7 @@ export class YelpGraphqlRepository implements BusinessRepository {
   }
 
   async getBusinessDetail(id: string): Promise<BusinessDetail> {
-    const response = await this.sendGraphqlRequest(businessDetailQuery, { id })
+    const response = await this.sendGraphqlRequest(BUSINESS_DETAIL_QUERY, { id })
 
     const { data } = (await response.json()) as YelpBusinessDetailResponse
 

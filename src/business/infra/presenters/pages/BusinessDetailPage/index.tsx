@@ -7,7 +7,7 @@ import BusinessCard from '../../components/BusinessCard'
 import BusinessHours from '../../components/BusinessHours'
 import BusinessReviews from '../../components/BusinessReviews'
 
-const apiHost = import.meta.env.VITE_YELP_API_HOST
+const API_HOST = import.meta.env.VITE_YELP_API_HOST
 
 function BusinessDetailPage() {
   const { id } = useParams()
@@ -17,7 +17,7 @@ function BusinessDetailPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const yelpRepo = new YelpGraphqlRepository(fetch, { apiUrl: apiHost })
+      const yelpRepo = new YelpGraphqlRepository(fetch, { apiUrl: API_HOST })
       const useCase = new GetBusinessDetailUseCase(yelpRepo)
 
       if (id) {

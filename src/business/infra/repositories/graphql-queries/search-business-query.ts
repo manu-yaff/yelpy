@@ -1,4 +1,4 @@
-export const searchBusinessQuery = `
+export const SEARCH_BUSINESS_QUERY = `
   query SearchBusiness($searchTerm: String!, $location: String!) {
     search(term: $searchTerm, location: $location, limit: 10) {
       business {
@@ -13,4 +13,4 @@ export const searchBusinessQuery = `
       }
     }
   }
-`;
+`

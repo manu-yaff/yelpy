@@ -14,7 +14,7 @@ export type BusinessDetailType = {
   reviews: Array<Review>
 }
 
-export const hoursNotProvided = 'The business has not defined their operating hours'
+export const HOURS_NOT_PROVIDED = 'The business has not defined their operating hours'
 
 export class BusinessDetail {
   constructor(private readonly data: BusinessDetailType) {}
@@ -24,7 +24,7 @@ export class BusinessDetail {
   }
 
   public isOpen(): OpeningStatus | string {
-    if (this.data.isOpen === null) return hoursNotProvided
+    if (this.data.isOpen === null) return HOURS_NOT_PROVIDED
 
     if (this.data.isOpen) return OpeningStatus.Open
 

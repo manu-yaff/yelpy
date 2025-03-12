@@ -1,5 +1,5 @@
-export const defaultPhoneMessage = 'Phone not provided'
-export const defaultBusinessImageUrl = 'default image url'
+export const PHONE_NOT_PROVIDED = 'Phone not provided'
+export const DEFAULT_BUSINESS_IMAGE_URL = 'default image url'
 
 export type BusinessType = {
   id: string
@@ -22,7 +22,7 @@ export class Business {
   }
 
   public phone(): string {
-    return this.data.phone.length === 0 ? defaultPhoneMessage : this.data.phone
+    return this.data.phone.length === 0 ? PHONE_NOT_PROVIDED : this.data.phone
   }
 
   public address(): string {
@@ -34,6 +34,6 @@ export class Business {
   }
 
   public imageUrl(): string {
-    return this.data.photos.length === 0 ? defaultBusinessImageUrl : this.data.photos[0]
+    return this.data.photos.length === 0 ? DEFAULT_BUSINESS_IMAGE_URL : this.data.photos[0]
   }
 }

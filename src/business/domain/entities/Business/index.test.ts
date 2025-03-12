@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { Business, BusinessType, defaultBusinessImageUrl, defaultPhoneMessage } from '.'
+import { Business, BusinessType, DEFAULT_BUSINESS_IMAGE_URL, PHONE_NOT_PROVIDED } from '.'
 
 describe(Business.name, () => {
   describe(Business.prototype.id.name, () => {
@@ -76,7 +76,7 @@ describe(Business.name, () => {
       const result = new Business(mockBusiness)
 
       // Assert
-      expect(result.phone()).toBe(defaultPhoneMessage)
+      expect(result.phone()).toBe(PHONE_NOT_PROVIDED)
     })
   })
 
@@ -154,7 +154,7 @@ describe(Business.name, () => {
       const result = new Business(mockBusiness)
 
       // Assert
-      expect(result.imageUrl()).toBe(defaultBusinessImageUrl)
+      expect(result.imageUrl()).toBe(DEFAULT_BUSINESS_IMAGE_URL)
     })
   })
 })

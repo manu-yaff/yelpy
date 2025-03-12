@@ -1,4 +1,4 @@
-export const businessDetailQuery = `
+export const BUSINESS_DETAIL_QUERY = `
   query ($id: String) {
     business(id: $id) {
       id

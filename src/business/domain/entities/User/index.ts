@@ -1,4 +1,4 @@
-export const defaultProfileUrl = 'default image url'
+export const DEFAULT_USER_PROFILE_URL = 'default image url'
 
 export type UserType = {
   name: string
@@ -13,7 +13,8 @@ export class User {
   }
 
   public profileUrl(): string {
-    if (this.data.profileUrl === null || this.data.profileUrl.length === 0) return defaultProfileUrl
+    if (this.data.profileUrl === null || this.data.profileUrl.length === 0)
+      return DEFAULT_USER_PROFILE_URL
 
     return this.data.profileUrl
   }
