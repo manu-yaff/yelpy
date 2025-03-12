@@ -16,10 +16,14 @@ describe(BusinessCard.name, () => {
   } as unknown as Business
 
   it('renders business information correctly', () => {
+    // Arrange
+
+    // Act
     render(<BusinessCard business={mockBusiness} shouldRedirectToDetailPage={false} />, {
       wrapper: MemoryRouter,
     })
 
+    // Assert
     expect(screen.getByText('Business information')).toBeInTheDocument()
     expect(screen.getByText('Test Business')).toBeInTheDocument()
     expect(screen.getByText('123-456-7890')).toBeInTheDocument()
@@ -29,19 +33,27 @@ describe(BusinessCard.name, () => {
   })
 
   it('renders business info inside a link when shouldRedirectToDetailPage is true', () => {
+    // Arrange
+
+    // Act
     render(<BusinessCard business={mockBusiness} shouldRedirectToDetailPage={true} />, {
       wrapper: MemoryRouter,
     })
 
+    // Assert
     const linkElement = screen.getByRole('link', { name: /Test Business/i })
     expect(linkElement).toHaveAttribute('href', '/business/123/detail')
   })
 
   it('does not render a link when shouldRedirectToDetailPage is false', () => {
+    // Arrange
+
+    // Act
     render(<BusinessCard business={mockBusiness} shouldRedirectToDetailPage={false} />, {
       wrapper: MemoryRouter,
     })
 
+    // Act
     expect(screen.queryByRole('link')).not.toBeInTheDocument()
   })
 })
