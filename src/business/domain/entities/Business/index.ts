@@ -25,6 +25,10 @@ export class Business {
     return this.data.phone.length === 0 ? defaultPhoneMessage : this.data.phone
   }
 
+  public address(): string {
+    return this.data.address
+  }
+
   public reviewCount(): number {
     return this.data.reviewCount
   }

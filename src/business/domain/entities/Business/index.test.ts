@@ -80,6 +80,26 @@ describe(Business.name, () => {
     })
   })
 
+  describe(Business.prototype.address.name, () => {
+    it('should business review count', () => {
+      // Arrange
+      const mockBusiness: BusinessType = {
+        id: '1',
+        name: 'Test Business',
+        phone: '',
+        address: 'San Francisco',
+        reviewCount: 10,
+        photos: ['https://test.com/image.jpg'],
+      }
+
+      // Act
+      const result = new Business(mockBusiness)
+
+      // Assert
+      expect(result.address()).toBe(mockBusiness.address)
+    })
+  })
+
   describe(Business.prototype.reviewCount.name, () => {
     it('should business review count', () => {
       // Arrange
