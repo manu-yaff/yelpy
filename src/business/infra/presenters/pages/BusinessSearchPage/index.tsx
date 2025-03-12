@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
-import { SearchByTermAndLocationUseCase } from '../../../application/search-by-term-and-location'
-import { Business } from '../../../domain/entities/Business'
-import { YelpGraphqlRepository } from '../../repositories/yelp-business-repository'
+import { SearchByTermAndLocationUseCase } from '../../../../application/search-term-and-location'
+import { Business } from '../../../../domain/entities/Business'
+import { YelpGraphqlRepository } from '../../../repositories/yelp-business'
+
+const apiHost = import.meta.env.VITE_YELP_API_HOST
 
 function SearchPage() {
   const [searchParams] = useSearchParams()
@@ -16,7 +18,7 @@ function SearchPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const yelpRepo = new YelpGraphqlRepository(fetch)
+      const yelpRepo = new YelpGraphqlRepository(fetch, { apiUrl: apiHost })
       const useCase = new SearchByTermAndLocationUseCase(yelpRepo)
 
       if (term && location) {
@@ -46,14 +48,13 @@ function SearchPage() {
     <>
       <h3>Results from the search</h3>
       {data.map((b) => (
-        <Link to={`/business/${b.id}/detail`} key={b.id}>
+        <Link to={`/business/${b.id}/detail`} key={b.id()}>
           <ul>
-            <li>{b.id}</li>
-            <li>{b.name}</li>
-            <li>{b.phone}</li>
-            <li>{b.address}</li>
-            <li>{b.reviewCount}</li>
-            <li>{b.imageUrl}</li>
+            <li>{b.name()}</li>
+            <li>{b.phone()}</li>
+            <li>{b.address()}</li>
+            <li>{b.reviewCount()}</li>
+            <li>{b.imageUrl()}</li>
           </ul>
         </Link>
       ))}
