@@ -19,6 +19,7 @@ vi.mock('react-router', async (importOriginal) => {
 
 describe(BusinessSearchPage.name, () => {
   it('should render data', async () => {
+    // Arrange
     const mockBusiness = new Business({
       id: '1',
       name: 'Test Business',
@@ -30,12 +31,14 @@ describe(BusinessSearchPage.name, () => {
 
     vi.spyOn(SearchByTermAndLocationUseCase.prototype, 'execute').mockResolvedValue([mockBusiness])
 
+    // Act
     render(
       <MemoryRouter>
         <BusinessSearchPage />
       </MemoryRouter>
     )
 
+    // Assert
     await waitFor(() => {
       expect(screen.getByText(/Results from the search/i)).toBeInTheDocument()
 
@@ -47,19 +50,22 @@ describe(BusinessSearchPage.name, () => {
     })
   })
 
-  it.skip('should render business information', async () => {
+  it('should render business information', async () => {
+    // Arrange
     const mockError = 'Graphql error'
 
     vi.spyOn(SearchByTermAndLocationUseCase.prototype, 'execute').mockRejectedValue(
       new Error(mockError)
     )
 
+    // Act
     render(
       <MemoryRouter>
         <BusinessSearchPage />
       </MemoryRouter>
     )
 
+    // Assert
     await waitFor(() => {
       expect(screen.getByText(`Error: ${mockError}`)).toBeInTheDocument()
     })
