@@ -5,7 +5,7 @@ import {
   BusinessFromYelp,
   HourFromYelp,
   ReviewFromYelp,
-} from '../../repositories/yelp-business-repository.types'
+} from '../../repositories/yelp-business/types'
 
 describe(BusinessDetailMapper.name, () => {
   describe(BusinessDetailMapper.fromYelp.name, () => {

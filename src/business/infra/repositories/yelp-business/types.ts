@@ -24,25 +24,28 @@ export interface BusinessFromYelp {
 }
 
 export interface BusinessDetailFromYelp extends BusinessFromYelp {
-  hours: Array<Hour>
-  reviews: Array<Review>
+  hours: Array<HourFromYelp>
+  reviews: Array<ReviewFromYelp>
 }
 
-interface Hour {
-  start: string
-  end: string
-  day: number
+export interface HourFromYelp {
+  is_open_now: boolean
+  open: {
+    start: string
+    end: string
+    day: number
+  }
 }
 
-interface User {
+export interface UserFromYelp {
   profile_url: string
   name: string
 }
 
-interface Review {
+export interface ReviewFromYelp {
   id: string
   rating: number
   text: string
   time_created: string
-  user: User
+  user: UserFromYelp
 }

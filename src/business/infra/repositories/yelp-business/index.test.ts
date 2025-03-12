@@ -1,17 +1,13 @@
 import { describe, expect, it, vi } from 'vitest'
-import {
-  UnexpectedError,
-  YelpGraphqlError,
-  YelpGraphqlRepository,
-} from './yelp-business-repository'
+import { UnexpectedError, YelpGraphqlError, YelpGraphqlRepository } from '.'
+import { Business } from '../../../domain/entities/Business'
+import { BusinessDetail } from '../../../domain/entities/BusinessDetail'
+import { searchBusinessQuery } from '../graphql-queries/search-business-query'
 import {
   mockBusinessDetailResponse,
   mockBusinessResponse,
   mockYelpApiConfig,
-} from './mocks/yelp-api-response'
-import { searchBusinessQuery } from './graphql-queries/search-business-query'
-import { Business } from '../../domain/entities/Business'
-import { BusinessDetailEntity } from '../../domain/entities/BusinessDetail'
+} from '../mocks/yelp-api-response'
 
 describe(YelpGraphqlRepository.name, () => {
   describe(YelpGraphqlRepository.prototype.searchByTermAndLocation.name, () => {
@@ -181,7 +177,7 @@ describe(YelpGraphqlRepository.name, () => {
       const result = await repository.getBusinessDetail(mockBusinessId)
 
       // Assert
-      expect(result).toBeInstanceOf(BusinessDetailEntity)
+      expect(result).toBeInstanceOf(BusinessDetail)
     })
   })
 })

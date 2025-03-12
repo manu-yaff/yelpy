@@ -1,5 +1,5 @@
 import { Business } from '../../../domain/entities/Business'
-import { BusinessFromYelp } from '../../repositories/yelp-business-repository.types'
+import { BusinessFromYelp } from '../../repositories/yelp-business/types'
 
 export class BusinessMapper {
   static fromYelp(business: BusinessFromYelp): Business {

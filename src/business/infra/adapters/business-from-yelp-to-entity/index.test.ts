@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { BusinessMapper } from '.'
 import { Business } from '../../../domain/entities/Business'
-import { BusinessFromYelp } from '../../repositories/yelp-business-repository.types'
+import { BusinessFromYelp } from '../../repositories/yelp-business/types'
 
 describe(BusinessMapper.name, () => {
   describe(BusinessMapper.fromYelp.name, () => {

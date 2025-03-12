@@ -2,7 +2,7 @@ import { BusinessDetail } from '../../../domain/entities/BusinessDetail'
 import { OperatingHour } from '../../../domain/entities/OperatingHour'
 import { Review } from '../../../domain/entities/Review'
 import { User } from '../../../domain/entities/User'
-import { BusinessDetailFromYelp } from '../../repositories/yelp-business-repository.types'
+import { BusinessDetailFromYelp } from '../../repositories/yelp-business/types'
 import { BusinessMapper } from '../business-from-yelp-to-entity'
 
 export class BusinessDetailMapper {

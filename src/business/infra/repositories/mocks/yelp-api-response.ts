@@ -1,10 +1,10 @@
-import { YelpGraphqlApiConfig } from '../yelp-business-repository'
+import { YelpGraphqlApiConfig } from '../yelp-business'
 import {
   BusinessDetailFromYelp,
   BusinessFromYelp,
   YelpBusinessDetailResponse,
   YelpSearchBusinessResponse,
-} from '../yelp-business-repository.types'
+} from '../yelp-business/types'
 
 const mockBusinessFromYelp: BusinessFromYelp = {
   id: 'M2Iqqe13-n7_60q9ND0vM0',
@@ -21,9 +21,12 @@ const mockBusinessDetailFromYelp: BusinessDetailFromYelp = {
   ...mockBusinessFromYelp,
   hours: [
     {
-      start: '0000',
-      end: '0000',
-      day: 1,
+      is_open_now: true,
+      open: {
+        start: '0000',
+        end: '0000',
+        day: 1,
+      },
     },
   ],
   reviews: [

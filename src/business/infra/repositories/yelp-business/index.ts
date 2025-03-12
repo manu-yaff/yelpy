@@ -1,14 +1,10 @@
-import { Business } from '../../domain/entities/Business'
-import { BusinessDetailEntity } from '../../domain/entities/BusinessDetail'
-import { BusinessRepository } from '../../domain/repositories/business-repository'
-import { businessDetailFromApiToBusinessDetailEntity } from '../adapters/business-detail-from-yelp-to-entity'
-import { businessFromApiToBusinessEntity } from '../adapters/business-from-yelp-to-entity'
-import { businessDetailQuery } from './graphql-queries/business-detail-query'
-import { searchBusinessQuery } from './graphql-queries/search-business-query'
-import {
-  YelpBusinessDetailResponse,
-  YelpSearchBusinessResponse,
-} from './yelp-business-repository.types'
+import { Business } from '../../../domain/entities/Business'
+import { BusinessDetail } from '../../../domain/entities/BusinessDetail'
+import { BusinessRepository } from '../../../domain/repositories/business'
+import { BusinessDetailMapper } from '../../adapters/business-detail-from-yelp-to-entity'
+import { BusinessMapper } from '../../adapters/business-from-yelp-to-entity'
+import { searchBusinessQuery } from '../graphql-queries/search-business-query'
+import { YelpBusinessDetailResponse, YelpSearchBusinessResponse } from './types'
 
 export type Fetch = typeof fetch
 
@@ -42,15 +38,15 @@ export class YelpGraphqlRepository implements BusinessRepository {
 
     const { data } = (await response.json()) as YelpSearchBusinessResponse
 
-    return data.search.business.map(businessFromApiToBusinessEntity)
+    return data.search.business.map(BusinessMapper.fromYelp)
   }
 
-  async getBusinessDetail(id: string): Promise<BusinessDetailEntity> {
+  async getBusinessDetail(id: string): Promise<BusinessDetail> {
     const response = await this.sendGraphqlRequest({ id })
 
     const { data } = (await response.json()) as YelpBusinessDetailResponse
 
-    return businessDetailFromApiToBusinessDetailEntity(data.business)
+    return BusinessDetailMapper.fromYelp(data.business)
   }
 
   private async sendGraphqlRequest(variables: Record<string, unknown>): Promise<Response> {
