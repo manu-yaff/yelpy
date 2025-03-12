@@ -9,7 +9,7 @@ export enum OpeningStatus {
 
 export type BusinessDetailType = {
   business: Business
-  isOpen: boolean
+  isOpen: boolean | null
   hours: Array<OperatingHour>
   reviews: Array<Review>
 }
