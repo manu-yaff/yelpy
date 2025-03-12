@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router'
+import { useSearchParams } from 'react-router'
 import { SearchByTermAndLocationUseCase } from '../../../../application/search-term-and-location'
 import { Business } from '../../../../domain/entities/Business'
 import { YelpGraphqlRepository } from '../../../repositories/yelp-business'
+import BusinessCard from '../../components/BusinessCard'
 
 const apiHost = import.meta.env.VITE_YELP_API_HOST
 
@@ -48,15 +49,7 @@ function SearchPage() {
     <>
       <h3>Results from the search</h3>
       {data.map((b) => (
-        <Link to={`/business/${b.id()}/detail`} key={b.id()}>
-          <ul>
-            <li>{b.name()}</li>
-            <li>{b.phone()}</li>
-            <li>{b.address()}</li>
-            <li>{b.reviewCount()}</li>
-            <li>{b.imageUrl()}</li>
-          </ul>
-        </Link>
+        <BusinessCard key={b.id()} business={b} shouldRedirectToDetailPage />
       ))}
     </>
   )
