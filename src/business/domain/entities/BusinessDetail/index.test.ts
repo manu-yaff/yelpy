@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { BusinessDetail, OpeningStatus } from '.'
+import { BusinessDetail, hoursNotProvided, OpeningStatus } from '.'
 import { Business } from '../Business'
 import { OperatingHour } from '../OperatingHour'
 import { Review } from '../Review'
@@ -76,6 +76,29 @@ describe(BusinessDetail.name, () => {
 
       // Assert
       expect(result.isOpen()).toBe(OpeningStatus.Closed)
+    })
+
+    it('should show default message when hours are not defined for the business', () => {
+      // Arrange
+      const mockBusiness = new Business({
+        id: '1',
+        name: 'Test Business',
+        phone: '4698761234',
+        address: 'San Francisco',
+        reviewCount: 10,
+        photos: ['https://test.com/image.jpg'],
+      })
+
+      // Act
+      const result = new BusinessDetail({
+        business: mockBusiness,
+        isOpen: null,
+        hours: [],
+        reviews: [],
+      })
+
+      // Assert
+      expect(result.isOpen()).toBe(hoursNotProvided)
     })
   })
 
