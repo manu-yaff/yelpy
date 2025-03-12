@@ -8,7 +8,7 @@ class MockRepository implements BusinessRepository {
 }
 
 describe(GetBusinessDetailUseCase.name, () => {
-  describe(GetBusinessDetailUseCase.prototype.execute, () => {
+  describe(GetBusinessDetailUseCase.prototype.execute.name, () => {
     it('should get business detail', async () => {
       // Arrange
       const mockRepository = new MockRepository()

@@ -8,7 +8,7 @@ class MockRepository implements BusinessRepository {
 }
 
 describe(SearchByTermAndLocationUseCase.name, () => {
-  describe(SearchByTermAndLocationUseCase.prototype.execute, () => {
+  describe(SearchByTermAndLocationUseCase.prototype.execute.name, () => {
     it('should search by term and location', async () => {
       // Arrange
       const mockRepository = new MockRepository()
