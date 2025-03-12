@@ -25,11 +25,13 @@ describe(BusinessDetailMapper.name, () => {
       const mockHours: Array<HourFromYelp> = [
         {
           is_open_now: false,
-          open: {
-            start: '0900',
-            end: '2100',
-            day: 0,
-          },
+          open: [
+            {
+              start: '0900',
+              end: '2100',
+              day: 0,
+            },
+          ],
         },
       ]
 

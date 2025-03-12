@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { UnexpectedError, YelpGraphqlError, YelpGraphqlRepository } from '.'
 import { Business } from '../../../domain/entities/Business'
 import { BusinessDetail } from '../../../domain/entities/BusinessDetail'
+import { businessDetailQuery } from '../graphql-queries/business-detail-query'
 import { searchBusinessQuery } from '../graphql-queries/search-business-query'
 import {
   mockBusinessDetailResponse,
@@ -155,7 +156,7 @@ describe(YelpGraphqlRepository.name, () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query: searchBusinessQuery,
+          query: businessDetailQuery,
           variables: { id: mockBusinessId },
         }),
       })

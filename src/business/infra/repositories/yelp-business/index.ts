@@ -3,6 +3,7 @@ import { BusinessDetail } from '../../../domain/entities/BusinessDetail'
 import { BusinessRepository } from '../../../domain/repositories/business'
 import { BusinessDetailMapper } from '../../adapters/business-detail-from-yelp-to-entity'
 import { BusinessMapper } from '../../adapters/business-from-yelp-to-entity'
+import { businessDetailQuery } from '../graphql-queries/business-detail-query'
 import { searchBusinessQuery } from '../graphql-queries/search-business-query'
 import { YelpBusinessDetailResponse, YelpSearchBusinessResponse } from './types'
 
@@ -34,7 +35,7 @@ export class YelpGraphqlRepository implements BusinessRepository {
   }
 
   async searchByTermAndLocation(searchTerm: string, location: string): Promise<Array<Business>> {
-    const response = await this.sendGraphqlRequest({ searchTerm, location })
+    const response = await this.sendGraphqlRequest(searchBusinessQuery, { searchTerm, location })
 
     const { data } = (await response.json()) as YelpSearchBusinessResponse
 
@@ -42,21 +43,24 @@ export class YelpGraphqlRepository implements BusinessRepository {
   }
 
   async getBusinessDetail(id: string): Promise<BusinessDetail> {
-    const response = await this.sendGraphqlRequest({ id })
+    const response = await this.sendGraphqlRequest(businessDetailQuery, { id })
 
     const { data } = (await response.json()) as YelpBusinessDetailResponse
 
     return BusinessDetailMapper.fromYelp(data.business)
   }
 
-  private async sendGraphqlRequest(variables: Record<string, unknown>): Promise<Response> {
+  private async sendGraphqlRequest(
+    query: string,
+    variables: Record<string, unknown>
+  ): Promise<Response> {
     try {
       const response = await this.fetchFn(this.apiConfig.apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query: searchBusinessQuery, variables }),
+        body: JSON.stringify({ query, variables }),
       })
 
       if (!response.ok) {

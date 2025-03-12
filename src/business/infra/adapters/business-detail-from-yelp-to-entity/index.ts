@@ -12,8 +12,8 @@ export class BusinessDetailMapper {
     return new BusinessDetail({
       business: BusinessMapper.fromYelp(baseBusinessInfo),
       isOpen: hours[0].is_open_now,
-      hours: hours.map(
-        (h) => new OperatingHour({ start: h.open.start, end: h.open.end, day: h.open.day })
+      hours: hours[0].open.map(
+        (h) => new OperatingHour({ start: h.start, end: h.end, day: h.day })
       ),
       reviews: reviews.map(
         (r) =>

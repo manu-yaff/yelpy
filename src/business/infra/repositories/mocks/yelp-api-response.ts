@@ -22,11 +22,13 @@ const mockBusinessDetailFromYelp: BusinessDetailFromYelp = {
   hours: [
     {
       is_open_now: true,
-      open: {
-        start: '0000',
-        end: '0000',
-        day: 1,
-      },
+      open: [
+        {
+          start: '0000',
+          end: '0000',
+          day: 1,
+        },
+      ],
     },
   ],
   reviews: [

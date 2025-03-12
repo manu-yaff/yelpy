@@ -34,7 +34,7 @@ export interface HourFromYelp {
     start: string
     end: string
     day: number
-  }
+  }[]
 }
 
 export interface UserFromYelp {

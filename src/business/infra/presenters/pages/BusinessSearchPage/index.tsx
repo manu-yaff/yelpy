@@ -48,7 +48,7 @@ function SearchPage() {
     <>
       <h3>Results from the search</h3>
       {data.map((b) => (
-        <Link to={`/business/${b.id}/detail`} key={b.id()}>
+        <Link to={`/business/${b.id()}/detail`} key={b.id()}>
           <ul>
             <li>{b.name()}</li>
             <li>{b.phone()}</li>
