@@ -38,7 +38,7 @@ const mockBusinessDetailFromYelp: BusinessDetailFromYelp = {
       text: 'Test review',
       time_created: '2024-09-24 04:05:22',
       user: {
-        profile_url: 'https://example.com/image.jpg',
+        image_url: 'https://example.com/image.jpg',
         name: 'Test name',
       },
     },
