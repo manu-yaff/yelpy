@@ -4,34 +4,12 @@ import { MemoryRouter, Route, Routes } from 'react-router'
 import { describe, expect, it, vi } from 'vitest'
 import BusinessDetailPage from '.'
 import { GetBusinessDetailUseCase } from '../../../../application/get-business-detail'
-import { Business } from '../../../../domain/entities/Business'
 import { BusinessDetail } from '../../../../domain/entities/BusinessDetail'
-import { OperatingHour } from '../../../../domain/entities/OperatingHour'
-import { Review } from '../../../../domain/entities/Review'
-import { User } from '../../../../domain/entities/User'
-import { getMockBusinessData } from '../../../../domain/entities/mocks/business-data'
+import { getMockBusinessDetailData } from '../../../../domain/entities/mocks/business-detail-data'
 
 vi.mock('../../useCases/GetBusinessDetailUseCase')
 
 describe(BusinessDetailPage.name, () => {
-  const mockBusinessData: BusinessDetail = new BusinessDetail({
-    business: new Business(getMockBusinessData()),
-    isOpen: true,
-    hours: [new OperatingHour({ start: '0900', end: '1800', day: 1 })],
-    reviews: [
-      new Review({
-        id: '1',
-        timeCreated: '2024-03-12',
-        rating: 5,
-        text: 'Great service!',
-        user: new User({
-          name: 'John Doe',
-          profileUrl: 'https://example.com/johndoe',
-        }),
-      }),
-    ],
-  })
-
   it('renders error message when API call fails', async () => {
     // Arrange
     const mockError = new Error('failed to fetch')
@@ -52,6 +30,7 @@ describe(BusinessDetailPage.name, () => {
 
   it('renders business details when API call is successful', async () => {
     // Arrange
+    const mockBusinessData: BusinessDetail = new BusinessDetail(getMockBusinessDetailData())
     vi.spyOn(GetBusinessDetailUseCase.prototype, 'execute').mockResolvedValue(mockBusinessData)
 
     // Act
@@ -72,12 +51,17 @@ describe(BusinessDetailPage.name, () => {
       expect(screen.getByText(mockBusinessData.business().reviewCount())).toBeInTheDocument()
       expect(screen.getByText(mockBusinessData.business().imageUrl())).toBeInTheDocument()
 
-      expect(screen.getByText('Hours')).toBeInTheDocument()
-      expect(screen.getByText('Monday 09:00 - 18:00')).toBeInTheDocument()
+      mockBusinessData.hours().forEach((hour) => {
+        expect(screen.getByText(hour.formatted())).toBeInTheDocument()
+      })
 
-      expect(screen.getByText('Reviews')).toBeInTheDocument()
-      expect(screen.getByText('Great service!')).toBeInTheDocument()
-      expect(screen.getByText('John Doe')).toBeInTheDocument()
+      mockBusinessData.reviews().forEach((review) => {
+        expect(screen.getByText(review.timeCreated())).toBeInTheDocument()
+        expect(screen.getByText(review.rating())).toBeInTheDocument()
+        expect(screen.getByText(review.text())).toBeInTheDocument()
+        expect(screen.getByText(review.user().name())).toBeInTheDocument()
+        expect(screen.getByText(review.user().profileUrl())).toBeInTheDocument()
+      })
     })
   })
 })

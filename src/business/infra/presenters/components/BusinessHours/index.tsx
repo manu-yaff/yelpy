@@ -10,9 +10,9 @@ function BusinessHours({ hours }: BusinessHoursProps): ReactNode {
     <div>
       <ul>
         {hours.map((hour) => {
-          const { start, end, day } = hour.formatted()
+          const formatted = hour.formatted()
 
-          return <li key={`${day}-${start}-${end}`}>{`${day} ${start} - ${end}`}</li>
+          return <li key={formatted}>{formatted}</li>
         })}
       </ul>
     </div>

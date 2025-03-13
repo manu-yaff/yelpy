@@ -7,10 +7,9 @@ import { Business } from '../../../../domain/entities/Business'
 import { getMockBusinessData } from '../../../../domain/entities/mocks/business-data'
 
 describe(BusinessCard.name, () => {
-  const mockBusiness: Business = new Business(getMockBusinessData())
-
   it('should show business information when rendering component', () => {
     // Arrange
+    const mockBusiness: Business = new Business(getMockBusinessData())
 
     // Act
     render(<BusinessCard business={mockBusiness} shouldRedirectToDetailPage={false} />, {
@@ -28,6 +27,7 @@ describe(BusinessCard.name, () => {
 
   it('should render business infro info inside a link when shouldRedirectToDetailPage is true', () => {
     // Arrange
+    const mockBusiness: Business = new Business(getMockBusinessData())
 
     // Act
     render(<BusinessCard business={mockBusiness} shouldRedirectToDetailPage={true} />, {
@@ -41,6 +41,7 @@ describe(BusinessCard.name, () => {
 
   it('does not render a link when shouldRedirectToDetailPage is false', () => {
     // Arrange
+    const mockBusiness: Business = new Business(getMockBusinessData())
 
     // Act
     render(<BusinessCard business={mockBusiness} shouldRedirectToDetailPage={false} />, {
