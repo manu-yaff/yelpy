@@ -34,13 +34,15 @@ describe(BusinessSearchPage.name, () => {
 
     // Assert
     await waitFor(() => {
+      const businessImage = screen.getByAltText(mockBusiness.name())
+
       expect(screen.getByText(/Results from the search/i)).toBeInTheDocument()
 
       expect(screen.getByText(mockBusiness.name())).toBeInTheDocument()
       expect(screen.getByText(mockBusiness.phone())).toBeInTheDocument()
       expect(screen.getByText(mockBusiness.address())).toBeInTheDocument()
-      expect(screen.getByText(mockBusiness.reviewCount())).toBeInTheDocument()
-      expect(screen.getByText(mockBusiness.imageUrl())).toBeInTheDocument()
+      expect(screen.getByText(mockBusiness.reviewCount() + ' reviews')).toBeInTheDocument()
+      expect(businessImage).toHaveAttribute('src', mockBusiness.imageUrl())
     })
   })
 

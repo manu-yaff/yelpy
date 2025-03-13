@@ -29,6 +29,9 @@ describe(BusinessReviews.name, () => {
     expect(screen.getByText('5')).toBeInTheDocument()
     expect(screen.getByText('Test Review')).toBeInTheDocument()
     expect(screen.getByText('John Doe')).toBeInTheDocument()
-    expect(screen.getByText('https://example.com/johndoe')).toBeInTheDocument()
+
+    const userImage = screen.getByAltText('John Doe')
+
+    expect(userImage).toHaveAttribute('src', 'https://example.com/johndoe')
   })
 })

@@ -17,12 +17,13 @@ describe(BusinessCard.name, () => {
     })
 
     // Assert
-    expect(screen.getByText('Business information')).toBeInTheDocument()
     expect(screen.getByText(mockBusiness.name())).toBeInTheDocument()
     expect(screen.getByText(mockBusiness.phone())).toBeInTheDocument()
     expect(screen.getByText(mockBusiness.address())).toBeInTheDocument()
-    expect(screen.getByText(mockBusiness.reviewCount())).toBeInTheDocument()
-    expect(screen.getByText(mockBusiness.imageUrl())).toBeInTheDocument()
+    expect(screen.getByText(mockBusiness.reviewCount() + ' reviews')).toBeInTheDocument()
+
+    const imageUrl = screen.getByAltText(mockBusiness.name())
+    expect(imageUrl).toHaveAttribute('src', mockBusiness.imageUrl())
   })
 
   it('should render business infro info inside a link when shouldRedirectToDetailPage is true', () => {
