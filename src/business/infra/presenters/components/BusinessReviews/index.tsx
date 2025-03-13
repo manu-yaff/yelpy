@@ -8,18 +8,19 @@ interface BusinessReviewsProps {
 
 function BusinessReviews({ reviews }: BusinessReviewsProps): ReactNode {
   return (
-    <div>
-      <p>Reviews</p>
+    <div className="reviews-container">
+      <p className="reviews-header">Reviews</p>
       {reviews.length === 0 ? (
-        <p>No reviews found</p>
+        <p className="no-reviews">No reviews found</p>
       ) : (
         reviews.map((review) => (
-          <ul key={review.id()}>
-            <li>{review.timeCreated()}</li>
-            <li> {review.rating()}</li>
-            <li>{review.text()}</li>
-            <li>{review.user().name()}</li>
+          <ul key={review.id()} className="review-item">
+            <li className="review-date">{review.timeCreated()}</li>
+            <li className="review-rating">{review.rating()}</li>
+            <li className="review-text">{review.text()}</li>
+            <li className="review-user">{review.user().name()}</li>
             <img
+              className="review-user-profile"
               src={review.user().profileUrl()}
               alt="profile user"
               onError={(e: SyntheticEvent<HTMLImageElement, Event>) => {

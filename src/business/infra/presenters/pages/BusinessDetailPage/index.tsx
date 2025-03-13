@@ -45,11 +45,9 @@ function BusinessDetailPage(): ReactNode {
 
   return (
     <>
-      <div>
-        {data && <BusinessCard business={data.business()} shouldRedirectToDetailPage={false} />}
+      {data && <BusinessCard business={data.business()} shouldRedirectToDetailPage={false} />}
 
-        {data && <BusinessHours hours={data.hours()} />}
-      </div>
+      {data && <BusinessHours hours={data.hours()} />}
 
       {data && <BusinessReviews reviews={data.reviews()} />}
     </>

@@ -7,20 +7,25 @@ interface BusinessHoursProps {
 
 function BusinessHours({ hours }: BusinessHoursProps): ReactNode {
   return (
-    <div>
-      <p>Hours</p>
-      {hours.length === 0 ? (
-        <p>Hours not provided</p>
-      ) : (
-        <ul>
-          {hours.map((hour) => {
-            const formatted = hour.formatted()
-
-            return <li key={formatted}>{formatted}</li>
-          })}
-        </ul>
-      )}
-    </div>
+    <>
+      <p className="business-hours-header">Hours</p>
+      <div className="business-hours-container">
+        {hours.length === 0 ? (
+          <p className="no-hours">Hours not provided</p>
+        ) : (
+          <ul className="hours-list">
+            {hours.map((hour) => {
+              const formatted = hour.formatted()
+              return (
+                <li key={formatted} className="hour-item">
+                  {formatted}
+                </li>
+              )
+            })}
+          </ul>
+        )}
+      </div>
+    </>
   )
 }
 

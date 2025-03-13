@@ -10,10 +10,12 @@ interface BusinessCardProps {
 function BusinessCard({ business, shouldRedirectToDetailPage }: BusinessCardProps): ReactNode {
   const businessInfo = (
     <ul>
-      <li>{business.name()}</li>
+      <li>
+        <h3>{business.name()}</h3>
+      </li>
       <li>{business.phone()}</li>
       <li>{business.address()}</li>
-      <li>{business.reviewCount()}</li>
+      <li>Reviews: {business.reviewCount()}</li>
       <img
         src={business.imageUrl()}
         alt={business.name()}
@@ -25,7 +27,7 @@ function BusinessCard({ business, shouldRedirectToDetailPage }: BusinessCardProp
   )
 
   return (
-    <div className={shouldRedirectToDetailPage ? 'business-card' : ''}>
+    <div className={shouldRedirectToDetailPage ? 'business-card' : 'business-card'}>
       {shouldRedirectToDetailPage ? (
         <Link to={`/business/${business.id()}/detail`}>{businessInfo}</Link>
       ) : (
