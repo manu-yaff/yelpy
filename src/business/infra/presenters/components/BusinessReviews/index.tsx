@@ -22,7 +22,7 @@ function BusinessReviews({ reviews }: BusinessReviewsProps): ReactNode {
             <img
               className="review-user-profile"
               src={review.user().profileUrl()}
-              alt="profile user"
+              alt={review.user().name()}
               onError={(e: SyntheticEvent<HTMLImageElement, Event>) => {
                 e.currentTarget.src = DEFAULT_USER_PROFILE_URL
               }}

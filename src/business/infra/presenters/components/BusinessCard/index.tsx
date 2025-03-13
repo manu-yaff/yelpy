@@ -15,7 +15,7 @@ function BusinessCard({ business, shouldRedirectToDetailPage }: BusinessCardProp
       </li>
       <li>{business.phone()}</li>
       <li>{business.address()}</li>
-      <li>Reviews: {business.reviewCount()}</li>
+      <li>{business.reviewCount()} reviews</li>
       <img
         src={business.imageUrl()}
         alt={business.name()}

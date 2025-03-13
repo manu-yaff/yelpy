@@ -22,13 +22,13 @@ function SearchForm(): ReactNode {
       <div>
         <form onSubmit={handleSubmit}>
           <input
-            placeholder="tacos"
+            placeholder="eg. tacos"
             value={term}
             required
             onChange={(e) => setTerm(e.target.value)}
           />
           <input
-            placeholder="san francisco"
+            placeholder="eg. san francisco"
             value={location}
             required
             onChange={(e) => setLocation(e.target.value)}

@@ -44,23 +44,29 @@ describe(BusinessDetailPage.name, () => {
 
     // Assert
     await waitFor(() => {
-      expect(screen.getByText('Business info')).toBeInTheDocument()
+      const businessImage = screen.getByAltText(mockBusinessData.business().name())
+
       expect(screen.getByText(mockBusinessData.business().name())).toBeInTheDocument()
       expect(screen.getByText(mockBusinessData.business().phone())).toBeInTheDocument()
       expect(screen.getByText(mockBusinessData.business().address())).toBeInTheDocument()
-      expect(screen.getByText(mockBusinessData.business().reviewCount())).toBeInTheDocument()
-      expect(screen.getByText(mockBusinessData.business().imageUrl())).toBeInTheDocument()
+      expect(
+        screen.getByText(mockBusinessData.business().reviewCount() + ' reviews')
+      ).toBeInTheDocument()
+      expect(businessImage).toHaveAttribute('src', mockBusinessData.business().imageUrl())
 
       mockBusinessData.hours().forEach((hour) => {
         expect(screen.getByText(hour.formatted())).toBeInTheDocument()
       })
 
       mockBusinessData.reviews().forEach((review) => {
+        const userImage = screen.getByAltText(review.user().name())
+
         expect(screen.getByText(review.timeCreated())).toBeInTheDocument()
         expect(screen.getByText(review.rating())).toBeInTheDocument()
         expect(screen.getByText(review.text())).toBeInTheDocument()
         expect(screen.getByText(review.user().name())).toBeInTheDocument()
-        expect(screen.getByText(review.user().profileUrl())).toBeInTheDocument()
+
+        expect(userImage).toHaveAttribute('src', review.user().profileUrl())
       })
     })
   })
