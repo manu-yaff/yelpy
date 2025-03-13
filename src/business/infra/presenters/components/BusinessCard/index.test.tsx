@@ -4,18 +4,12 @@ import { MemoryRouter } from 'react-router'
 import { describe, expect, it } from 'vitest'
 import BusinessCard from '.'
 import { Business } from '../../../../domain/entities/Business'
+import { getMockBusinessData } from '../../../../domain/entities/mocks/business-data'
 
 describe(BusinessCard.name, () => {
-  const mockBusiness = {
-    id: () => '123',
-    name: () => 'Test Business',
-    phone: () => '123-456-7890',
-    address: () => '123 Test St',
-    reviewCount: () => 42,
-    imageUrl: () => 'https://example.com/image.jpg',
-  } as unknown as Business
+  const mockBusiness: Business = new Business(getMockBusinessData())
 
-  it('renders business information correctly', () => {
+  it('should show business information when rendering component', () => {
     // Arrange
 
     // Act
@@ -25,14 +19,14 @@ describe(BusinessCard.name, () => {
 
     // Assert
     expect(screen.getByText('Business information')).toBeInTheDocument()
-    expect(screen.getByText('Test Business')).toBeInTheDocument()
-    expect(screen.getByText('123-456-7890')).toBeInTheDocument()
-    expect(screen.getByText('123 Test St')).toBeInTheDocument()
-    expect(screen.getByText('42')).toBeInTheDocument()
-    expect(screen.getByText('https://example.com/image.jpg')).toBeInTheDocument()
+    expect(screen.getByText(mockBusiness.name())).toBeInTheDocument()
+    expect(screen.getByText(mockBusiness.phone())).toBeInTheDocument()
+    expect(screen.getByText(mockBusiness.address())).toBeInTheDocument()
+    expect(screen.getByText(mockBusiness.reviewCount())).toBeInTheDocument()
+    expect(screen.getByText(mockBusiness.imageUrl())).toBeInTheDocument()
   })
 
-  it('renders business info inside a link when shouldRedirectToDetailPage is true', () => {
+  it('should render business infro info inside a link when shouldRedirectToDetailPage is true', () => {
     // Arrange
 
     // Act
@@ -42,7 +36,7 @@ describe(BusinessCard.name, () => {
 
     // Assert
     const linkElement = screen.getByRole('link', { name: /Test Business/i })
-    expect(linkElement).toHaveAttribute('href', '/business/123/detail')
+    expect(linkElement).toHaveAttribute('href', `/business/${mockBusiness.id()}/detail`)
   })
 
   it('does not render a link when shouldRedirectToDetailPage is false', () => {

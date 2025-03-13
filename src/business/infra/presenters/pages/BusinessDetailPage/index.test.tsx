@@ -9,19 +9,13 @@ import { BusinessDetail } from '../../../../domain/entities/BusinessDetail'
 import { OperatingHour } from '../../../../domain/entities/OperatingHour'
 import { Review } from '../../../../domain/entities/Review'
 import { User } from '../../../../domain/entities/User'
+import { getMockBusinessData } from '../../../../domain/entities/mocks/business-data'
 
 vi.mock('../../useCases/GetBusinessDetailUseCase')
 
 describe(BusinessDetailPage.name, () => {
   const mockBusinessData: BusinessDetail = new BusinessDetail({
-    business: new Business({
-      id: '123',
-      name: 'Test Business',
-      phone: '123-456-7890',
-      address: '123 Test St',
-      reviewCount: 42,
-      photos: ['https://example.com/image.jpg'],
-    }),
+    business: new Business(getMockBusinessData()),
     isOpen: true,
     hours: [new OperatingHour({ start: '0900', end: '1800', day: 1 })],
     reviews: [
@@ -72,11 +66,11 @@ describe(BusinessDetailPage.name, () => {
     // Assert
     await waitFor(() => {
       expect(screen.getByText('Business info')).toBeInTheDocument()
-      expect(screen.getByText('Test Business')).toBeInTheDocument()
-      expect(screen.getByText('123-456-7890')).toBeInTheDocument()
-      expect(screen.getByText('123 Test St')).toBeInTheDocument()
-      expect(screen.getByText('42')).toBeInTheDocument()
-      expect(screen.getByText('https://example.com/image.jpg')).toBeInTheDocument()
+      expect(screen.getByText(mockBusinessData.business().name())).toBeInTheDocument()
+      expect(screen.getByText(mockBusinessData.business().phone())).toBeInTheDocument()
+      expect(screen.getByText(mockBusinessData.business().address())).toBeInTheDocument()
+      expect(screen.getByText(mockBusinessData.business().reviewCount())).toBeInTheDocument()
+      expect(screen.getByText(mockBusinessData.business().imageUrl())).toBeInTheDocument()
 
       expect(screen.getByText('Hours')).toBeInTheDocument()
       expect(screen.getByText('Monday 09:00 - 18:00')).toBeInTheDocument()

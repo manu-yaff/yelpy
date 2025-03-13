@@ -4,19 +4,13 @@ import { Business } from '../Business'
 import { OperatingHour } from '../OperatingHour'
 import { Review } from '../Review'
 import { User } from '../User'
+import { getMockBusinessData } from '../mocks/business-data'
 
 describe(BusinessDetail.name, () => {
   describe(BusinessDetail.prototype.business.name, () => {
-    it('should return business instance', () => {
+    it('should return business detail instance when passing valid params', () => {
       // Arrange
-      const mockBusiness = new Business({
-        id: '1',
-        name: 'Test Business',
-        phone: '4698761234',
-        address: 'San Francisco',
-        reviewCount: 10,
-        photos: ['https://test.com/image.jpg'],
-      })
+      const mockBusiness = new Business(getMockBusinessData())
 
       // Act
       const result = new BusinessDetail({
@@ -34,14 +28,7 @@ describe(BusinessDetail.name, () => {
   describe(BusinessDetail.prototype.isOpen.name, () => {
     it(`should return ${OpeningStatus.Open} when business is open`, () => {
       // Arrange
-      const mockBusiness = new Business({
-        id: '1',
-        name: 'Test Business',
-        phone: '4698761234',
-        address: 'San Francisco',
-        reviewCount: 10,
-        photos: ['https://test.com/image.jpg'],
-      })
+      const mockBusiness = new Business(getMockBusinessData())
 
       // Act
       const result = new BusinessDetail({
@@ -57,14 +44,7 @@ describe(BusinessDetail.name, () => {
 
     it(`should return ${OpeningStatus.Closed} when business is closed`, () => {
       // Arrange
-      const mockBusiness = new Business({
-        id: '1',
-        name: 'Test Business',
-        phone: '4698761234',
-        address: 'San Francisco',
-        reviewCount: 10,
-        photos: ['https://test.com/image.jpg'],
-      })
+      const mockBusiness = new Business(getMockBusinessData())
 
       // Act
       const result = new BusinessDetail({
@@ -78,16 +58,9 @@ describe(BusinessDetail.name, () => {
       expect(result.isOpen()).toBe(OpeningStatus.Closed)
     })
 
-    it('should show default message when hours are not defined for the business', () => {
+    it('should show default message when operating hours are not provided ', () => {
       // Arrange
-      const mockBusiness = new Business({
-        id: '1',
-        name: 'Test Business',
-        phone: '4698761234',
-        address: 'San Francisco',
-        reviewCount: 10,
-        photos: ['https://test.com/image.jpg'],
-      })
+      const mockBusiness = new Business(getMockBusinessData())
 
       // Act
       const result = new BusinessDetail({
@@ -103,16 +76,9 @@ describe(BusinessDetail.name, () => {
   })
 
   describe(BusinessDetail.prototype.hours.name, () => {
-    it('should return business hours', () => {
+    it('should return business hours when business provides them', () => {
       // Arrange
-      const mockBusiness = new Business({
-        id: '1',
-        name: 'Test Business',
-        phone: '4698761234',
-        address: 'San Francisco',
-        reviewCount: 10,
-        photos: ['https://test.com/image.jpg'],
-      })
+      const mockBusiness = new Business(getMockBusinessData())
 
       // Act
       const result = new BusinessDetail({
@@ -136,16 +102,9 @@ describe(BusinessDetail.name, () => {
   })
 
   describe(BusinessDetail.prototype.reviews.name, () => {
-    it('should return business hours', () => {
+    it('should return business hours ', () => {
       // Arrange
-      const mockBusiness = new Business({
-        id: '1',
-        name: 'Test Business',
-        phone: '4698761234',
-        address: 'San Francisco',
-        reviewCount: 10,
-        photos: ['https://test.com/image.jpg'],
-      })
+      const mockBusiness = new Business(getMockBusinessData())
 
       // Act
       const result = new BusinessDetail({

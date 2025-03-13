@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from 'vitest'
 import BusinessSearchPage from '.'
 import { SearchByTermAndLocationUseCase } from '../../../../application/search-term-and-location'
 import { Business } from '../../../../domain/entities/Business'
+import { getMockBusinessData } from '../../../../domain/entities/mocks/business-data'
 
 vi.mock('react-router', async (importOriginal) => {
   const actual = await importOriginal()
@@ -20,14 +21,7 @@ vi.mock('react-router', async (importOriginal) => {
 describe(BusinessSearchPage.name, () => {
   it('should render data', async () => {
     // Arrange
-    const mockBusiness = new Business({
-      id: '1',
-      name: 'Test Business',
-      phone: '123456789',
-      address: 'Test address',
-      reviewCount: 10,
-      photos: ['https://example.com/image.jpg'],
-    })
+    const mockBusiness = new Business(getMockBusinessData())
 
     vi.spyOn(SearchByTermAndLocationUseCase.prototype, 'execute').mockResolvedValue([mockBusiness])
 
