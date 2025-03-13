@@ -1,27 +1,19 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { SearchByTermAndLocationUseCase } from '.'
-import { BusinessRepository } from '../../domain/repositories/business'
-
-class MockRepository implements BusinessRepository {
-  getBusinessDetail = vi.fn()
-  searchByTermAndLocation = vi.fn()
-}
+import { getMockBusinessRepository } from '../../domain/repositories/business/mocks'
 
 describe(SearchByTermAndLocationUseCase.name, () => {
   describe(SearchByTermAndLocationUseCase.prototype.execute.name, () => {
     it('should search by term and location', async () => {
       // Arrange
-      const mockRepository = new MockRepository()
-
+      const mockRepository = getMockBusinessRepository()
       const searchByTermAndLocation = new SearchByTermAndLocationUseCase(mockRepository)
-
-      const mockSearchByTermAndLocation = vi.spyOn(mockRepository, 'searchByTermAndLocation')
 
       // Act
       await searchByTermAndLocation.execute('term', 'location')
 
       // Assert
-      expect(mockSearchByTermAndLocation).toHaveBeenCalledTimes(1)
+      expect(mockRepository.searchByTermAndLocation).toHaveBeenCalledTimes(1)
     })
   })
 })
