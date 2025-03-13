@@ -24,7 +24,7 @@ describe(BusinessHours.name, () => {
     render(<BusinessHours hours={mockHours} />)
 
     // Assert
-    expect(screen.getByText('Monday 09:00 - 18:00')).toBeInTheDocument()
-    expect(screen.getByText('Tuesday 10:00 - 17:00')).toBeInTheDocument()
+    expect(screen.getByText('Monday - 09:00 - 18:00')).toBeInTheDocument()
+    expect(screen.getByText('Tuesday - 10:00 - 17:00')).toBeInTheDocument()
   })
 })

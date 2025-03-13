@@ -15,13 +15,7 @@ describe(OperatingHour.name, () => {
       const hour = new OperatingHour(mockHour)
 
       // Assert
-      expect(hour.formatted()).toEqual(
-        expect.objectContaining({
-          start: '08:00',
-          end: '17:00',
-          day: 'Monday',
-        })
-      )
+      expect(hour.formatted()).toEqual('Monday - 08:00 - 17:00')
     })
   })
 })
