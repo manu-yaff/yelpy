@@ -1,12 +1,12 @@
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router'
 
-function SearchForm() {
+function SearchForm(): ReactNode {
   const [term, setTerm] = useState('')
   const [location, setLocation] = useState('')
   const navigate = useNavigate()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault()
 
     if (!term.trim()) return

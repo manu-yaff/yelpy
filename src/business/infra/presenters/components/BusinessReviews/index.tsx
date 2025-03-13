@@ -1,10 +1,11 @@
+import { ReactNode } from 'react'
 import { Review } from '../../../../domain/entities/Review'
 
 interface BusinessReviewsProps {
   reviews: Array<Review>
 }
 
-function BusinessReviews({ reviews }: BusinessReviewsProps) {
+function BusinessReviews({ reviews }: BusinessReviewsProps): ReactNode {
   return (
     <div>
       {reviews.map((review) => (

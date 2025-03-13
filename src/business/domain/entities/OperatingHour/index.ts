@@ -9,7 +9,7 @@ const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frida
 export class OperatingHour {
   constructor(private data: OperatingHourType) {}
 
-  public formatted() {
+  public formatted(): { day: string; start: string; end: string } {
     return {
       day: WEEKDAYS[this.data.day],
       start: this.formatHour(this.data.start),
@@ -17,7 +17,7 @@ export class OperatingHour {
     }
   }
 
-  private formatHour(hour: string) {
+  private formatHour(hour: string): string {
     return `${hour.slice(0, 2)}:${hour.slice(2, 4)}`
   }
 }

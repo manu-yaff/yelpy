@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { Link } from 'react-router'
 import { Business } from '../../../../domain/entities/Business'
 
@@ -6,7 +7,7 @@ interface BusinessCardProps {
   shouldRedirectToDetailPage: boolean
 }
 
-function BusinessCard({ business, shouldRedirectToDetailPage }: BusinessCardProps) {
+function BusinessCard({ business, shouldRedirectToDetailPage }: BusinessCardProps): ReactNode {
   const businessInfo = (
     <ul className="business-details">
       <li>{business.name()}</li>

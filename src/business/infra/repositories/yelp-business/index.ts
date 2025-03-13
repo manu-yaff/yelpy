@@ -15,7 +15,7 @@ export type YelpGraphqlApiConfig = {
 
 export class UnexpectedError extends Error {
   constructor() {
-    super('Unxepected error')
+    super('unexpected error')
   }
 }
 

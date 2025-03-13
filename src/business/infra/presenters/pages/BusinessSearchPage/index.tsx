@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { SearchByTermAndLocationUseCase } from '../../../../application/search-term-and-location'
 import { Business } from '../../../../domain/entities/Business'
@@ -7,7 +7,7 @@ import BusinessCard from '../../components/BusinessCard'
 
 const apiHost = import.meta.env.VITE_YELP_API_HOST
 
-function SearchPage() {
+function SearchPage(): ReactNode {
   const [searchParams] = useSearchParams()
 
   const term = searchParams.get('term')
@@ -18,7 +18,7 @@ function SearchPage() {
   const [error, setError] = useState<null | Error>(null)
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       const yelpRepo = new YelpGraphqlRepository(fetch, { apiUrl: apiHost })
       const useCase = new SearchByTermAndLocationUseCase(yelpRepo)
 

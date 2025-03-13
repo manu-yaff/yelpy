@@ -1,10 +1,11 @@
+import { ReactNode } from 'react'
 import { OperatingHour } from '../../../../domain/entities/OperatingHour'
 
 interface BusinessHoursProps {
   hours: Array<OperatingHour>
 }
 
-function BusinessHours({ hours }: BusinessHoursProps) {
+function BusinessHours({ hours }: BusinessHoursProps): ReactNode {
   return (
     <div>
       <ul>

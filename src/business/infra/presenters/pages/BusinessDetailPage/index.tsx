@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { GetBusinessDetailUseCase } from '../../../../application/get-business-detail'
 import { BusinessDetail } from '../../../../domain/entities/BusinessDetail'
@@ -9,14 +9,14 @@ import BusinessReviews from '../../components/BusinessReviews'
 
 const API_HOST = import.meta.env.VITE_YELP_API_HOST
 
-function BusinessDetailPage() {
+function BusinessDetailPage(): ReactNode {
   const { id } = useParams()
   const [data, setData] = useState<BusinessDetail>()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<null | Error>(null)
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       const yelpRepo = new YelpGraphqlRepository(fetch, { apiUrl: API_HOST })
       const useCase = new GetBusinessDetailUseCase(yelpRepo)
 
