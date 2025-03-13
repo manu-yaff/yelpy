@@ -1,24 +1,18 @@
 import { describe, expect, it } from 'vitest'
-import { BusinessDetail, HOURS_NOT_PROVIDED, OpeningStatus } from '.'
+import { BusinessDetail, BusinessDetailType, HOURS_NOT_PROVIDED, OpeningStatus } from '.'
 import { Business } from '../Business'
 import { OperatingHour } from '../OperatingHour'
 import { Review } from '../Review'
-import { User } from '../User'
-import { getMockBusinessData } from '../mocks/business-data'
+import { getMockBusinessDetailData } from '../mocks/business-detail-data'
 
 describe(BusinessDetail.name, () => {
   describe(BusinessDetail.prototype.business.name, () => {
-    it('should return business detail instance when passing valid params', () => {
+    it('should return business detail instance when accessed', () => {
       // Arrange
-      const mockBusiness = new Business(getMockBusinessData())
+      const mockBusinessDetail: BusinessDetailType = getMockBusinessDetailData()
 
       // Act
-      const result = new BusinessDetail({
-        business: mockBusiness,
-        isOpen: true,
-        hours: [],
-        reviews: [],
-      })
+      const result = new BusinessDetail(mockBusinessDetail)
 
       // Assert
       expect(result.business()).toBeInstanceOf(Business)
@@ -28,15 +22,10 @@ describe(BusinessDetail.name, () => {
   describe(BusinessDetail.prototype.isOpen.name, () => {
     it(`should return ${OpeningStatus.Open} when business is open`, () => {
       // Arrange
-      const mockBusiness = new Business(getMockBusinessData())
+      const mockBusinessDetail: BusinessDetailType = getMockBusinessDetailData()
 
       // Act
-      const result = new BusinessDetail({
-        business: mockBusiness,
-        isOpen: true,
-        hours: [],
-        reviews: [],
-      })
+      const result = new BusinessDetail(mockBusinessDetail)
 
       // Assert
       expect(result.isOpen()).toBe(OpeningStatus.Open)
@@ -44,15 +33,10 @@ describe(BusinessDetail.name, () => {
 
     it(`should return ${OpeningStatus.Closed} when business is closed`, () => {
       // Arrange
-      const mockBusiness = new Business(getMockBusinessData())
+      const mockBusinessDetail: BusinessDetailType = getMockBusinessDetailData({ isOpen: false })
 
       // Act
-      const result = new BusinessDetail({
-        business: mockBusiness,
-        isOpen: false,
-        hours: [],
-        reviews: [],
-      })
+      const result = new BusinessDetail(mockBusinessDetail)
 
       // Assert
       expect(result.isOpen()).toBe(OpeningStatus.Closed)
@@ -60,15 +44,10 @@ describe(BusinessDetail.name, () => {
 
     it('should show default message when operating hours are not provided ', () => {
       // Arrange
-      const mockBusiness = new Business(getMockBusinessData())
+      const mockBusinessDetail: BusinessDetailType = getMockBusinessDetailData({ isOpen: null })
 
       // Act
-      const result = new BusinessDetail({
-        business: mockBusiness,
-        isOpen: null,
-        hours: [],
-        reviews: [],
-      })
+      const result = new BusinessDetail(mockBusinessDetail)
 
       // Assert
       expect(result.isOpen()).toBe(HOURS_NOT_PROVIDED)
@@ -76,23 +55,12 @@ describe(BusinessDetail.name, () => {
   })
 
   describe(BusinessDetail.prototype.hours.name, () => {
-    it('should return business hours when business provides them', () => {
+    it('should return business hours when accessed', () => {
       // Arrange
-      const mockBusiness = new Business(getMockBusinessData())
+      const mockBusinessDetail: BusinessDetailType = getMockBusinessDetailData()
 
       // Act
-      const result = new BusinessDetail({
-        business: mockBusiness,
-        isOpen: true,
-        hours: [
-          new OperatingHour({
-            start: '0800',
-            end: '1700',
-            day: 1,
-          }),
-        ],
-        reviews: [],
-      })
+      const result = new BusinessDetail(mockBusinessDetail)
 
       // Assert
       result.hours().forEach((hour) => {
@@ -102,25 +70,12 @@ describe(BusinessDetail.name, () => {
   })
 
   describe(BusinessDetail.prototype.reviews.name, () => {
-    it('should return business hours ', () => {
+    it('should return business reviews when accessed', () => {
       // Arrange
-      const mockBusiness = new Business(getMockBusinessData())
+      const mockBusinessDetail: BusinessDetailType = getMockBusinessDetailData()
 
       // Act
-      const result = new BusinessDetail({
-        business: mockBusiness,
-        isOpen: true,
-        hours: [],
-        reviews: [
-          new Review({
-            id: '1',
-            rating: 5,
-            text: 'text review',
-            timeCreated: '2024-12-27 14:33:48',
-            user: new User({ name: 'Sam', profileUrl: '' }),
-          }),
-        ],
-      })
+      const result = new BusinessDetail(mockBusinessDetail)
 
       // Assert
       result.reviews().forEach((review) => {
