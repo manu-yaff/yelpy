@@ -1,4 +1,5 @@
-export const DEFAULT_USER_PROFILE_URL = 'default image url'
+export const DEFAULT_USER_PROFILE_URL =
+  'https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png'
 
 export type UserType = {
   name: string

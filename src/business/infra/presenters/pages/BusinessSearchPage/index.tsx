@@ -48,9 +48,11 @@ function SearchPage(): ReactNode {
   return (
     <>
       <h3>Results from the search</h3>
-      {data.map((b) => (
-        <BusinessCard key={b.id()} business={b} shouldRedirectToDetailPage />
-      ))}
+      <div className="results-container">
+        {data.map((b) => (
+          <BusinessCard key={b.id()} business={b} shouldRedirectToDetailPage />
+        ))}
+      </div>
     </>
   )
 }

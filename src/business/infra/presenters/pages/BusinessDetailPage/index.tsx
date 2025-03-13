@@ -45,13 +45,12 @@ function BusinessDetailPage(): ReactNode {
 
   return (
     <>
-      <h3>Business info</h3>
-      {data && <BusinessCard business={data.business()} shouldRedirectToDetailPage={false} />}
+      <div>
+        {data && <BusinessCard business={data.business()} shouldRedirectToDetailPage={false} />}
 
-      <h3>Hours</h3>
-      {data && <BusinessHours hours={data.hours()} />}
+        {data && <BusinessHours hours={data.hours()} />}
+      </div>
 
-      <h3>Reviews</h3>
       {data && <BusinessReviews reviews={data.reviews()} />}
     </>
   )
