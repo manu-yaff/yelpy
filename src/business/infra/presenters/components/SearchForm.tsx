@@ -20,6 +20,7 @@ function SearchForm(): ReactNode {
   return (
     <>
       <div>
+        <h2>Start by searching for a business! 👀</h2>
         <form onSubmit={handleSubmit}>
           <input
             placeholder="eg. tacos"
