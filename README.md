@@ -1,54 +1,45 @@
-# React + TypeScript + Vite
+# Yelpy
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Project Description
 
-Currently, two official plugins are available:
+Yelpy is a simple business search application that utilizes the Yelp API to fetch business information based on a search term and location.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![App preview](app-preview.png)
 
-## Expanding the ESLint configuration
+### Features:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Search for businesses worldwide.
+- View up to 10 top search results for any given query.
+- Access detailed information about a selected business.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+🚨 **Note:** This project primarily focuses on experimenting with **clean architecture and testing concepts**. Styling and React best practices were not the main priority.
+
+## 🛠️ Tech
+
+- TypeScript
+- React
+- Vitest
+
+## 📦 Dependencies
+
+- Node.js v20.11.0
+
+## Scripts
+
+Before running the project, install the required dependencies:
+
+```sh
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Running the project
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```sh
+npm run dev
+```
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+Running the tests
+
+```sh
+npm run test
 ```
