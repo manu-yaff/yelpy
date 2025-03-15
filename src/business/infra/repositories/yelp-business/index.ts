@@ -15,13 +15,19 @@ export type YelpGraphqlApiConfig = {
 
 export class UnexpectedError extends Error {
   constructor() {
-    super('unexpected error')
+    super('Unexpected error')
   }
 }
 
 export class YelpGraphqlError extends Error {
   constructor() {
     super('Yelp graphql error')
+  }
+}
+
+export class BusinessNotFoundError extends Error {
+  constructor() {
+    super('Business not found error')
   }
 }
 
@@ -46,6 +52,8 @@ export class YelpGraphqlRepository implements BusinessRepository {
     const response = await this.sendGraphqlRequest(BUSINESS_DETAIL_QUERY, { id })
 
     const { data } = (await response.json()) as YelpBusinessDetailResponse
+
+    if (data.business === null) throw new BusinessNotFoundError()
 
     return BusinessDetailMapper.fromYelp(data.business)
   }

@@ -8,7 +8,7 @@ export interface YelpSearchBusinessResponse {
 
 export interface YelpBusinessDetailResponse {
   data: {
-    business: BusinessDetailFromYelp
+    business: BusinessDetailFromYelp | null
   }
 }
 

@@ -62,3 +62,24 @@ export const mockBusinessDetailResponse: YelpBusinessDetailResponse = {
 export const mockYelpApiConfig: YelpGraphqlApiConfig = {
   apiUrl: 'https://example.com/graphql/v3',
 }
+
+export const mockBusinessNotFound = {
+  errors: [
+    {
+      message: 'The requested business could not be found.',
+      locations: [
+        {
+          line: 3,
+          column: 5,
+        },
+      ],
+      path: ['business'],
+      extensions: {
+        code: 'BUSINESS_NOT_FOUND',
+      },
+    },
+  ],
+  data: {
+    business: null,
+  },
+}

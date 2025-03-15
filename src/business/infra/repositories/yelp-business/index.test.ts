@@ -1,11 +1,12 @@
 import { describe, expect, it, vi } from 'vitest'
-import { UnexpectedError, YelpGraphqlError, YelpGraphqlRepository } from '.'
+import { BusinessNotFoundError, UnexpectedError, YelpGraphqlError, YelpGraphqlRepository } from '.'
 import { Business } from '../../../domain/entities/Business'
 import { BusinessDetail } from '../../../domain/entities/BusinessDetail'
 import { BUSINESS_DETAIL_QUERY } from '../graphql-queries/business-detail-query'
 import { SEARCH_BUSINESS_QUERY } from '../graphql-queries/search-business-query'
 import {
   mockBusinessDetailResponse,
+  mockBusinessNotFound,
   mockBusinessResponse,
   mockYelpApiConfig,
 } from '../mocks/yelp-api-response'
@@ -179,6 +180,25 @@ describe(YelpGraphqlRepository.name, () => {
 
       // Assert
       expect(result).toBeInstanceOf(BusinessDetail)
+    })
+
+    it('should throw error when the business is not found', async () => {
+      // Arrange
+      const mockBusinessId = '1'
+
+      const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: vi.fn().mockResolvedValue(mockBusinessNotFound),
+      })
+
+      const repository = new YelpGraphqlRepository(mockFetch, mockYelpApiConfig)
+
+      // Act
+      const promise = repository.getBusinessDetail(mockBusinessId)
+
+      // Assert
+      await expect(promise).rejects.toThrow(BusinessNotFoundError)
     })
   })
 })
