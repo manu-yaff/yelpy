@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { GetBusinessDetailUseCase } from '../../../../application/get-business-detail'
-import { BusinessDetail } from '../../../../domain/entities/BusinessDetail'
+import { BusinessDetail, OpeningStatus } from '../../../../domain/entities/BusinessDetail'
 import { YelpGraphqlRepository } from '../../../repositories/yelp-business'
 import BusinessCard from '../../components/BusinessCard'
 import BusinessHours from '../../components/BusinessHours'
@@ -45,6 +45,12 @@ function BusinessDetailPage(): ReactNode {
 
   return (
     <>
+      {data && (
+        <h3 className={data.isOpen() === OpeningStatus.Open ? 'business-open' : 'business-closed'}>
+          {data.isOpen()}
+        </h3>
+      )}
+
       {data && <BusinessCard business={data.business()} shouldRedirectToDetailPage={false} />}
 
       {data && <BusinessHours hours={data.hours()} />}
