@@ -13,9 +13,18 @@ function BusinessCard({ business, shouldRedirectToDetailPage }: BusinessCardProp
       <li>
         <h3>{business.name()}</h3>
       </li>
-      <li>{business.phone()}</li>
-      <li>{business.address()}</li>
-      <li>{business.reviewCount()} reviews</li>
+      <li>
+        <i className="ph ph-phone"></i>
+        {business.phone()}
+      </li>
+      <li>
+        <i className="ph ph-map-pin"></i>
+        {business.address()}
+      </li>
+      <li>
+        <i className="ph ph-sparkle"></i>
+        {business.reviewCount()} reviews
+      </li>
       <img
         src={business.imageUrl()}
         alt={business.name()}
@@ -27,7 +36,7 @@ function BusinessCard({ business, shouldRedirectToDetailPage }: BusinessCardProp
   )
 
   return (
-    <div className={shouldRedirectToDetailPage ? 'business-card' : 'business-card'}>
+    <div className="business-card">
       {shouldRedirectToDetailPage ? (
         <Link to={`/business/${business.id()}/detail`}>{businessInfo}</Link>
       ) : (
