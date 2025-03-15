@@ -1,5 +1,6 @@
 import { ReviewType } from '../../Review'
-import { getMockUser } from '../business-user'
+import { User } from '../../User'
+import { getMockUserData } from '../business-user'
 
 export function getMockReviewData(review?: Partial<ReviewType>): ReviewType {
   return {
@@ -7,6 +8,6 @@ export function getMockReviewData(review?: Partial<ReviewType>): ReviewType {
     timeCreated: review?.timeCreated ?? '2024-03-12',
     rating: review?.rating ?? 5,
     text: review?.text ?? 'Test Review',
-    user: getMockUser(),
+    user: new User(getMockUserData()),
   }
 }
