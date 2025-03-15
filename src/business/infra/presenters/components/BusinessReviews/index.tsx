@@ -7,6 +7,10 @@ interface BusinessReviewsProps {
 }
 
 function BusinessReviews({ reviews }: BusinessReviewsProps): ReactNode {
+  const formatReviewRating = (rating: number): Array<ReactNode> => {
+    return Array.from({ length: rating }, () => <i className="ph-fill ph-star"></i>)
+  }
+
   return (
     <div className="reviews-container">
       <p className="reviews-header">Reviews</p>
@@ -16,7 +20,7 @@ function BusinessReviews({ reviews }: BusinessReviewsProps): ReactNode {
         reviews.map((review) => (
           <ul key={review.id()} className="review-item">
             <li className="review-date">{review.timeCreated()}</li>
-            <li className="review-rating">{review.rating()}</li>
+            <li className="review-rating">{formatReviewRating(review.rating())}</li>
             <li className="review-text">{review.text()}</li>
             <li className="review-user">{review.user().name()}</li>
             <img
