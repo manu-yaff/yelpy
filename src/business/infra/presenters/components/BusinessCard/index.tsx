@@ -15,15 +15,15 @@ function BusinessCard({ business, shouldRedirectToDetailPage }: BusinessCardProp
       </li>
       <li>
         <i className="ph ph-phone"></i>
-        {business.phone()}
+        <span>{business.phone()}</span>
       </li>
       <li>
         <i className="ph ph-map-pin"></i>
-        {business.address()}
+        <span>{business.address()}</span>
       </li>
       <li>
         <i className="ph ph-sparkle"></i>
-        {business.reviewCount()} reviews
+        <span>{business.reviewCount()} reviews</span>
       </li>
       <img
         src={business.imageUrl()}

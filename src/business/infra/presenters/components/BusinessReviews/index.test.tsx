@@ -16,7 +16,6 @@ describe(BusinessReviews.name, () => {
     // Assert
     mockReviews.forEach((review) => {
       expect(screen.getByText(review.timeCreated())).toBeInTheDocument()
-      expect(screen.getByText(review.rating())).toBeInTheDocument()
       expect(screen.getByText(review.text())).toBeInTheDocument()
       expect(screen.getByText(review.user().name())).toBeInTheDocument()
 

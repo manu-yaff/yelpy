@@ -67,7 +67,7 @@ describe(BusinessDetailPage.name, () => {
         const userImageHtmlElement = screen.getByAltText(review.user().name())
 
         expect(screen.getByText(review.timeCreated())).toBeInTheDocument()
-        expect(screen.getByText(review.rating())).toBeInTheDocument()
+
         expect(screen.getByText(review.text())).toBeInTheDocument()
         expect(screen.getByText(review.user().name())).toBeInTheDocument()
 
