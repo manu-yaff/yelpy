@@ -44,29 +44,34 @@ describe(BusinessDetailPage.name, () => {
 
     // Assert
     await waitFor(() => {
-      const businessImage = screen.getByAltText(mockBusinessData.business().name())
+      const businessImageHtmlElement = screen.getByAltText(mockBusinessData.business().name())
 
-      expect(screen.getByText(mockBusinessData.business().name())).toBeInTheDocument()
-      expect(screen.getByText(mockBusinessData.business().phone())).toBeInTheDocument()
-      expect(screen.getByText(mockBusinessData.business().address())).toBeInTheDocument()
-      expect(
-        screen.getByText(mockBusinessData.business().reviewCount() + ' reviews')
-      ).toBeInTheDocument()
-      expect(businessImage).toHaveAttribute('src', mockBusinessData.business().imageUrl())
+      const business = mockBusinessData.business()
+      const hours = mockBusinessData.hours()
+      const reviews = mockBusinessData.reviews()
+      const isOpen = mockBusinessData.isOpen()
 
-      mockBusinessData.hours().forEach((hour) => {
+      expect(screen.getByText(business.name())).toBeInTheDocument()
+      expect(screen.getByText(business.phone())).toBeInTheDocument()
+      expect(screen.getByText(business.address())).toBeInTheDocument()
+      expect(screen.getByText(business.reviewCount() + ' reviews')).toBeInTheDocument()
+      expect(businessImageHtmlElement).toHaveAttribute('src', business.imageUrl())
+
+      expect(screen.getByText(isOpen)).toBeInTheDocument()
+
+      hours.forEach((hour) => {
         expect(screen.getByText(hour.formatted())).toBeInTheDocument()
       })
 
-      mockBusinessData.reviews().forEach((review) => {
-        const userImage = screen.getByAltText(review.user().name())
+      reviews.forEach((review) => {
+        const userImageHtmlElement = screen.getByAltText(review.user().name())
 
         expect(screen.getByText(review.timeCreated())).toBeInTheDocument()
         expect(screen.getByText(review.rating())).toBeInTheDocument()
         expect(screen.getByText(review.text())).toBeInTheDocument()
         expect(screen.getByText(review.user().name())).toBeInTheDocument()
 
-        expect(userImage).toHaveAttribute('src', review.user().profileUrl())
+        expect(userImageHtmlElement).toHaveAttribute('src', review.user().profileUrl())
       })
     })
   })

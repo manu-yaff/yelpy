@@ -29,6 +29,7 @@ describe(BusinessCard.name, () => {
   it('should render business infro info inside a link when shouldRedirectToDetailPage is true', () => {
     // Arrange
     const mockBusiness: Business = new Business(getMockBusinessData())
+    const businessDetailLink = `/business/${mockBusiness.id()}/detail`
 
     // Act
     render(<BusinessCard business={mockBusiness} shouldRedirectToDetailPage={true} />, {
@@ -37,7 +38,7 @@ describe(BusinessCard.name, () => {
 
     // Assert
     const linkElement = screen.getByRole('link', { name: /Test Business/i })
-    expect(linkElement).toHaveAttribute('href', `/business/${mockBusiness.id()}/detail`)
+    expect(linkElement).toHaveAttribute('href', businessDetailLink)
   })
 
   it('does not render a link when shouldRedirectToDetailPage is false', () => {

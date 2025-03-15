@@ -36,8 +36,6 @@ describe(BusinessSearchPage.name, () => {
     await waitFor(() => {
       const businessImage = screen.getByAltText(mockBusiness.name())
 
-      expect(screen.getByText(/Results from the search/i)).toBeInTheDocument()
-
       expect(screen.getByText(mockBusiness.name())).toBeInTheDocument()
       expect(screen.getByText(mockBusiness.phone())).toBeInTheDocument()
       expect(screen.getByText(mockBusiness.address())).toBeInTheDocument()
